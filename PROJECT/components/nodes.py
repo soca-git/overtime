@@ -15,8 +15,8 @@ class Nodes:
     """
 
     def __init__(self):
-        self.set = set() # unorderd, unindexed collection of node objects
-        self.labels = set() # unorderd, unindexed collection of node labels
+        self.set = set() # unorderd, unindexed, unique collection of node objects
+        self.labels = set() # unorderd, unindexed, unique collection of node labels
 
     def add(self, node):
         if node.label not in self.labels:
