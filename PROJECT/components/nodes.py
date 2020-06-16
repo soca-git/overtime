@@ -1,4 +1,6 @@
 
+
+
 class Node:
     """
         A class which represents a node on a graph.
@@ -6,6 +8,8 @@ class Node:
 
     def __init__(self, label):
         self.label = label
+        self.sourceof = {}
+        self.sinkof = {}
 
 
 
@@ -16,9 +20,17 @@ class Nodes:
 
     def __init__(self):
         self.set = set() # unorderd, unindexed, unique collection of node objects
-        self.labels = set() # unorderd, unindexed, unique collection of node labels
 
-    def add(self, node):
-        if node.label not in self.labels:
-            self.set.add(node)
-        self.labels.add(node.label)
+
+    def add(self, label):
+        if not self.check(label):
+            self.set.add(Node(label))
+        return self.get(label)
+
+
+    def get(self, label):
+        return next((node for node in self.set if node.label == label), None)
+
+
+    def check(self, label):
+        return True if self.get(label) is not None else False
