@@ -1,14 +1,7 @@
 
 from inputs.classes import CSVInput
-from components.nodes import Nodes
-from components.edges import TemporalEdges
+from components.graphs import TemporalGraph
 
-network_csv = CSVInput('network', 'csv', './network.csv')
-network_csv.print()
-network_csv.read()
+input_data = CSVInput('network', 'csv', './network.csv')
 
-nodes = Nodes()
-
-edges = TemporalEdges()
-for i, edge in network_csv.data.items():
-    edges.add(edge['source'], edge['sink'], nodes, edge['time'])
+graph = TemporalGraph('TestNetwork', input_data)

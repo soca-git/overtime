@@ -23,6 +23,7 @@ class CSVInput(Input):
         super().__init__(name, atype)
         self.path = path
         self.data = {}
+        self.read()
 
 
     def read(self):

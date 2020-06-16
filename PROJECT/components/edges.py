@@ -69,6 +69,10 @@ class Edges:
     def labels(self):
         return [edge.label for edge in self.set]
 
+    
+    def count(self):
+        return len(self.set)
+
 
 
 class TemporalEdges(Edges):

@@ -34,3 +34,11 @@ class Nodes:
 
     def check(self, label):
         return True if self.get(label) is not None else False
+
+
+    def labels(self):
+        return [node.label for node in self.set]
+
+    
+    def count(self):
+        return len(self.set)
