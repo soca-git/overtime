@@ -12,6 +12,7 @@ class Graph:
         self.nodes = Nodes()
         self.edges = Edges()
 
+        print("Building graph...")
         if input_data.type == 'csv':
             self.build_from_csv(input_data)
 
@@ -19,7 +20,6 @@ class Graph:
 
 
     def build_from_csv(self, input_data):
-        print("Building...")
         for i, edge in input_data.data.items():
             self.edges.add(edge['source'], edge['sink'], self.nodes)
 
@@ -40,6 +40,7 @@ class TemporalGraph(Graph):
         self.nodes = Nodes()
         self.edges = TemporalEdges()
 
+        print("Building graph...")
         if input_data.type == 'csv':
             self.build_from_csv(input_data)
 

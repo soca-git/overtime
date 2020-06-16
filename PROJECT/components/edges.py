@@ -20,7 +20,7 @@ class TemporalEdge(Edge):
 
     def __init__(self, source, sink, nodes, time):
         super().__init__(source, sink, nodes)
-        self.time = time
+        self.time = int(time)
         self.uid = source + sink + str(time)
 
 
@@ -42,8 +42,6 @@ class Edges:
 
 
     def subset(self, alist):
-        if not alist:
-            return None
         subset = Edges()
         for edge in alist:
             subset.set.add(edge)
@@ -64,10 +62,6 @@ class Edges:
 
     def check(self, label):
         return True if self.get(label) is not None else False
-
-
-    def labels(self):
-        return [edge.label for edge in self.set]
 
     
     def count(self):
@@ -96,8 +90,6 @@ class TemporalEdges(Edges):
 
 
     def subset(self, alist):
-        if not alist:
-            return None
         subset = TemporalEdges()
         for edge in alist:
             subset.set.add(edge)
@@ -131,9 +123,9 @@ class TemporalEdges(Edges):
         return [edge.uid for edge in self.stream]
 
 
-    def labels(self):
-        return [edge.label for edge in self.stream]
+    def get_labels(self):
+        return [node.label for node in self.set]
 
 
-    def times(self):
+    def get_times(self):
         return [edge.time for edge in self.stream]

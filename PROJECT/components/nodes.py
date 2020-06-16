@@ -36,7 +36,7 @@ class Nodes:
         return True if self.get(label) is not None else False
 
 
-    def labels(self):
+    def get_labels(self):
         return [node.label for node in self.set]
 
     
