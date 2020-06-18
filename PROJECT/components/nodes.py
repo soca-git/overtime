@@ -35,10 +35,15 @@ class Nodes:
     def check(self, label):
         return True if self.get(label) is not None else False
 
-
-    def get_labels(self):
-        return [node.label for node in self.set]
-
     
     def count(self):
         return len(self.set)
+
+
+    def labels(self):
+        return [node.label for node in self.set]
+
+
+    def print(self):
+        print("\n{:5} nodes;\n{:5} {}\n".format(self.count()," ", " ".join(self.labels())) )
+

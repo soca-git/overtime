@@ -51,3 +51,8 @@ class TemporalGraph(Graph):
         for i, edge in input_data.data.items():
             self.edges.add(edge['source'], edge['sink'], self.nodes, edge['time'])
 
+
+    def print(self, start=None, end=None):
+        self.nodes.print()
+        self.edges.print(start, end)
+

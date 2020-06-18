@@ -18,10 +18,11 @@ class TemporalEdge(Edge):
         A class which represents a time-respecting edge on a temporal graph.
     """
 
-    def __init__(self, source, sink, nodes, time):
+    def __init__(self, source, sink, nodes, time, duration=1):
         super().__init__(source, sink, nodes)
-        self.time = int(time)
         self.uid = source + sink + str(time)
+        self.time = int(time)
+        self.duration = int(duration)
 
 
 
@@ -68,6 +69,14 @@ class Edges:
         return len(self.set)
 
 
+    def labels(self):
+        return [node.label for node in self.set]
+
+    
+    def print(self):
+        print("\n{:5} edges;\n{:5} {}\n".format(self.count(), " ", " ".join(self.labels())) )
+
+
 
 class TemporalEdges(Edges):
     """
@@ -102,6 +111,14 @@ class TemporalEdges(Edges):
         return self.subset([edge for edge in self.set if edge.label == label])
 
 
+    def get_edge_by_source(self, label):
+        return self.subset([edge for edge in self.stream if edge.source.label == label])
+
+
+    def get_edge_by_sink(self, label):
+        return self.subset([edge for edge in self.stream if edge.sink.label == label])
+
+
     def get_edge_by_uid(self, uid):
         return next((edge for edge in self.set if edge.uid == uid), None)
 
@@ -123,9 +140,38 @@ class TemporalEdges(Edges):
         return [edge.uid for edge in self.stream]
 
 
-    def get_labels(self):
-        return [node.label for node in self.set]
+    def labels(self):
+        return list(set([node.label for node in self.stream]))
 
 
-    def get_times(self):
+    def times(self):
         return [edge.time for edge in self.stream]
+
+
+    def firsttime(self):
+        return self.stream[0].time
+    
+
+    def lifetime(self):
+        return self.stream[-1].time + 1
+
+
+    def timespan(self, start=None, end=None):
+        if start == None or start <= 0 : start = self.firsttime()
+        if end == None or end > self.lifetime() : end = self.lifetime()
+        return range(start, end)
+
+    
+    def print(self, start=None, end=None):
+        print("\n{:5} {}".format(" ", " ".join(self.labels())) )
+        for i in self.timespan(start, end):
+            active = self.get_edge_by_time(i).labels()
+            if not active:
+                continue
+            row = ['-']*len(self.labels())
+            for label in active:
+                index = self.labels().index(label)
+                row[index] = '+'
+            print("{:3} | {:2}".format(i, "  ".join(map(str, row))) )
+        print()
+
