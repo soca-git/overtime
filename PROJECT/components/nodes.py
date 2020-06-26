@@ -8,8 +8,7 @@ class Node:
 
     def __init__(self, label):
         self.label = label
-        self.sourceof = {}
-        self.sinkof = {}
+        self.data = dict()
 
 
 
