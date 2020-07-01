@@ -10,7 +10,7 @@ graph = TemporalGraph('TestNetwork', input_data)
 
 # calculate foremost time (to be added)
 foremost = {}
-d = graph.nodes.get('d')
+a = graph.nodes.get('a')
 start = graph.edges.firsttime()
 end = graph.edges.lifetime()
 
@@ -19,8 +19,8 @@ for node in graph.nodes.set:
     foremost[node.label]['time'] = float('inf')
     foremost[node.label]['source'] = ''
 
-foremost[d.label]['time'] = start
-foremost[d.label]['source'] = d.label
+foremost[a.label]['time'] = start
+foremost[a.label]['source'] = a.label
 
 for edge in graph.edges.stream:
     if edge.time + edge.duration and edge.time >= foremost[edge.source.label]['time']:
