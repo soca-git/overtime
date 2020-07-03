@@ -51,7 +51,7 @@ New nodes and edges can be added to the graph through the respective add() funct
 \subsection{Saving a Graph}
 The Graph class includes a save() method, which will run through the graph components and save all structural information (basic save) into a file, including any new metrics generated during the session (full save). The file can also include a complete summary of the graph. By saving into a specified format, the graph should be reproducible from the file.
 \subsection{Visualization}
-It is important for the user to be able to visualize the graph, or subsections of the graph. Visualization can provide a means of quick verification by the user to see if the graph has been created or modified correctly. It can also aid in the verification of any results produced in testing. A simple command line means of visualization is shown in figure 8. Ultimately, the library would allow for circle \cite{circle_plot} and slice plots (figure 2) of the graph, by using the matplotlib package. The circle plots could be generated for each time step and then the images combined into a .gif format or played in sequence, to produce a dynamic plot of the network.
+It is important for the user to be able to visualize the graph, or subsections of the graph. Visualization can provide a means of quick verification by the user to see if the graph has been created or modified correctly. It can also aid in the verification of any results produced in testing. A simple command line means of visualization is shown in figure 8. Ultimately, the library would allow for circle \cite{circle_plot} and slice plots (figure 2) of the graph, by using the matplotlib package. The circle plots could be generated for each time step and then the images combined into a .gif format or played in sequence, to produce a dynamic plot of the network. Effective visualization may be challenging as larger networks become increasingly more complex. Some examples of circle and slice plots can be found at the teneto github \cite{teneto}, using a combination of circles and Bézier curves.
 \clearpage
 \begin{figure}[t]
     \centering
@@ -59,8 +59,8 @@ It is important for the user to be able to visualize the graph, or subsections o
     \caption{Text-based link activity matrix for a discrete temporal network.}
 \end{figure}
 \subsection{Algorithms \& Metrics}
-
 The algorithm below calculates the foremost time and shortest path from the specified source node to all other nodes in the graph, between a specified time interval. As the algorithm moves through the time-ordered stream of the edges within the graph, the edge's foremost time is compared with the current stored time for the sink node (initialized at $\infty$), assuming that the edge start time and duration is within the specified interval. If the edge's foremost time is lower that the current stored one, the foremost time and the source node are updated in the foremost dictionary under the sink node's entry. This process continues until either the edge times are greater than the upper bound of the interval, or until all the edges have been processed.\\
+\vspace{0.1cm}
 \begin{algorithm}[H]
 \SetAlgoLined
 \caption{Foremost time/shortest path algorithm (s4.2 \cite{efficient_algorithms}, modified).}
@@ -97,11 +97,12 @@ This example represents a typical case of the algorithms that will be added to t
     \caption{Resulting dictionary.}
   \end{minipage}
 \end{figure}
-The finalized implementation would be wrapped in an algorithm subclass. The data structure for the result would be in the form of a temporal tree. Other algorithms for calculating network centrality, latency, connectivity and reachability could also be created as algorithm subclasses. Each of these subclasses would produce its respective metrics in a standardized format. 
+The finalized implementation would be wrapped in an algorithm subclass. The data structure for the result would be in the form of a temporal tree. Other algorithms for calculating network centrality, latency, connectivity and reachability could also be created as algorithm subclasses. Each of these subclasses would produce its respective metrics in a standardized format.
 \subsection{Reports}
 The results of any measurements and algorithms run/tested on the graph should be printable in an intuitive and clear format. This can be handled through a report class definition.
 \subsection{Design Evaluation}
 Verification of the code can be achieved by testing all the methods individually and by writing unit tests \cite{unittest}. Any algorithms implemented can be tested on a suitable test case temporal network and verified visually and through careful inspection. The test case network should be small enough to allow for easy verification, but complex enough to allow for good test coverage. An idea for a test case would be a transport network timetable.
+\clearpage
 \subsection{Open-source checklist}
 \begin{itemize}
   \item Code:\\
@@ -124,6 +125,8 @@ Verification of the code can be achieved by testing all the methods individually
   The above examples deal with directed graphs. Undirected graphs can be added to the library.
   \item Modular design:\\
   Overall, it is important to ensure the library is designed in a modular fashion, as there is the potential for multiple contributors to be working on it in the future. This also makes the library easier to maintain.
+  \item Efficiency:\\
+  Any methods implemented that perform some function on the network will be developed with efficiency in mind. The modelling and analysis of larger networks should not be grossly hindered by the library's performance.
 \end{itemize}
 \end{design}
 \clearpage

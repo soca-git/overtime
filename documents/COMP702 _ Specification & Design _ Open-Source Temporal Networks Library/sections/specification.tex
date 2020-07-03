@@ -28,14 +28,12 @@ The core functionality of the library is divided into several items.
     \item Output handling:\\
     Any metrics generated from the graph should be presentable in a report or file (.csv, for example).
 \end{itemize}
-
+\clearpage
 \subsection{Extendable Functionality}
 While the library will offer a lot of functionality, as described in the previous section, it is important for the design architecture to allow for easy extension from the core functionality. This is especially true in the case of an open-source project, where there is the possibility of contribution from the community. For example, if an individual wanted to add a new algorithm to calculate the shortest path, then this should be easily integrated in the current core library.
-
 \subsection{Language \& Platform}
 The selected language for this library is Python. Python is one of the most popular languages amongst developers and has many useful libraries on offer, such as numpy, matplotlib, scikit, pandas, tensorflow and more. All the source code and documentation will be hosted on GitHub, including this document, user-guides and readmes.\\
 An important note is that this library is not aiming to be extremely efficient in order to handle large temporal graphs or data. A more appropriate choice of language for this would be C++. This library is essentially trying to emulate what NetworkX \cite{NetworkX} has achieved for static graphs, in terms of convenience, functionality and open-source, communal deployment.
-
 \subsection{Open-source}
 The idea of making a project open-source is powerful since it allows people to freely contribute to the project without the usual barriers to collaboration. If there is enough interest and motivation in the project domain, the library can develop rapidly. It also allows the users to freely modify and customize the library to suit their own needs and the needs of others. Any customization that could benefit the user base can be requested to be added as a permanent feature in the next release, improving the overall quality of the library. There are a number of important steps involved in launching a project as open-source \cite{open_source}.
 \end{specification}
