@@ -1,0 +1,41 @@
+\begin{specification}
+\section{Specification \& Aim}
+The overall aim of the project is to build an open-source library that enables temporal network modelling and analysis in an intuitive, user-friendly and powerful manner. The library will also allow for multiple contributors to develop the project further, in an open-source environment. The specification of the library can be split into some key areas; core functionality, extendable functionality, selected language/platform and open-source setup.
+
+\subsection{Core Functionality}
+The core functionality of the library is divided into several items.
+\begin{itemize}
+    \item Input handling:\\
+    Raw temporal data can be acquired and stored in a multitude of manners and formats. This is unsurprising considering the wide scope of temporal networks. It is therefore important that the library has the ability to handle multiple types of input while also allowing for new input handling methods to be added easily. There is also the possibility of having input data with no clear set of nodes or edges specified, that needs a conversion process to first decide the nodes \& edges, along with the time labels and other information. An example of this could be messaging logs from a social network, or a transport network timetable.
+    \begin{table}[h!]
+    \centering
+        \begin{tabular}{ |c c c| }
+        \hline
+        CSV & GraphML & GEXF \\
+        GDF & GML & XML \\
+        \hline
+        \end{tabular}
+        \caption{Possible input formats \cite{graph_formats}.}
+    \end{table}
+    \item Graph creation/generation:\\
+    The graph can be created in two ways; either from the post-processed input data, or a generated graph from a model. A generated graph could simply be a randomly generated set of time-edges labelled from within some probability distribution, or from a set of linear functions (s7,s8 \cite{intro_temporal}).
+    \item Graph functions:\\
+    There are multiple functions that can be developed once the graph has been created. These can range from selecting a node or edge, retrieving information from the graph/nodes/edges, adding/removing edges/nodes and so on. The graphs should also be save-able into a format which can be used to later recreate the graph. 
+    \item Graph visualization:\\
+    The created graph should be discernible in a intuitive and clear manner.
+    \item Graph analysis:\\
+    The user should be able to collect measurements on the graph, such as centrality, reachability and latency. The user should also be able to run and test algorithms on the graph, such as computing foremost time \cite{efficient_algorithms}.
+    \item Output handling:\\
+    Any metrics generated from the graph should be presentable in a report or file (.csv, for example).
+\end{itemize}
+\clearpage
+\subsection{Extendable Functionality}
+While the library will offer a lot of functionality, as described in the previous section, it is important for the design architecture to allow for easy extension from the core functionality. This is especially true in the case of an open-source project, where there is the possibility of contribution from the community. For example, if an individual wanted to add a new algorithm to calculate the foremost path, then this should be easily integrated in the current core library.
+\subsection{Language \& Platform}
+The selected language for this library is Python. Python is one of the most popular languages amongst developers and has many useful libraries on offer, such as numpy, matplotlib, scikit, pandas, tensorflow and more. All the source code and documentation will be hosted on GitHub, including this document, user-guides and readmes.\\
+An important note is that this library is not aiming to be extremely efficient in order to handle large temporal graphs or data. A more appropriate choice of language for this would be C++. This library is essentially trying to emulate what NetworkX \cite{NetworkX} has achieved for static graphs, in terms of convenience, functionality and open-source, communal deployment.
+\subsection{Open-source}
+The idea of making a project open-source is powerful since it allows people to freely contribute to the project without the usual barriers to collaboration, while also promoting sharing of knowledge. If there is enough interest and motivation in the project domain, the library can develop rapidly. It also allows the users to freely modify and customize the library to suit their own needs and the needs of others. Any customization that could benefit the user base can be requested to be added as a permanent feature in the next release, improving the overall quality of the library. There are important steps involved in launching a project as open-source \cite{open_source}. These are discussed in section 3.12.
+\end{specification}
+\vspace{1cm}
+\clearpage

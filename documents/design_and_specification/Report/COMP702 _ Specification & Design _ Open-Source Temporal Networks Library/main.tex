@@ -1,0 +1,56 @@
+\documentclass[a4paper,11pt]{article}
+
+%--- Packages ---%
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage[ruled,vlined]{algorithm2e}
+\renewcommand{\thealgocf}{} % prevent algorithm numbering
+
+%--- Meta ---%
+\title{Open-Source Temporal Networks Library}
+\author{Seán O'Callaghan}
+\newcommand{\studentno}{201452173}
+\date{3rd July 2020}
+
+\begin{document}
+
+%--- Header/Footer ---%
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{COMP702 Design \& Specification}
+\rhead{Open-Source Temporal Networks Library}
+\rfoot{\thepage}
+
+%--- Cover Page ---%
+\input{misc/cover.tex}
+
+%--- Contents ---%
+\input{sections/contents.tex}
+
+%--- Abstract ---%
+\input{sections/abstract.tex}
+
+%--- Introduction ---%
+\input{sections/introduction.tex}
+
+%--- Project Aim/Goal ---%
+\input{sections/specification.tex}
+
+%--- Design ---%
+\input{sections/design.tex}
+
+%--- Project Plan ---%
+\input{sections/plan.tex}
+
+%--- Skills Acquired ---%
+\input{sections/requirements}
+
+%--- Appendix ---%
+%\input{sections/appendix.tex}
+
+%--- Bibliography ---%
+\input{sections/bibliography}
+
+\end{document}
