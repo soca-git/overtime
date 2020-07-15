@@ -1,4 +1,3 @@
-
 from inputs.classes import CSVInput
 from components.graphs import TemporalGraph
 
@@ -23,7 +22,7 @@ foremost[a.label]['time'] = start
 foremost[a.label]['source'] = a.label
 
 for edge in graph.edges.stream:
-    if edge.time + edge.duration and edge.time >= foremost[edge.source.label]['time']:
+    if edge.time + edge.duration <=end and edge.time >= foremost[edge.source.label]['time']:
         if edge.time + edge.duration < foremost[edge.sink.label]['time']:
             foremost[edge.sink.label]['time'] = edge.time + edge.duration
             foremost[edge.sink.label]['source'] = edge.source.label

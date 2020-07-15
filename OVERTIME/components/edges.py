@@ -37,7 +37,7 @@ class Edges:
 
     def add(self, source, sink, nodes):
         label = source + sink
-        if not self.check(label):
+        if not self.exists(label):
             self.set.add(Edge(source, sink, nodes))
         return self.get(label)
 
@@ -61,7 +61,7 @@ class Edges:
         return self.subset([edge for edge in self.set if edge.sink.label == label])
 
 
-    def check(self, label):
+    def exists(self, label):
         return True if self.get(label) is not None else False
 
     
@@ -88,10 +88,10 @@ class TemporalEdges(Edges):
         self.stream = [] # ordered (by time), indexed collection of edge objects
 
 
-    def add(self, source, sink, nodes, time):
+    def add(self, source, sink, nodes, time, duration=1):
         uid = source + sink + str(time)
-        if not self.check(uid):
-            edge = TemporalEdge(source, sink, nodes, time)
+        if not self.exists(uid):
+            edge = TemporalEdge(source, sink, nodes, time, duration)
             self.set.add(edge)
             self.stream.append(edge)
             self.streamsort()
@@ -132,7 +132,7 @@ class TemporalEdges(Edges):
         self.stream = sorted(self.stream, key=lambda x:x.time, reverse=False)
 
 
-    def check(self, uid):
+    def exists(self, uid):
         return True if self.get_edge_by_uid(uid) is not None else False
 
 
