@@ -38,10 +38,20 @@ class Circle:
             edges[edge.uid]['p2'] = {}
             edges[edge.uid]['p2']['x'] = nodes[edge.sink.label]['x']
             edges[edge.uid]['p2']['y'] = nodes[edge.sink.label]['y']
+
         
+        self.draw_figure(graph)
         self.draw_nodes(graph, nodes, edges, n)
         self.draw_edges(graph, nodes, edges)
         self.cleanup()
+
+
+    def draw_figure(self, graph):
+        title = 'time(s) ' + str(graph.edges.active_times())
+        self.ax.set_title(
+            label=title,
+            loc='center'
+        )
 
 
     def draw_nodes(self, graph, nodes, edges, n):
@@ -90,17 +100,19 @@ class Circle:
                 zorder=0
             )
             self.ax.plot(
-                bezier['x'][4],
-                bezier['y'][4],
+                bezier['x'][6],
+                bezier['y'][6],
                 'o',
                 color=nodes[edge.source.label]['color'],
                 zorder=1
             )
-            self.ax.text(
-                bezier['x'][6], bezier['y'][6],
-                edge.time, color='black', backgroundcolor='white',
-                zorder=1
-            )
+            # self.ax.text(
+            #     bezier['x'][10], bezier['y'][10],
+            #     edge.time, 
+            #     color='black', backgroundcolor='white',
+            #     fontsize='x-small',
+            #     zorder=1
+            # )
 
 
     def bezier(self, p1, p2, p0=(0,0), nt=20):
@@ -135,4 +147,5 @@ class Circle:
 
 
     def display(self):
-        self.fig.show()
+        #self.fig.show()
+        pass

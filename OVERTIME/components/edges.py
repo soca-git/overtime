@@ -148,6 +148,10 @@ class TemporalEdges(Edges):
         return [edge.time for edge in self.stream]
 
 
+    def active_times(self):
+        return set(self.times())
+
+
     def firsttime(self):
         return self.stream[0].time
     
