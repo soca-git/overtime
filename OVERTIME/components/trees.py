@@ -1,6 +1,6 @@
 
 from components.graphs import TemporalGraph
-from components.nodes import ForemostNode, ForemostNodes
+from components.nodes import ForemostNodes
 from components.edges import TemporalEdges
 
 

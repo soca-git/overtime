@@ -1,6 +1,4 @@
 
-
-
 class Node:
     """
         A class which represents a node on a graph.
