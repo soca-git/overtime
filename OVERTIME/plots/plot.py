@@ -8,7 +8,7 @@ class Plot:
 
     def __init__(self, graph, axes, time=None):
         self.graph = graph
-        self.time = str(time)[0]
+        self.time = str(time)
         self.nodes = {}
         self.edges = {}
         self.axes = axes
