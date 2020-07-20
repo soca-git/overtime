@@ -24,6 +24,9 @@ for row in axes:
         if i > 9:
             break
 
+plt.tight_layout(pad=0.1)
+figure.set_size_inches(14, 10)
+figure.savefig('examples/multiplot.png', format='png')
 figure.show()
 
 input("Press enter key to exit...")

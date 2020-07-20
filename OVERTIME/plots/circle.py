@@ -85,8 +85,9 @@ class Circle(Plot):
             self.axes.plot(
                 bezier['x'],
                 bezier['y'],
-                linestyle='-',
-                color=nodes[edge.source.label]['color'],
+                linestyle='dotted',
+                #color=nodes[edge.source.label]['color'],
+                color='lightgrey',
                 zorder=0
             )
             self.axes.plot(
@@ -128,12 +129,14 @@ class Circle(Plot):
         ax.set_xticklabels([])
         ax.set_yticks([])
         ax.set_xticks([])
-        ax.set_frame_on(False)
+        #ax.set_frame_on(False)
         x0, x1 = ax.get_xlim()
         y0, y1 = ax.get_ylim()
         ax.set_aspect((x1 - x0) / (y1 - y0))
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['left'].set_visible(False)
-        ax.spines['bottom'].set_visible(False)
+        # ax.spines['top'].set_visible(False)
+        # ax.spines['right'].set_visible(False)
+        # ax.spines['left'].set_visible(False)
+        # ax.spines['bottom'].set_visible(False)
         ax.margins(0.1, 0.1)
+        for spine in ['top', 'bottom', 'right', 'left']:
+            ax.spines[spine].set_color('lightgrey')
