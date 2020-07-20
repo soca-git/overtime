@@ -12,7 +12,6 @@ class Graph:
         self.nodes = Nodes()
         self.edges = Edges()
 
-        print("Building graph...")
         if input_data.type == 'csv':
             self.build_from_csv(input_data)
 
@@ -38,7 +37,6 @@ class TemporalGraph(Graph):
         self.nodes = Nodes()
         self.edges = TemporalEdges()
 
-        print("Building graph...")
         if input_data is not None and input_data.type == 'csv':
             self.build_from_csv(input_data)
 

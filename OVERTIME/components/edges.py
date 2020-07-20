@@ -149,7 +149,7 @@ class TemporalEdges(Edges):
 
 
     def active_times(self):
-        return set(self.times())
+        return list(set(self.times()))
 
 
     def firsttime(self):

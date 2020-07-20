@@ -1,36 +1,36 @@
 
 import math
 import numpy as np
-import matplotlib.pyplot as plot
+import matplotlib.pyplot as plt
 import matplotlib.lines as lines
+from plots.plot import Plot
 
-class Circle:
+
+
+class Circle(Plot):
     """
         A class which represents a circle plot of a graph.
     """
 
-    def __init__(self, graph):
-        self.graph = graph
-        self.nodes = {}
-        self.edges = {}
-        self.fig, self.ax = plot.subplots(1)
-        self.create()
+    def __init__(self, graph, axes, time=None):
+        super().__init__(graph, axes, time)
 
 
-    def create(self):
-        graph = self.graph
+    def create_nodes(self):
+        n = self.graph.nodes.count()
         nodes = self.nodes
-        edges = self.edges
-        n = graph.nodes.count()
-
         i = 0
-        for node in graph.nodes.set:
+        for node in self.graph.nodes.set:
             nodes[node.label] = {}
             nodes[node.label]['x'] = math.cos(2 * math.pi * i / n)
             nodes[node.label]['y'] = math.sin(2 * math.pi * i / n)
             i += 1
-            
-        for edge in graph.edges.stream:
+
+
+    def create_edges(self):
+        nodes = self.nodes
+        edges = self.edges
+        for edge in self.graph.edges.stream:
             edges[edge.uid] = {}
             edges[edge.uid]['p1'] = {}
             edges[edge.uid]['p1']['x'] = nodes[edge.source.label]['x']
@@ -39,36 +39,24 @@ class Circle:
             edges[edge.uid]['p2']['x'] = nodes[edge.sink.label]['x']
             edges[edge.uid]['p2']['y'] = nodes[edge.sink.label]['y']
 
-        
-        self.draw_figure(graph)
-        self.draw_nodes(graph, nodes, edges, n)
-        self.draw_edges(graph, nodes, edges)
-        self.cleanup()
 
-
-    def draw_figure(self, graph):
-        title = 'time(s) ' + str(graph.edges.active_times())
-        self.ax.set_title(
-            label=title,
-            loc='center'
-        )
-
-
-    def draw_nodes(self, graph, nodes, edges, n):
+    def draw_nodes(self):
+        n = self.graph.nodes.count()
+        nodes = self.nodes
         pos = {}
         pos['x'] = [nodes[key]['x'] for key in nodes.keys()]
         pos['y'] = [nodes[key]['y'] for key in nodes.keys()]
 
         colors = self.colors(n)
-        ax_node = self.ax.scatter(
+        ax_node = self.axes.scatter(
             pos['x'], pos['y'], s=500, c=colors, cmap='viridis', zorder=1
         )
-        plot.draw()
+        plt.draw()
 
         i = 0
         for node in self.graph.nodes.set:
             nodes[node.label]['color'] = ax_node.to_rgba(colors[i])
-            self.ax.text(
+            self.axes.text(
                 nodes[node.label]['x']-0.025, nodes[node.label]['y']-0.025,
                 node.label, color='white'
             )
@@ -86,33 +74,37 @@ class Circle:
         return c_mix
 
 
-    def draw_edges(self, graph, nodes, edges):
-        for edge in graph.edges.stream:
+    def draw_edges(self):
+        nodes = self.nodes
+        edges = self.edges
+        for edge in self.graph.edges.stream:
             bezier = self.bezier(
                 edges[edge.uid]['p1'],
                 edges[edge.uid]['p2']
             )
-            self.ax.plot(
+            self.axes.plot(
                 bezier['x'],
                 bezier['y'],
                 linestyle='-',
                 color=nodes[edge.source.label]['color'],
                 zorder=0
             )
-            self.ax.plot(
+            self.axes.plot(
                 bezier['x'][6],
                 bezier['y'][6],
                 'o',
                 color=nodes[edge.source.label]['color'],
                 zorder=1
             )
-            # self.ax.text(
-            #     bezier['x'][10], bezier['y'][10],
-            #     edge.time, 
-            #     color='black', backgroundcolor='white',
-            #     fontsize='x-small',
-            #     zorder=1
-            # )
+
+            if self.time is None:
+                self.axes.text(
+                    bezier['x'][10], bezier['y'][10],
+                    edge.time, 
+                    color='black', backgroundcolor='white',
+                    fontsize='x-small',
+                    zorder=1
+                )
 
 
     def bezier(self, p1, p2, p0=(0,0), nt=20):
@@ -131,7 +123,7 @@ class Circle:
 
 
     def cleanup(self):
-        ax = self.ax
+        ax = self.axes
         ax.set_yticklabels([])
         ax.set_xticklabels([])
         ax.set_yticks([])
@@ -144,8 +136,4 @@ class Circle:
         ax.spines['right'].set_visible(False)
         ax.spines['left'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
-
-
-    def display(self):
-        #self.fig.show()
-        pass
+        ax.margins(0.1, 0.1)

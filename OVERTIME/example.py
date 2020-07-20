@@ -1,5 +1,5 @@
 
-import matplotlib.pyplot as plot
+import matplotlib.pyplot as plt
 import imageio
 
 from inputs.classes import CSVInput
@@ -12,24 +12,26 @@ input_data = CSVInput('network', 'csv', './network.csv')
 graph = TemporalGraph('TestNetwork', input_data)
 graph.print()
 
-# myplot = Circle(graph)
-# myplot.display()
+figure, axes = plt.subplots(1)
+Circle(graph, axes)
 
-# foremost_a = CalculateForemostTree(graph, 'a')
-# myplot = Circle(foremost_a.tree)
-# myplot.display()
+figure, axes = plt.subplots(nrows=2, ncols=2)
+foremost_a = CalculateForemostTree(graph, 'a')
+Circle(foremost_a.tree, axes[0][0])
 
-# foremost_c = CalculateForemostTree(graph, 'c')
-# myplot = Circle(foremost_c.tree)
-# myplot.display()
+foremost_c = CalculateForemostTree(graph, 'c')
+Circle(foremost_c.tree, axes[0][1])
 
-labels = []
-for t in graph.edges.active_times():
-    labels.append('time_' + str(t) + '.png')
-    Circle(graph.get_graph_by_time(t))
-    plot.savefig(labels[-1], format='png')
+# labels = []
+# for t in graph.edges.active_times():
+#     figure, axes = plt.subplots(1)
+#     labels.append('time_' + str(t) + '.png')
+#     Circle(graph.get_graph_by_time(t), axes, t)
+#     figure.savefig(labels[-1], format='png')
 
-images = [imageio.imread(f) for f in labels]
-imageio.mimsave('network.gif', images, duration=3)
+# images = [imageio.imread(f) for f in labels]
+# imageio.mimsave('network.gif', images, duration=3)
+
+plt.show()
 
 input("Press enter key to exit...")
