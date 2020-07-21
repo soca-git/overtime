@@ -12,8 +12,8 @@ class Circle(Plot):
         A class which represents a circle plot of a graph.
     """
 
-    def __init__(self, graph, axes, time=None):
-        super().__init__(graph, axes, time)
+    def __init__(self, graph, axes, title=None, time=None):
+        super().__init__(graph, axes, title, time)
 
 
     def create_nodes(self):

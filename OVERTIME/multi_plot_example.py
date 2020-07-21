@@ -7,7 +7,8 @@ from plots.circle import Circle
 
 input_data = CSVInput('network', 'csv', './network.csv')
 
-graph = TemporalGraph('TestNetwork', input_data)
+graph = TemporalGraph('TestNetwork')
+graph.build_from_csv(input_data)
 graph.print()
 
 graph.edges.add('b', 'e', graph.nodes, 4)
@@ -19,7 +20,7 @@ times = range(0, 10)
 i = 0
 for row in axes:
     for col in row:
-        Circle(graph.get_graph_by_time(times[i]), col, times[i])
+        Circle(graph.get_graph_by_time(times[i]), col, time=times[i])
         i += 1
         if i > 9:
             break

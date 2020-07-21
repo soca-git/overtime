@@ -6,9 +6,10 @@ class Plot:
         Base Plot class.
     """
 
-    def __init__(self, graph, axes, time=None):
+    def __init__(self, graph, axes, title=None, time=None):
         self.graph = graph
-        self.time = str(time)
+        self.title = title
+        self.time = time
         self.nodes = {}
         self.edges = {}
         self.axes = axes
@@ -22,7 +23,7 @@ class Plot:
 
 
     def draw(self):
-        if self.time is not None:
+        if self.title is not None or self.time is not None:
             self.draw_figure()
         self.draw_nodes()
         self.draw_edges()
@@ -38,7 +39,10 @@ class Plot:
 
 
     def draw_figure(self):
-        title = 'time ' + self.time
+        title = '' if self.title is None else self.title
+        if self.time is not None:
+            title = title + ' [time: ' + str(self.time) + ']'
+
         self.axes.set_title(
             label=title,
             loc='center'
