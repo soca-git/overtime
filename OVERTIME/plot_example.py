@@ -2,13 +2,13 @@
 import matplotlib.pyplot as plt
 
 from inputs.classes import CSVInput
-from components.graphs import TemporalGraph
+from components.digraphs import TemporalDiGraph
 from algorithms.foremost import CalculateForemostTree
 from plots.circle import Circle
 
 input_data = CSVInput('network', 'csv', './network.csv')
 
-graph = TemporalGraph('TestNetwork')
+graph = TemporalDiGraph('TestNetwork')
 graph.build_from_csv(input_data)
 graph.print()
 

@@ -1,16 +1,19 @@
 
-from components.nodes import Node
+from components.nodes import Node, Nodes
+
+
 
 class Edge:
     """
         A class which represents an edge on a graph.
     """
 
-    def __init__(self, source, sink, nodes):
-        self.label = source + sink
-        self.source = nodes.add(source)
-        self.sink = nodes.add(sink)
-
+    def __init__(self, node1, node2, nodes):
+        self.label = node1 + node2
+        self.directed = False
+        self.node1 = nodes.add(node1)
+        self.node2 = nodes.add(node2)
+        
 
 
 class TemporalEdge(Edge):
@@ -18,9 +21,9 @@ class TemporalEdge(Edge):
         A class which represents a time-respecting edge on a temporal graph.
     """
 
-    def __init__(self, source, sink, nodes, time, duration=1):
-        super().__init__(source, sink, nodes)
-        self.uid = source + sink + str(time)
+    def __init__(self, node1, node2, nodes, time, duration=1):
+        super().__init__(node1, node2, nodes)
+        self.uid = node1 + node2 + str(time)
         self.time = int(time)
         self.duration = int(duration)
 
@@ -35,10 +38,10 @@ class Edges:
         self.set = set() # unorderd, unindexed collection of edge objects
 
 
-    def add(self, source, sink, nodes):
-        label = source + sink
+    def add(self, node1, node2, nodes):
+        label = node1 + node2
         if not self.exists(label):
-            self.set.add(Edge(source, sink, nodes))
+            self.set.add(Edge(node1, node2, nodes))
         return self.get(label)
 
 
@@ -53,12 +56,12 @@ class Edges:
         return next((edge for edge in self.set if edge.label == label), None)
 
 
-    def get_edge_by_source(self, label):
-        return self.subset([edge for edge in self.set if edge.source.label == label])
+    def get_edge_by_node1(self, label):
+        return self.subset([edge for edge in self.set if edge.node1.label == label])
 
 
-    def get_edge_by_sink(self, label):
-        return self.subset([edge for edge in self.set if edge.sink.label == label])
+    def get_edge_by_node2(self, label):
+        return self.subset([edge for edge in self.set if edge.node2.label == label])
 
 
     def exists(self, label):
@@ -88,10 +91,10 @@ class TemporalEdges(Edges):
         self.stream = [] # ordered (by time), indexed collection of edge objects
 
 
-    def add(self, source, sink, nodes, time, duration=1):
-        uid = source + sink + str(time)
+    def add(self, node1, node2, nodes, time, duration=1):
+        uid = node1 + node2 + str(time)
         if not self.exists(uid):
-            edge = TemporalEdge(source, sink, nodes, time, duration)
+            edge = TemporalEdge(node1, node2, nodes, time, duration)
             self.set.add(edge)
             self.stream.append(edge)
             self.streamsort()
@@ -111,12 +114,12 @@ class TemporalEdges(Edges):
         return self.subset([edge for edge in self.set if edge.label == label])
 
 
-    def get_edge_by_source(self, label):
-        return self.subset([edge for edge in self.stream if edge.source.label == label])
+    def get_edge_by_node1(self, label):
+        return self.subset([edge for edge in self.stream if edge.node1.label == label])
 
 
-    def get_edge_by_sink(self, label):
-        return self.subset([edge for edge in self.stream if edge.sink.label == label])
+    def get_edge_by_node2(self, label):
+        return self.subset([edge for edge in self.stream if edge.node2.label == label])
 
 
     def get_edge_by_uid(self, uid):

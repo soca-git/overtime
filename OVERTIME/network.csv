@@ -1,4 +1,4 @@
-source,sink,time
+node1,node2,time
 a,e,2
 d,b,9
 a,c,10

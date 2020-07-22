@@ -2,6 +2,8 @@
 from components.nodes import Nodes
 from components.edges import Edges, TemporalEdges
 
+
+
 class Graph:
     """
         A class which represents a graph consisting of nodes & edges.
@@ -9,13 +11,14 @@ class Graph:
 
     def __init__(self, label):
         self.label = label
+        self.directed = False
         self.nodes = Nodes()
         self.edges = Edges()
-
+        
 
     def build_from_csv(self, input_data):
         for i, edge in input_data.data.items():
-            self.edges.add(edge['source'], edge['sink'], self.nodes)
+            self.edges.add(edge['node1'], edge['node2'], self.nodes)
 
 
     def details(self):
@@ -36,7 +39,7 @@ class TemporalGraph(Graph):
 
     def build_from_csv(self, input_data):
         for i, edge in input_data.data.items():
-            self.edges.add(edge['source'], edge['sink'], self.nodes, edge['time'])
+            self.edges.add(edge['node1'], edge['node2'], self.nodes, edge['time'])
 
 
     def get_graph_by_time(self, time):

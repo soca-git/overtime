@@ -33,11 +33,11 @@ class Circle(Plot):
         for edge in self.graph.edges.stream:
             edges[edge.uid] = {}
             edges[edge.uid]['p1'] = {}
-            edges[edge.uid]['p1']['x'] = nodes[edge.source.label]['x']
-            edges[edge.uid]['p1']['y'] = nodes[edge.source.label]['y']
+            edges[edge.uid]['p1']['x'] = nodes[edge.node1.label]['x']
+            edges[edge.uid]['p1']['y'] = nodes[edge.node1.label]['y']
             edges[edge.uid]['p2'] = {}
-            edges[edge.uid]['p2']['x'] = nodes[edge.sink.label]['x']
-            edges[edge.uid]['p2']['y'] = nodes[edge.sink.label]['y']
+            edges[edge.uid]['p2']['x'] = nodes[edge.node2.label]['x']
+            edges[edge.uid]['p2']['y'] = nodes[edge.node2.label]['y']
 
 
     def draw_nodes(self):
@@ -86,17 +86,18 @@ class Circle(Plot):
                 bezier['x'],
                 bezier['y'],
                 linestyle='dotted',
-                #color=nodes[edge.source.label]['color'],
+                #color=nodes[edge.node1.label]['color'],
                 color='lightgrey',
                 zorder=0
             )
-            self.axes.plot(
-                bezier['x'][6],
-                bezier['y'][6],
-                'o',
-                color=nodes[edge.source.label]['color'],
-                zorder=1
-            )
+            if edge.directed:
+                self.axes.plot(
+                    bezier['x'][6],
+                    bezier['y'][6],
+                    'o',
+                    color=nodes[edge.node1.label]['color'],
+                    zorder=1
+                )
 
             if self.time is None:
                 self.axes.text(

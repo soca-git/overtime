@@ -33,8 +33,8 @@ class CSVInput(Input):
             data = {}
             for row in reader:
                 data[n] = {}
-                data[n]['source'] = row['source']
-                data[n]['sink'] = row['sink']
+                data[n]['node1'] = row['node1']
+                data[n]['node2'] = row['node2']
                 data[n]['time'] = row['time']
                 n += 1
         self.data = data
