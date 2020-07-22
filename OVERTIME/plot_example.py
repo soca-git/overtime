@@ -21,16 +21,16 @@ figure.savefig('examples/graph.png', format='png')
 
 figure, axes = plt.subplots(nrows=2, ncols=2)
 foremost_a = CalculateForemostTree(graph, 'a')
-Circle(foremost_a.tree, axes[0][0], 'root: a')
+Circle(foremost_a, axes[0][0], 'root: a')
 
 foremost_b = CalculateForemostTree(graph, 'b')
-Circle(foremost_b.tree, axes[0][1], 'root: b')
+Circle(foremost_b, axes[0][1], 'root: b')
 
 foremost_c = CalculateForemostTree(graph, 'c')
-Circle(foremost_c.tree, axes[1][0], 'root: c')
+Circle(foremost_c, axes[1][0], 'root: c')
 
 foremost_d = CalculateForemostTree(graph, 'd')
-Circle(foremost_d.tree, axes[1][1], 'root: d')
+Circle(foremost_d, axes[1][1], 'root: d')
 
 plt.tight_layout(pad=0.1)
 figure.set_size_inches(14, 10)

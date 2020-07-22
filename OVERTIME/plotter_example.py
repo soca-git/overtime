@@ -28,14 +28,14 @@ myplotter.multi(Circle,
 myplotter.multi(
     Circle,
     [
-        CalculateForemostTree(graph, 'a').tree,
-        CalculateForemostTree(graph, 'b').tree,
-        CalculateForemostTree(graph, 'c').tree,
-        CalculateForemostTree(graph, 'd').tree,
-        CalculateForemostTree(graph, 'e').tree
+        CalculateForemostTree(graph, 'a'),
+        CalculateForemostTree(graph, 'b'),
+        CalculateForemostTree(graph, 'c'),
+        CalculateForemostTree(graph, 'd'),
+        CalculateForemostTree(graph, 'e')
     ]
 )
 
-myplotter.single(Circle, CalculateForemostTree(graph.get_graph_by_interval(range(0,7)), 'a').tree)
+myplotter.single(Circle, CalculateForemostTree(graph.get_graph_by_interval(range(0,7)), 'a'))
 
 input("Press enter key to exit...")
