@@ -21,7 +21,7 @@ for node in graph.nodes.set:
 foremost[a.label]['time'] = start
 foremost[a.label]['source'] = a.label
 
-for edge in graph.edges.stream:
+for edge in graph.edges.set:
     if edge.time + edge.duration <=end and edge.time >= foremost[edge.source.label]['time']:
         if edge.time + edge.duration < foremost[edge.sink.label]['time']:
             foremost[edge.sink.label]['time'] = edge.time + edge.duration

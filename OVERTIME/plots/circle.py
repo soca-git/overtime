@@ -30,7 +30,7 @@ class Circle(Plot):
     def create_edges(self):
         nodes = self.nodes
         edges = self.edges
-        for edge in self.graph.edges.stream:
+        for edge in self.graph.edges.set:
             edges[edge.uid] = {}
             edges[edge.uid]['p1'] = {}
             edges[edge.uid]['p1']['x'] = nodes[edge.node1.label]['x']
@@ -77,7 +77,7 @@ class Circle(Plot):
     def draw_edges(self):
         nodes = self.nodes
         edges = self.edges
-        for edge in self.graph.edges.stream:
+        for edge in self.graph.edges.set:
             bezier = self.bezier(
                 edges[edge.uid]['p1'],
                 edges[edge.uid]['p2']

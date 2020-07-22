@@ -11,7 +11,6 @@ class Arc(Edge):
 
     def __init__(self, source, sink, nodes):
         super().__init__(source, sink, nodes)
-        self.label = source + sink # directed label
         self.directed = True
         self.source = nodes.add(source)
         self.sink = nodes.add(sink)
@@ -25,8 +24,6 @@ class TemporalArc(TemporalEdge):
 
     def __init__(self, source, sink, nodes, time, duration=1):
         super().__init__(source, sink, nodes, time, duration)
-        self.label = source + sink # directed label
-        self.uid = self.label + str(time) # directed uid
         self.directed = True
         self.source = nodes.add(source)
         self.sink = nodes.add(sink)
@@ -43,7 +40,7 @@ class Arcs(Edges):
 
 
     def add(self, source, sink, nodes):
-        label = source + sink
+        label = source + sink # directed label
         if not self.exists(label):
             self.set.add(Arc(source, sink, nodes))
         return self.get(label)
@@ -75,52 +72,25 @@ class TemporalArcs(TemporalEdges):
 
 
     def add(self, source, sink, nodes, time, duration=1):
-        uid = source + sink + str(time)
+        uid = source + sink + str(time) # directed uid
         if not self.exists(uid):
             edge = TemporalArc(source, sink, nodes, time, duration)
-            self.set.add(edge)
-            self.stream.append(edge)
-            self.streamsort()
+            self.set.append(edge)
+            self.setsort()
         return self.get_edge_by_uid(uid)
 
 
     def subset(self, alist):
         subset = TemporalArcs()
         for edge in alist:
-            subset.set.add(edge)
-            subset.stream.append(edge)
-        self.streamsort()
+            subset.set.append(edge)
+        self.setsort()
         return subset
 
 
     def get_edge_by_source(self, label):
-        return self.subset([edge for edge in self.stream if edge.source.label == label])
+        return self.subset([edge for edge in self.set if edge.source.label == label])
 
 
     def get_edge_by_sink(self, label):
-        return self.subset([edge for edge in self.stream if edge.sink.label == label])
-
-
-    def get_edge_by_uid(self, uid):
-        return next((edge for edge in self.set if edge.uid == uid), None)
-
-
-    def exists(self, uid):
-        return True if self.get_edge_by_uid(uid) is not None else False
-
-
-    def uids(self):
-        return [edge.uid for edge in self.stream]
-
-    
-    def print(self):
-        print('Edges:')
-        print("\n{:5} {}".format(" ", " ".join(self.labels())) )
-        for i in self.active_times():
-            active = self.get_edge_by_time(i).labels()
-            row = ['-']*len(self.labels())
-            for label in active:
-                index = self.labels().index(label)
-                row[index] = '+'
-            print("{:3} | {:2}".format(i, "  ".join(map(str, row))) )
-        print()
+        return self.subset([edge for edge in self.set if edge.sink.label == label])

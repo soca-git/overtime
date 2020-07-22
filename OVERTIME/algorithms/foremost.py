@@ -18,7 +18,7 @@ def CalculateForemostTree(graph, root):
     root = tree.root
     root.time = start
 
-    for edge in graph.edges.stream:
+    for edge in graph.edges.set:
         departure = tree.nodes.get(edge.source.label)
         destination = tree.nodes.get(edge.sink.label)
         if edge.time + edge.duration <= end and edge.time >= departure.time:

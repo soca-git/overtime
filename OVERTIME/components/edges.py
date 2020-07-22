@@ -9,7 +9,7 @@ class Edge:
     """
 
     def __init__(self, node1, node2, nodes):
-        self.label = ''.join(sorted(node1+node2)) # alphabetically sorted label
+        self.label = node1 + node2
         self.directed = False
         self.node1 = nodes.add(node1)
         self.node2 = nodes.add(node2)
@@ -27,7 +27,7 @@ class TemporalEdge(Edge):
 
     def __init__(self, node1, node2, nodes, time, duration=1):
         super().__init__(node1, node2, nodes)
-        self.uid = self.label + str(time) # here, uid is alphabetically sorted by using Edge label
+        self.uid = node1 + node2 + time
         self.time = int(time)
         self.duration = int(duration)
 
@@ -47,9 +47,9 @@ class Edges:
 
 
     def add(self, node1, node2, nodes):
-        label = node1 + node2
+        label = ''.join(sorted(node1+node2)) # alphabetically sorted label
         if not self.exists(label):
-            self.set.add(Edge(node1, node2, nodes))
+            self.set.add(Edge(label[0], label[1], nodes))
         return self.get(label)
 
 
@@ -97,38 +97,24 @@ class TemporalEdges(Edges):
 
     def __init__(self):
         super().__init__()
-        self.stream = [] # ordered (by time), indexed collection of edge objects
+        self.set = [] # ordered (by time), indexed collection of edge objects
 
 
     def add(self, node1, node2, nodes, time, duration=1):
-        uid = node1 + node2 + str(time)
+        uid = ''.join(sorted(node1+node2)) + str(time) # uid is alphabetically sorted
         if not self.exists(uid):
-            edge = TemporalEdge(node1, node2, nodes, time, duration)
-            self.set.add(edge)
-            self.stream.append(edge)
-            self.streamsort()
+            edge = TemporalEdge(uid[0], uid[1], nodes, time, duration)
+            self.set.append(edge)
+            self.setsort()
         return self.get_edge_by_uid(uid)
 
 
     def subset(self, alist):
         subset = TemporalEdges()
         for edge in alist:
-            subset.set.add(edge)
-            subset.stream.append(edge)
-        self.streamsort()
+            subset.set.append(edge)
+        self.setsort()
         return subset
-
-
-    def get(self, label):
-        return self.subset([edge for edge in self.set if edge.label == label])
-
-
-    def get_edge_by_node1(self, label):
-        return self.subset([edge for edge in self.stream if edge.node1.label == label])
-
-
-    def get_edge_by_node2(self, label):
-        return self.subset([edge for edge in self.stream if edge.node2.label == label])
 
 
     def get_edge_by_uid(self, uid):
@@ -142,13 +128,13 @@ class TemporalEdges(Edges):
     def get_edge_by_interval(self, interval):
         edges = []
         for time in interval:
-            edges = edges + [edge for edge in self.stream if edge.time == time]
+            edges = edges + [edge for edge in self.set if edge.time == time]
         return self.subset(edges)
 
 
-    def streamsort(self):
+    def setsort(self):
         # look at operator.attrgetter for getting time from edge (optimized)
-        self.stream = sorted(self.stream, key=lambda x:x.time, reverse=False)
+        self.set = sorted(self.set, key=lambda x:x.time, reverse=False)
 
 
     def exists(self, uid):
@@ -156,15 +142,11 @@ class TemporalEdges(Edges):
 
 
     def uids(self):
-        return [edge.uid for edge in self.stream]
-
-
-    def labels(self):
-        return list(set([node.label for node in self.stream]))
+        return [edge.uid for edge in self.set]
 
 
     def times(self):
-        return [edge.time for edge in self.stream]
+        return [edge.time for edge in self.set]
 
 
     def active_times(self):
@@ -172,11 +154,11 @@ class TemporalEdges(Edges):
 
 
     def firsttime(self):
-        return self.stream[0].time
+        return self.set[0].time
     
 
     def lifetime(self):
-        return self.stream[-1].time + 1
+        return self.set[-1].time + 1
 
 
     def timespan(self):
