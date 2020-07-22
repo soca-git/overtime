@@ -100,7 +100,7 @@ class Circle(Plot):
 
             if self.time is None:
                 self.axes.text(
-                    bezier['x'][10], bezier['y'][10],
+                    bezier['x'][8], bezier['y'][8],
                     edge.time, 
                     color='black', backgroundcolor='white',
                     fontsize='x-small',

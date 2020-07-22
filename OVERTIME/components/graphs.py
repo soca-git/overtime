@@ -40,12 +40,21 @@ class TemporalGraph(Graph):
 
 
     def get_graph_by_time(self, time):
-        graph = TemporalGraph('graph at time t=')
+        label = self.label + ' [time: ' + str(time) + ']'
+        graph = TemporalGraph(label)
         graph.edges = self.edges.get_edge_by_time(time)
         graph.nodes = self.nodes
         return graph
 
 
-    def print(self, start=None, end=None):
+    def get_graph_by_interval(self, interval):
+        label = self.label + ' [time: ' + str(interval) + ']'
+        graph = TemporalGraph(label)
+        graph.edges = self.edges.get_edge_by_interval(interval)
+        graph.nodes = self.nodes
+        return graph
+
+
+    def print(self):
         self.nodes.print()
-        self.edges.print(start, end)
+        self.edges.print()

@@ -127,6 +127,13 @@ class TemporalEdges(Edges):
         return self.subset([edge for edge in self.set if edge.time == time])
 
 
+    def get_edge_by_interval(self, interval):
+        edges = []
+        for time in interval:
+            edges = edges + [edge for edge in self.stream if edge.time == time]
+        return self.subset(edges)
+
+
     def streamsort(self):
         # look at operator.attrgetter for getting time from edge (optimized)
         self.stream = sorted(self.stream, key=lambda x:x.time, reverse=False)
@@ -160,22 +167,17 @@ class TemporalEdges(Edges):
         return self.stream[-1].time + 1
 
 
-    def timespan(self, start=None, end=None):
-        if start == None or start <= 0 : start = self.firsttime()
-        if end == None or end > self.lifetime() : end = self.lifetime()
-        return range(start, end)
+    def timespan(self):
+        return range(self.firsttime(), self.lifetime())
 
     
-    def print(self, start=None, end=None):
+    def print(self):
         print("\n{:5} {}".format(" ", " ".join(self.labels())) )
-        for i in self.timespan(start, end):
+        for i in self.active_times():
             active = self.get_edge_by_time(i).labels()
-            if not active:
-                continue
             row = ['-']*len(self.labels())
             for label in active:
                 index = self.labels().index(label)
                 row[index] = '+'
             print("{:3} | {:2}".format(i, "  ".join(map(str, row))) )
         print()
-
