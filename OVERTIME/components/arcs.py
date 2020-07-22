@@ -11,6 +11,7 @@ class Arc(Edge):
 
     def __init__(self, source, sink, nodes):
         super().__init__(source, sink, nodes)
+        self.label = source + sink # directed label
         self.directed = True
         self.source = nodes.add(source)
         self.sink = nodes.add(sink)
@@ -24,6 +25,8 @@ class TemporalArc(TemporalEdge):
 
     def __init__(self, source, sink, nodes, time, duration=1):
         super().__init__(source, sink, nodes, time, duration)
+        self.label = source + sink # directed label
+        self.uid = self.label + str(time) # directed uid
         self.directed = True
         self.source = nodes.add(source)
         self.sink = nodes.add(sink)
@@ -111,6 +114,7 @@ class TemporalArcs(TemporalEdges):
 
     
     def print(self):
+        print('Edges:')
         print("\n{:5} {}".format(" ", " ".join(self.labels())) )
         for i in self.active_times():
             active = self.get_edge_by_time(i).labels()

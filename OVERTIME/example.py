@@ -10,3 +10,9 @@ graph.build_from_csv(input_data)
 
 digraph = TemporalDiGraph('TestNetwork2')
 digraph.build_from_csv(input_data)
+
+graph.details()
+graph.print()
+
+digraph.details()
+digraph.print()

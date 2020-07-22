@@ -61,7 +61,7 @@ class Nodes:
 
 
     def print(self):
-        #print("\n{:5} nodes;\n{:5} {}\n".format(self.count()," ", " ".join(self.labels())) )
+        print('Nodes:')
         for node in self.set:
             node.print()
 

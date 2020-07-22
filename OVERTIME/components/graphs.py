@@ -22,7 +22,7 @@ class Graph:
 
 
     def details(self):
-        print("\n\tGraph Details: \n\tLabel: %s" %(self.label))
+        print("\n\tGraph Details: \n\tLabel: %s \n\tDirected: %s" %(self.label, self.directed))
         print("\t#Nodes: %s \n\t#Edges: %s \n" % (self.nodes.count(), self.edges.count()))
 
 
@@ -60,4 +60,6 @@ class TemporalGraph(Graph):
 
     def print(self):
         self.nodes.print()
+        print()
         self.edges.print()
+        print()
