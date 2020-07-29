@@ -10,7 +10,7 @@ from plots.circle import Circle
 input_data = CSVInput('network', 'csv', './network.csv')
 
 graph = TemporalGraph('TestNetwork')
-graph.build_from_csv(input_data)
+graph.build(input_data)
 graph.print()
 
 labels = []

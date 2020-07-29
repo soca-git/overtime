@@ -8,9 +8,11 @@ class Input:
         A class which handles temporal network/data inputs.
     """
 
-    def __init__(self, name, atype):
-        self.name = name
-        self.type = atype
+    def __init__(self, path):
+        self.path = path
+        self.data = {}
+        self.data['nodes'] = {}
+        self.data['edges'] = {}
 
 
 
@@ -19,30 +21,19 @@ class CSVInput(Input):
         A class which handles CSV-based temporal network/data inputs.
     """
 
-    def __init__(self, name, atype, path):
-        super().__init__(name, atype)
-        self.path = path
-        self.data = {}
+    def __init__(self, path):
+        super().__init__(path)
         self.read()
 
 
     def read(self):
         with open(self.path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
-            n = 0
-            data = {}
+            data = self.data
+            ne = 0
             for row in reader:
-                data[n] = {}
-                data[n]['node1'] = row['node1']
-                data[n]['node2'] = row['node2']
-                data[n]['time'] = row['time']
-                n += 1
-        self.data = data
-
-    
-    def print(self):
-        with open(self.path, newline='') as csvfile:
-            reader = csv.reader(csvfile)
-            for row in reader:
-                print(row)
-
+                data['edges'][ne] = {}
+                data['edges'][ne]['node1'] = row['node1']
+                data['edges'][ne]['node2'] = row['node2']
+                data['edges'][ne]['time'] = row['time']
+                ne += 1

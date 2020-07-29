@@ -9,7 +9,7 @@ class Edge:
     """
 
     def __init__(self, node1, node2, nodes):
-        self.label = node1 + node2
+        self.label = str(node1) + str(node2)
         self.directed = False
         self.node1 = nodes.add(node1)
         self.node2 = nodes.add(node2)
@@ -27,7 +27,7 @@ class TemporalEdge(Edge):
 
     def __init__(self, node1, node2, nodes, time, duration=1):
         super().__init__(node1, node2, nodes)
-        self.uid = node1 + node2 + time
+        self.uid = str(node1) + str(node2) + str(time)
         self.time = int(time)
         self.duration = int(duration)
 
@@ -47,7 +47,7 @@ class Edges:
 
 
     def add(self, node1, node2, nodes):
-        label = ''.join(sorted(node1+node2)) # alphabetically sorted label
+        label = ''.join(sorted(str(node1)+str(node2))) # alphabetically sorted label
         if not self.exists(label):
             self.set.add(Edge(label[0], label[1], nodes))
         return self.get(label)
@@ -101,7 +101,7 @@ class TemporalEdges(Edges):
 
 
     def add(self, node1, node2, nodes, time, duration=1):
-        uid = ''.join(sorted(node1+node2)) + str(time) # uid is alphabetically sorted
+        uid = ''.join(sorted(str(node1)+str(node2))) + str(time) # uid is alphabetically sorted
         if not self.exists(uid):
             edge = TemporalEdge(uid[0], uid[1], nodes, time, duration)
             self.set.append(edge)
