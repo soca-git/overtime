@@ -9,11 +9,11 @@ class Arc(Edge):
         A class which represents a directed edge (arc) on a graph.
     """
 
-    def __init__(self, source, sink, nodes):
-        super().__init__(source, sink, nodes)
+    def __init__(self, source, sink, nodes, graph):
+        super().__init__(source, sink, nodes, graph)
         self.directed = True
-        self.source = nodes.add(source)
-        self.sink = nodes.add(sink)
+        self.source = nodes.add(source, graph)
+        self.sink = nodes.add(sink, graph)
         
 
 
@@ -22,11 +22,11 @@ class TemporalArc(TemporalEdge):
         A class which represents a time-respecting directed edge (arc) on a temporal graph.
     """
 
-    def __init__(self, source, sink, nodes, time, duration=1):
-        super().__init__(source, sink, nodes, time, duration)
+    def __init__(self, source, sink, nodes, graph, time, duration=1):
+        super().__init__(source, sink, nodes, graph, time, duration)
         self.directed = True
-        self.source = nodes.add(source)
-        self.sink = nodes.add(sink)
+        self.source = nodes.add(source, graph)
+        self.sink = nodes.add(sink, graph)
         
 
 
@@ -39,10 +39,10 @@ class Arcs(Edges):
         super().__init__()
 
 
-    def add(self, source, sink, nodes):
+    def add(self, source, sink, nodes, graph):
         label = str(source) + str(sink) # directed label
         if not self.exists(label):
-            self.set.add(Arc(source, sink, nodes))
+            self.set.add(Arc(source, sink, nodes, graph))
         return self.get(label)
 
 
@@ -71,10 +71,10 @@ class TemporalArcs(TemporalEdges):
         super().__init__()
 
 
-    def add(self, source, sink, nodes, time, duration=1):
+    def add(self, source, sink, nodes, graph, time, duration=1):
         uid = str(source) + str(sink) + str(time) # directed uid
         if not self.exists(uid):
-            edge = TemporalArc(source, sink, nodes, time, duration)
+            edge = TemporalArc(source, sink, nodes, graph, time, duration)
             self.set.append(edge)
             self.setsort()
         return self.get_edge_by_uid(uid)

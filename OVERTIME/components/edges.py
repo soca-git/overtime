@@ -8,11 +8,13 @@ class Edge:
         A class which represents an edge on a graph.
     """
 
-    def __init__(self, node1, node2, nodes):
+    def __init__(self, node1, node2, nodes, graph):
         self.label = str(node1) + str(node2)
+        self.uid = self.label
         self.directed = False
-        self.node1 = nodes.add(node1)
-        self.node2 = nodes.add(node2)
+        self.node1 = nodes.add(node1, graph)
+        self.node2 = nodes.add(node2, graph)
+        self.graph = graph
         
 
     def print(self):
@@ -25,8 +27,8 @@ class TemporalEdge(Edge):
         A class which represents a time-respecting edge on a temporal graph.
     """
 
-    def __init__(self, node1, node2, nodes, time, duration=1):
-        super().__init__(node1, node2, nodes)
+    def __init__(self, node1, node2, nodes, graph, time, duration=1):
+        super().__init__(node1, node2, nodes, graph)
         self.uid = str(node1) + str(node2) + str(time)
         self.time = int(time)
         self.duration = int(duration)
@@ -45,11 +47,15 @@ class Edges:
     def __init__(self):
         self.set = set() # unorderd, unindexed collection of edge objects
 
+    
+    def aslist(self):
+        return list(self.set)
 
-    def add(self, node1, node2, nodes):
+
+    def add(self, node1, node2, nodes, graph):
         label = ''.join(sorted(str(node1)+str(node2))) # alphabetically sorted label
         if not self.exists(label):
-            self.set.add(Edge(label[0], label[1], nodes))
+            self.set.add(Edge(label[0], label[1], nodes, graph))
         return self.get(label)
 
 
@@ -62,6 +68,14 @@ class Edges:
 
     def get(self, label):
         return next((edge for edge in self.set if edge.label == label), None)
+
+    
+    def get_edge_by_uid(self, uid):
+        return next((edge for edge in self.set if edge.uid == uid), None)
+
+
+    def get_edge_by_node(self, label):
+        return self.subset(edge for edge in self.set if edge.node1.label == label or edge.node2.label == label)
 
 
     def get_edge_by_node1(self, label):
@@ -90,6 +104,7 @@ class Edges:
             edge.print()
 
 
+
 class TemporalEdges(Edges):
     """
         A class which represents a collection of temporal edges.
@@ -100,10 +115,10 @@ class TemporalEdges(Edges):
         self.set = [] # ordered (by time), indexed collection of edge objects
 
 
-    def add(self, node1, node2, nodes, time, duration=1):
+    def add(self, node1, node2, nodes, graph, time, duration=1):
         uid = ''.join(sorted(str(node1)+str(node2))) + str(time) # uid is alphabetically sorted
         if not self.exists(uid):
-            edge = TemporalEdge(uid[0], uid[1], nodes, time, duration)
+            edge = TemporalEdge(uid[0], uid[1], nodes, graph, time, duration)
             self.set.append(edge)
             self.setsort()
         return self.get_edge_by_uid(uid)
@@ -115,10 +130,6 @@ class TemporalEdges(Edges):
             subset.set.append(edge)
         self.setsort()
         return subset
-
-
-    def get_edge_by_uid(self, uid):
-        return next((edge for edge in self.set if edge.uid == uid), None)
 
 
     def get_edge_by_time(self, time):

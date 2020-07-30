@@ -13,7 +13,7 @@ def CalculateForemostTree(graph, root):
     tree = ForemostTree(graph.label, root, start)
 
     for node in graph.nodes.set:
-        tree.nodes.add(node.label)
+        tree.nodes.add(node.label, tree)
 
     root = tree.root
     root.time = start

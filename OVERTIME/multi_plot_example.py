@@ -5,13 +5,13 @@ from inputs.classes import CSVInput
 from components.graphs import TemporalGraph
 from plots.circle import Circle
 
-input_data = CSVInput('network', 'csv', './network.csv')
+input_data = CSVInput('./network.csv')
 
 graph = TemporalGraph('TestNetwork')
 graph.build(input_data)
 graph.print()
 
-graph.edges.add('b', 'e', graph.nodes, 4)
+graph.edges.add('b', 'e', graph.nodes, graph, 4)
 
 
 figure, axes = plt.subplots(nrows=3, ncols=3)

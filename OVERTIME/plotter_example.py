@@ -7,7 +7,7 @@ from plots.plotter import Plotter
 from plots.circle import Circle
 
 
-input_data = CSVInput('network', 'csv', './network.csv')
+input_data = CSVInput('./network.csv')
 
 graph = TemporalDiGraph('TestNetwork')
 graph.build(input_data)

@@ -4,7 +4,7 @@ from components.graphs import TemporalGraph
 from components.digraphs import TemporalDiGraph
 
 
-input_data = CSVInput('network', 'csv', './network.csv')
+input_data = CSVInput('./network.csv')
 graph = TemporalGraph('TestNetwork1')
 graph.build(input_data)
 

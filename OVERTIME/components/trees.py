@@ -14,4 +14,4 @@ class ForemostTree(TemporalGraph):
         self.label = label + ' foremost tree [root: ' + root + ']'
         self.nodes = ForemostNodes()
         self.edges = TemporalArcs()
-        self.root = self.nodes.add(root, start)
+        self.root = self.nodes.add(root, self, start)
