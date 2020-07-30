@@ -5,10 +5,10 @@ from plots.plotter import Plotter
 from plots.circle import Circle
 
 data0 = RandomGNP()
-graph0 = TemporalGraph('TestNetwork [p=0.5]', build=True, data=data0)
+graph0 = TemporalGraph('TestNetwork [p=0.5]', data=data0)
 
 data1 = RandomGNP(n=10, p=0.1)
-graph1 = TemporalGraph('TestNetwork [p=0.1]', build=True, data=data1)
+graph1 = TemporalGraph('TestNetwork [p=0.1]', data=data1)
 
 myplotter = Plotter()
 myplotter.multi(Circle, [graph0.get_graph_by_time(0), graph1.get_graph_by_time(0)])
@@ -29,3 +29,5 @@ myplotter.multi(
         graph1.get_graph_by_time(10),
     ]
 )
+
+input("Press enter key to exit...")

@@ -9,13 +9,13 @@ class Graph:
         A class which represents a graph consisting of nodes & edges.
     """
 
-    def __init__(self, label, build=False, data=None):
+    def __init__(self, label, data=None):
         self.label = label
         self.directed = False
         self.nodes = Nodes()
         self.edges = Edges()
 
-        if build:
+        if data is not None:
             self.build(data)
         
 
@@ -35,11 +35,11 @@ class TemporalGraph(Graph):
         A class which represents a temporal graph consisting of nodes & temporal edges.
     """
 
-    def __init__(self, label, build=False, data=None):
+    def __init__(self, label, data=None):
         super().__init__(label)
         self.edges = TemporalEdges()
 
-        if build:
+        if data is not None:
             self.build(data)
 
 

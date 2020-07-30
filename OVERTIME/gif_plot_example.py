@@ -7,12 +7,9 @@ from components.graphs import TemporalGraph
 from algorithms.foremost import CalculateForemostTree
 from plots.circle import Circle
 
-input_data = CSVInput('network', 'csv', './network.csv')
 
-graph = TemporalGraph('TestNetwork')
-graph.build(input_data)
-graph.print()
 
+graph = TemporalGraph('TestNetwork', data=CSVInput('./network.csv'))
 labels = []
 for t in graph.edges.timespan():
     figure, axes = plt.subplots(1)

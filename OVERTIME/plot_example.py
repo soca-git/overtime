@@ -6,10 +6,7 @@ from components.digraphs import TemporalDiGraph
 from algorithms.foremost import CalculateForemostTree
 from plots.circle import Circle
 
-input_data = CSVInput('./network.csv')
-
-graph = TemporalDiGraph('TestNetwork')
-graph.build(input_data)
+graph = TemporalDiGraph('TestNetwork', data=CSVInput('./network.csv'))
 graph.print()
 
 figure, axes = plt.subplots(1)
