@@ -23,18 +23,18 @@ myplotter.single(Circle, digraph)
 
 myplotter.multi(
     Circle,
-    [graph.get_graph_by_time(6), graph.get_graph_by_time(7)]
+    [graph.get_snapshot(6), graph.get_snapshot(7)]
 )
 
 
 snapshots = []
 for t in graph.edges.timespan():
-    snapshots.append(graph.get_graph_by_time(t))
+    snapshots.append(graph.get_snapshot(t))
 
 myplotter.multi(Circle, snapshots)
 
 snapshots = []
 for t in digraph.edges.timespan():
-    snapshots.append(digraph.get_graph_by_time(t))
+    snapshots.append(digraph.get_snapshot(t))
 
 myplotter.multi(Circle, snapshots)

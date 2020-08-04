@@ -16,7 +16,7 @@ class Node:
 
     def node1of(self, time=None):
         if time is not None:
-            edges = self.graph.edges.get_edge_by_time(time)
+            edges = self.graph.edges.get_active_edges(time)
         else:
             edges = self.graph.edges
         
@@ -29,7 +29,7 @@ class Node:
 
     def node2of(self, time=None):
         if time is not None:
-            edges = self.graph.edges.get_edge_by_time(time)
+            edges = self.graph.edges.get_active_edges(time)
         else:
             edges = self.graph.edges
         
@@ -42,7 +42,7 @@ class Node:
 
     def nodeof(self, time=None):
         if time is not None:
-            edges = self.graph.edges.get_edge_by_time(time)
+            edges = self.graph.edges.get_active_edges(time)
         else:
             edges = self.graph.edges
         

@@ -9,7 +9,7 @@ def CalculateForemostTree(graph, root):
     """
     timespan = graph.edges.timespan()
     start = timespan[0]
-    end = timespan[-1]+1
+    end = timespan[-1]
     tree = ForemostTree(graph.label, root, start)
 
     for node in graph.nodes.set:
@@ -21,10 +21,10 @@ def CalculateForemostTree(graph, root):
     for edge in graph.edges.set:
         departure = tree.nodes.get(edge.source.label)
         destination = tree.nodes.get(edge.sink.label)
-        if edge.start + edge.duration <= end and edge.start >= departure.start:
-            if edge.start + edge.duration < destination.start:
-                tree.edges.add(edge.source.label, edge.sink.label, tree.nodes, edge.start, edge.duration)
-                destination.start = edge.start + edge.duration
+        if edge.end <= end and edge.start >= departure.time:
+            if edge.end < destination.time:
+                tree.edges.add(edge.source.label, edge.sink.label, tree.nodes, edge.start, edge.end)
+                destination.time = edge.end
         elif edge.start >=end:
             break
 

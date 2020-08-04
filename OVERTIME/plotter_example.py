@@ -12,13 +12,13 @@ graph = TemporalDiGraph('TestNetwork', data=CSVInput('./network.csv'))
 myplotter = Plotter()
 myplotter.single(Circle, graph)
 
-myplotter.single(Circle, graph.get_graph_by_time(7))
-myplotter.multi(Circle, [graph.get_graph_by_time(4), graph.get_graph_by_time(7)])
+myplotter.single(Circle, graph.get_snapshot(7))
+myplotter.multi(Circle, [graph.get_snapshot(4), graph.get_snapshot(7)])
 
 myplotter.multi(Circle,
     [
-        graph.get_graph_by_interval(range(0, 7)),
-        graph.get_graph_by_interval(range(7, 14))
+        graph.get_graph_by_interval((0, 7)),
+        graph.get_graph_by_interval((7, 14))
     ]
 )
 
@@ -33,6 +33,6 @@ myplotter.multi(
     ]
 )
 
-myplotter.single(Circle, CalculateForemostTree(graph.get_graph_by_interval(range(0,7)), 'a'))
+myplotter.single(Circle, CalculateForemostTree(graph.get_graph_by_interval((0,7)), 'a'))
 
 input("Press enter key to exit...")

@@ -14,7 +14,7 @@ labels = []
 for t in graph.edges.timespan():
     figure, axes = plt.subplots(1)
     labels.append('examples/time_' + str(t) + '.png')
-    Circle(graph.get_graph_by_time(t), axes, 'TestNetwork', time=t)
+    Circle(graph.get_snapshot(t), axes, 'TestNetwork', time=t)
     figure.savefig(labels[-1], format='png')
 
 images = [imageio.imread(f) for f in labels]

@@ -1,7 +1,7 @@
 from inputs.classes import CSVInput
 from components.graphs import TemporalGraph
 
-input_data = CSVInput('network', 'csv', './network.csv')
+input_data = CSVInput('./network.csv')
 
 graph = TemporalGraph('TestNetwork')
 graph.build(input_data)
@@ -10,8 +10,8 @@ graph.build(input_data)
 # calculate foremost time (to be added)
 foremost = {}
 a = graph.nodes.get('a')
-start = graph.edges.firsttime()
-end = graph.edges.lifetime()
+start = graph.edges.start()
+end = graph.edges.end()
 
 for node in graph.nodes.set:
     foremost[node.label] = {}

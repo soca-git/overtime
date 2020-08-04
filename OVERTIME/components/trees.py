@@ -11,7 +11,8 @@ class ForemostTree(TemporalGraph):
     """
 
     def __init__(self, label, root, start):
-        self.label = label + ' foremost tree [root: ' + root + ']'
+        label = label + ' foremost tree [root: ' + root + ']'
+        super().__init__(label)
         self.nodes = ForemostNodes()
         self.edges = TemporalArcs()
         self.root = self.nodes.add(root, self, start)

@@ -12,12 +12,11 @@ graph.edges.add('b', 'e', graph.nodes, graph, 4)
 
 
 figure, axes = plt.subplots(nrows=3, ncols=3)
-#times = graph.edges.active_times()
 times = range(0, 10)
 i = 0
 for row in axes:
     for col in row:
-        Circle(graph.get_graph_by_time(times[i]), col, time=times[i])
+        Circle(graph.get_snapshot(times[i]), col, time=times[i])
         i += 1
         if i > 9:
             break

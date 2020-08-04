@@ -99,7 +99,7 @@ class Circle(Plot):
                     zorder=1
                 )
 
-            if self.time is None:
+            if self.time is None and not self.graph.static:
                 self.axes.text(
                     bezier['x'][8], bezier['y'][8],
                     edge.start, 

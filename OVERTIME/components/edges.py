@@ -34,6 +34,10 @@ class TemporalEdge(Edge):
         self.end = int(tend)
         self.duration = self.end - self.start + 1
 
+    
+    def is_active(self, time):
+        return True if time >= self.start and time <= self.end else False
+
 
     def print(self):
         print(self.uid)
@@ -57,7 +61,7 @@ class Edges:
         label = ''.join(sorted(str(node1)+str(node2))) # alphabetically sorted label
         if not self.exists(label):
             self.set.add(Edge(label[0], label[1], nodes, graph))
-        return self.get(label)
+        return self.get_edge_by_uid(label)
 
 
     def subset(self, alist):
@@ -66,13 +70,13 @@ class Edges:
             subset.set.add(edge)
         return subset
 
-
-    def get(self, label):
-        return next((edge for edge in self.set if edge.label == label), None)
-
     
     def get_edge_by_uid(self, uid):
         return next((edge for edge in self.set if edge.uid == uid), None)
+
+
+    def get_edge_by_label(self, label):
+        return self.subset(edge for edge in self.set if edge.label == label)
 
 
     def get_edge_by_node(self, label):
@@ -87,16 +91,24 @@ class Edges:
         return self.subset([edge for edge in self.set if edge.node2.label == label])
 
 
-    def exists(self, label):
-        return True if self.get(label) is not None else False
+    def exists(self, uid):
+        return True if self.get_edge_by_uid(uid) is not None else False
 
     
     def count(self):
         return len(self.set)
 
 
+    def uids(self):
+        return [edge.uid for edge in self.set]
+
+
     def labels(self):
-        return [node.label for node in self.set]
+        return [edge.label for edge in self.set]
+
+    
+    def ulabels(self):
+        return list(set([edge.label for edge in self.set]))
 
     
     def print(self):
@@ -118,12 +130,12 @@ class TemporalEdges(Edges):
 
     def add(self, node1, node2, nodes, graph, tstart, tend=None):
         if tend is None:
-            tend = int(tstart) + 1 # default duration of 1
+            tend = int(tstart) + 0 # default duration of 1
         uid = ''.join(sorted(str(node1)+str(node2))) + str(tstart) + str(tend) # uid is alphabetically sorted
         if not self.exists(uid):
             edge = TemporalEdge(uid[0], uid[1], nodes, graph, tstart, tend)
             self.set.append(edge)
-            self.setsort()
+            self.set = self.setsort()
         return self.get_edge_by_uid(uid)
 
 
@@ -131,62 +143,62 @@ class TemporalEdges(Edges):
         subset = TemporalEdges()
         for edge in alist:
             subset.set.append(edge)
-        self.setsort()
+        subset.set = subset.setsort()
         return subset
 
 
-    def get_edge_by_time(self, time):
+    def get_edge_by_start(self, time):
         return self.subset([edge for edge in self.set if edge.start == time])
+
+    
+    def get_edge_by_end(self, time):
+        return self.subset([edge for edge in self.set if edge.end == time])
 
 
     def get_edge_by_interval(self, interval):
-        edges = []
-        for time in interval:
-            edges = edges + [edge for edge in self.set if edge.start == time]
-        return self.subset(edges)
+        return self.subset([edge for edge in self.set if edge.start >= interval[0] and edge.start < interval[1]])
 
 
-    def setsort(self):
-        # look at operator.attrgetter for getting start time from edge (optimized)
-        self.set = sorted(self.set, key=lambda x:x.start, reverse=False)
+    def get_active_edges(self, time):
+        return self.subset(edge for edge in self.set if edge.is_active(time))
 
 
-    def exists(self, uid):
-        return True if self.get_edge_by_uid(uid) is not None else False
+    def setsort(self, key='start'):
+        if key is 'end':
+            return sorted(self.set, key=lambda x:x.end, reverse=False)
+        elif key is 'start':
+            # look at operator.attrgetter for getting start time from edge (optimized)
+            return sorted(self.set, key=lambda x:x.start, reverse=False)
+        
 
-
-    def uids(self):
-        return [edge.uid for edge in self.set]
-
-
-    def times(self):
+    def start_times(self):
         return [edge.start for edge in self.set]
 
+    
+    def end_times(self):
+        return [edge.end for edge in self.set]
 
-    def active_times(self):
-        return list(set(self.times()))
 
-
-    def firsttime(self):
+    def start(self):
         return self.set[0].start
     
 
-    def lifetime(self):
-        return self.set[-1].start + 1
+    def end(self):
+        return self.setsort()[-1].end + 1
 
 
     def timespan(self):
-        return range(self.firsttime(), self.lifetime())
+        return range(self.start(), self.end())
 
     
     def print(self):
         print('Edges:')
-        print("\n{:5} {}".format(" ", " ".join(self.labels())) )
-        for i in self.active_times():
-            active = self.get_edge_by_time(i).labels()
-            row = ['-']*len(self.labels())
+        print("\n{:5} {}".format(" ", " ".join(self.ulabels())) )
+        for t in self.timespan():
+            active = self.get_active_edges(t).ulabels()
+            row = ['-']*len(self.ulabels())
             for label in active:
-                index = self.labels().index(label)
+                index = self.ulabels().index(label)
                 row[index] = '+'
-            print("{:3} | {:2}".format(i, "  ".join(map(str, row))) )
+            print("{:3} | {:2}".format(t, "  ".join(map(str, row))) )
         print()

@@ -43,7 +43,7 @@ class Arcs(Edges):
         label = str(source) + str(sink) # directed label
         if not self.exists(label):
             self.set.add(Arc(source, sink, nodes, graph))
-        return self.get(label)
+        return self.get_edge_by_uid(label)
 
 
     def subset(self, alist):
@@ -73,12 +73,12 @@ class TemporalArcs(TemporalEdges):
 
     def add(self, source, sink, nodes, graph, tstart, tend=None):
         if tend is None:
-            tend = int(tstart) + 1 # default duration of 1
+            tend = int(tstart) + 0 # default duration of 1
         uid = str(source) + str(sink) + str(tstart) + str(tend) # directed uid
         if not self.exists(uid):
             edge = TemporalArc(source, sink, nodes, graph, tstart, tend)
             self.set.append(edge)
-            self.setsort()
+            self.set = self.setsort()
         return self.get_edge_by_uid(uid)
 
 
@@ -86,7 +86,7 @@ class TemporalArcs(TemporalEdges):
         subset = TemporalArcs()
         for edge in alist:
             subset.set.append(edge)
-        self.setsort()
+        subset.set = subset.setsort()
         return subset
 
 

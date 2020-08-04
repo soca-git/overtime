@@ -11,22 +11,22 @@ data1 = RandomGNP(n=10, p=0.1)
 graph1 = TemporalGraph('TestNetwork [p=0.1]', data=data1)
 
 myplotter = Plotter()
-myplotter.multi(Circle, [graph0.get_graph_by_time(0), graph1.get_graph_by_time(0)])
+myplotter.multi(Circle, [graph0.get_snapshot(0), graph1.get_snapshot(0)])
 
 myplotter.multi(
     Circle,
     [
-        graph1.get_graph_by_time(0),
-        graph1.get_graph_by_time(1),
-        graph1.get_graph_by_time(2),
-        graph1.get_graph_by_time(3),
-        graph1.get_graph_by_time(4),
-        graph1.get_graph_by_time(5),
-        graph1.get_graph_by_time(6),
-        graph1.get_graph_by_time(7),
-        graph1.get_graph_by_time(8),
-        graph1.get_graph_by_time(9),
-        graph1.get_graph_by_time(10),
+        graph1.get_snapshot(0),
+        graph1.get_snapshot(1),
+        graph1.get_snapshot(2),
+        graph1.get_snapshot(3),
+        graph1.get_snapshot(4),
+        graph1.get_snapshot(5),
+        graph1.get_snapshot(6),
+        graph1.get_snapshot(7),
+        graph1.get_snapshot(8),
+        graph1.get_snapshot(9),
+        graph1.get_snapshot(10),
     ]
 )
 
