@@ -12,8 +12,8 @@ class Arc(Edge):
     def __init__(self, source, sink, nodes, graph):
         super().__init__(source, sink, nodes, graph)
         self.directed = True
-        self.source = nodes.add(source, graph)
-        self.sink = nodes.add(sink, graph)
+        self.source = self.node1
+        self.sink = self.node2
         
 
 
@@ -25,9 +25,9 @@ class TemporalArc(TemporalEdge):
     def __init__(self, source, sink, nodes, graph, time, duration=1):
         super().__init__(source, sink, nodes, graph, time, duration)
         self.directed = True
-        self.source = nodes.add(source, graph)
-        self.sink = nodes.add(sink, graph)
-        
+        self.source = self.node1
+        self.sink = self.node2
+
 
 
 class Arcs(Edges):

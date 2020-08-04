@@ -22,6 +22,10 @@ class Node:
         
         return edges.get_edge_by_node1(self.label)
 
+    
+    def sourceof(self, time=None):
+        return self.node1of(time)
+
 
     def node2of(self, time=None):
         if time is not None:
@@ -30,6 +34,10 @@ class Node:
             edges = self.graph.edges
         
         return edges.get_edge_by_node2(self.label)
+
+    
+    def sinkof(self, time=None):
+        return self.node2of(time)
 
 
     def nodeof(self, time=None):
