@@ -58,9 +58,10 @@ class Edges:
 
 
     def add(self, node1, node2, nodes, graph):
-        label = ''.join(sorted(str(node1)+str(node2))) # alphabetically sorted label
+        node_labels = sorted([str(node1),str(node2)])
+        label = '-'.join(node_labels) # alphabetically sorted label
         if not self.exists(label):
-            self.set.add(Edge(label[0], label[1], nodes, graph))
+            self.set.add(Edge(node_labels[0], node_labels[1], nodes, graph))
         return self.get_edge_by_uid(label)
 
 
@@ -131,9 +132,10 @@ class TemporalEdges(Edges):
     def add(self, node1, node2, nodes, graph, tstart, tend=None):
         if tend is None:
             tend = int(tstart) + 0 # default duration of 1
-        uid = ''.join(sorted(str(node1)+str(node2))) + str(tstart) + str(tend) # uid is alphabetically sorted
+        node_labels = sorted([str(node1),str(node2)])
+        uid = '-'.join(node_labels) + '|' + str(tstart) + '-' + str(tend) # uid is alphabetically sorted
         if not self.exists(uid):
-            edge = TemporalEdge(uid[0], uid[1], nodes, graph, tstart, tend)
+            edge = TemporalEdge(node_labels[0], node_labels[1], nodes, graph, tstart, tend)
             self.set.append(edge)
             self.set = self.setsort()
         return self.get_edge_by_uid(uid)

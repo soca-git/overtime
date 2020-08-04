@@ -10,7 +10,7 @@ class Plot:
         self.graph = graph
         self.title = title
         self.time = time
-        self.nodes = {}
+        self.nodes = []
         self.edges = {}
         self.axes = axes
         self.create()

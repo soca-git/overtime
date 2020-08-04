@@ -4,10 +4,10 @@ from components.graphs import TemporalGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
 
-data0 = RandomGNP()
+data0 = RandomGNP(n=50, p=0.5)
 graph0 = TemporalGraph('TestNetwork [p=0.5]', data=data0)
 
-data1 = RandomGNP(n=10, p=0.1)
+data1 = RandomGNP(n=50, p=0.1)
 graph1 = TemporalGraph('TestNetwork [p=0.1]', data=data1)
 
 myplotter = Plotter()

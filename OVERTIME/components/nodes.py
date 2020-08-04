@@ -49,7 +49,6 @@ class Node:
         return edges.get_edge_by_node(self.label)
 
 
-
     def neighbours(self, time=None):
         node1_edges = self.node1of(time)
         node2_edges = self.node2of(time)
@@ -94,7 +93,7 @@ class Nodes:
 
 
     def add(self, label, graph):
-        if not self.exists(label):
+        if not self.exists(str(label)):
             self.set.add(Node(label, graph))
         return self.get(label)
 

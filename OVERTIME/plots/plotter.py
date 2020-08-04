@@ -17,7 +17,7 @@ class Plotter:
         figure, axes = plt.subplots(1)
         self.plot(graph, axes, graph.label)
         plt.tight_layout(pad=0.1)
-        figure.set_size_inches(14, 10)
+        figure.set_size_inches(7, 5)
         figure.show()
 
 
