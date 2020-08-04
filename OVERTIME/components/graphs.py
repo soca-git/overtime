@@ -21,7 +21,15 @@ class Graph:
 
     def build(self, data):
         for i, edge in data.data.items():
-            self.edges.add(edge['node1'], edge['node2'], self.nodes, self)
+            self.add_edge(edge['node1'], edge['node2'])
+
+
+    def add_node(self, label):
+        self.nodes.add(label, self)
+
+
+    def add_edge(self, node1, node2):
+        self.edges.add(node1, node2, self.nodes, self)
 
 
     def details(self):
@@ -45,7 +53,11 @@ class TemporalGraph(Graph):
 
     def build(self, data):
         for i, edge in data.data['edges'].items():
-            self.edges.add(edge['node1'], edge['node2'], self.nodes, self, edge['time'])
+            self.add_edge(edge['node1'], edge['node2'], edge['tstart'], edge['tend'])
+
+
+    def add_edge(self, node1, node2, tstart, tend=None):
+        self.edges.add(node1, node2, self.nodes, self, tstart, tend)
 
 
     def get_graph_by_time(self, time):

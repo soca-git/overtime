@@ -23,7 +23,8 @@ class RandomGNP(Generator):
                 data['edges'][ne] = {}
                 data['edges'][ne]['node1'] = edge[0]
                 data['edges'][ne]['node2'] = edge[1]
-                data['edges'][ne]['time'] = t
+                data['edges'][ne]['tstart'] = t
+                data['edges'][ne]['tend'] = None
                 ne += 1
 
             if t == start:

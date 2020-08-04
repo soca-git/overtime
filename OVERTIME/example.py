@@ -32,3 +32,9 @@ for t in graph.edges.timespan():
     snapshots.append(graph.get_graph_by_time(t))
 
 myplotter.multi(Circle, snapshots)
+
+snapshots = []
+for t in digraph.edges.timespan():
+    snapshots.append(digraph.get_graph_by_time(t))
+
+myplotter.multi(Circle, snapshots)

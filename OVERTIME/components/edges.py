@@ -32,7 +32,7 @@ class TemporalEdge(Edge):
         self.uid = str(node1) + str(node2) + str(tstart) + str(tend)
         self.start = int(tstart)
         self.end = int(tend)
-        self.duration = self.start + self.end
+        self.duration = self.end - self.start + 1
 
 
     def print(self):

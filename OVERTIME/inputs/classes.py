@@ -35,5 +35,9 @@ class CSVInput(Input):
                 data['edges'][ne] = {}
                 data['edges'][ne]['node1'] = row['node1']
                 data['edges'][ne]['node2'] = row['node2']
-                data['edges'][ne]['time'] = row['time']
+                data['edges'][ne]['tstart'] = row['tstart']
+                if 'end' in row:
+                    data['edges'][ne]['tend'] = row['tend']
+                else:
+                    data['edges'][ne]['tend'] = None
                 ne += 1
