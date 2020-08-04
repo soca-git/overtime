@@ -16,16 +16,16 @@ def CalculateForemostTree(graph, root):
         tree.nodes.add(node.label, tree)
 
     root = tree.root
-    root.time = start
+    root.start = start
 
     for edge in graph.edges.set:
         departure = tree.nodes.get(edge.source.label)
         destination = tree.nodes.get(edge.sink.label)
-        if edge.time + edge.duration <= end and edge.time >= departure.time:
-            if edge.time + edge.duration < destination.time:
-                tree.edges.add(edge.source.label, edge.sink.label, tree.nodes, edge.time, edge.duration)
-                destination.time = edge.time + edge.duration
-        elif edge.time >=end:
+        if edge.start + edge.duration <= end and edge.start >= departure.start:
+            if edge.start + edge.duration < destination.start:
+                tree.edges.add(edge.source.label, edge.sink.label, tree.nodes, edge.start, edge.duration)
+                destination.start = edge.start + edge.duration
+        elif edge.start >=end:
             break
 
     return tree

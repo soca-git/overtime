@@ -22,11 +22,11 @@ foremost[a.label]['time'] = start
 foremost[a.label]['source'] = a.label
 
 for edge in graph.edges.set:
-    if edge.time + edge.duration <=end and edge.time >= foremost[edge.source.label]['time']:
-        if edge.time + edge.duration < foremost[edge.sink.label]['time']:
-            foremost[edge.sink.label]['time'] = edge.time + edge.duration
+    if edge.start + edge.duration <=end and edge.start >= foremost[edge.source.label]['time']:
+        if edge.start + edge.duration < foremost[edge.sink.label]['time']:
+            foremost[edge.sink.label]['time'] = edge.start + edge.duration
             foremost[edge.sink.label]['source'] = edge.source.label
-    elif edge.time >= end:
+    elif edge.start >= end:
         break
 
 for node, info in foremost.items():

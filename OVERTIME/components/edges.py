@@ -27,11 +27,12 @@ class TemporalEdge(Edge):
         A class which represents a time-respecting edge on a temporal graph.
     """
 
-    def __init__(self, node1, node2, nodes, graph, time, duration=1):
+    def __init__(self, node1, node2, nodes, graph, tstart, tend):
         super().__init__(node1, node2, nodes, graph)
-        self.uid = str(node1) + str(node2) + str(time)
-        self.time = int(time)
-        self.duration = int(duration)
+        self.uid = str(node1) + str(node2) + str(tstart) + str(tend)
+        self.start = int(tstart)
+        self.end = int(tend)
+        self.duration = self.start + self.end
 
 
     def print(self):
@@ -115,10 +116,12 @@ class TemporalEdges(Edges):
         self.set = [] # ordered (by time), indexed collection of edge objects
 
 
-    def add(self, node1, node2, nodes, graph, time, duration=1):
-        uid = ''.join(sorted(str(node1)+str(node2))) + str(time) # uid is alphabetically sorted
+    def add(self, node1, node2, nodes, graph, tstart, tend=None):
+        if tend is None:
+            tend = int(tstart) + 1 # default duration of 1
+        uid = ''.join(sorted(str(node1)+str(node2))) + str(tstart) + str(tend) # uid is alphabetically sorted
         if not self.exists(uid):
-            edge = TemporalEdge(uid[0], uid[1], nodes, graph, time, duration)
+            edge = TemporalEdge(uid[0], uid[1], nodes, graph, tstart, tend)
             self.set.append(edge)
             self.setsort()
         return self.get_edge_by_uid(uid)
@@ -133,19 +136,19 @@ class TemporalEdges(Edges):
 
 
     def get_edge_by_time(self, time):
-        return self.subset([edge for edge in self.set if edge.time == time])
+        return self.subset([edge for edge in self.set if edge.start == time])
 
 
     def get_edge_by_interval(self, interval):
         edges = []
         for time in interval:
-            edges = edges + [edge for edge in self.set if edge.time == time]
+            edges = edges + [edge for edge in self.set if edge.start == time]
         return self.subset(edges)
 
 
     def setsort(self):
-        # look at operator.attrgetter for getting time from edge (optimized)
-        self.set = sorted(self.set, key=lambda x:x.time, reverse=False)
+        # look at operator.attrgetter for getting start time from edge (optimized)
+        self.set = sorted(self.set, key=lambda x:x.start, reverse=False)
 
 
     def exists(self, uid):
@@ -157,7 +160,7 @@ class TemporalEdges(Edges):
 
 
     def times(self):
-        return [edge.time for edge in self.set]
+        return [edge.start for edge in self.set]
 
 
     def active_times(self):
@@ -165,11 +168,11 @@ class TemporalEdges(Edges):
 
 
     def firsttime(self):
-        return self.set[0].time
+        return self.set[0].start
     
 
     def lifetime(self):
-        return self.set[-1].time + 1
+        return self.set[-1].start + 1
 
 
     def timespan(self):

@@ -22,8 +22,8 @@ class TemporalArc(TemporalEdge):
         A class which represents a time-respecting directed edge (arc) on a temporal graph.
     """
 
-    def __init__(self, source, sink, nodes, graph, time, duration=1):
-        super().__init__(source, sink, nodes, graph, time, duration)
+    def __init__(self, source, sink, nodes, graph, tstart, tend):
+        super().__init__(source, sink, nodes, graph, tstart, tend)
         self.directed = True
         self.source = self.node1
         self.sink = self.node2
@@ -71,10 +71,12 @@ class TemporalArcs(TemporalEdges):
         super().__init__()
 
 
-    def add(self, source, sink, nodes, graph, time, duration=1):
-        uid = str(source) + str(sink) + str(time) # directed uid
+    def add(self, source, sink, nodes, graph, tstart, tend=None):
+        if tend is None:
+            tend = int(tstart) + 1 # default duration of 1
+        uid = str(source) + str(sink) + str(tstart) + str(tend) # directed uid
         if not self.exists(uid):
-            edge = TemporalArc(source, sink, nodes, graph, time, duration)
+            edge = TemporalArc(source, sink, nodes, graph, tstart, tend)
             self.set.append(edge)
             self.setsort()
         return self.get_edge_by_uid(uid)
