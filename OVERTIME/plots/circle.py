@@ -25,6 +25,19 @@ class CircleNode():
 
 
 
+class CircleEdge():
+    """
+        A class to represent an edge on the circle plot.
+    """
+
+    def __init__(self, edge, p1, p2):
+        self.edge = edge
+        self.label = edge.uid
+        self.p1 = p1
+        self.p2 = p2
+
+
+
 class Circle(Plot):
     """
         A class which represents a circle plot of a graph.
@@ -71,15 +84,10 @@ class Circle(Plot):
 
 
     def create_edges(self):
-        edges = self.edges
         for edge in self.graph.edges.set:
-            edges[edge.uid] = {}
-            edges[edge.uid]['p1'] = {}
-            edges[edge.uid]['p1']['x'] = self.get_node(edge.node1.label).x
-            edges[edge.uid]['p1']['y'] = self.get_node(edge.node1.label).y
-            edges[edge.uid]['p2'] = {}
-            edges[edge.uid]['p2']['x'] = self.get_node(edge.node2.label).x
-            edges[edge.uid]['p2']['y'] = self.get_node(edge.node2.label).y
+            p1 = {'x': self.get_node(edge.node1.label).x, 'y': self.get_node(edge.node1.label).y}
+            p2 = {'x': self.get_node(edge.node2.label).x, 'y': self.get_node(edge.node2.label).y}
+            self.edges.append(CircleNode(edge, p1, p2))
 
 
     def draw_nodes(self):
@@ -111,12 +119,8 @@ class Circle(Plot):
 
 
     def draw_edges(self):
-        edges = self.edges
-        for edge in self.graph.edges.set:
-            bezier = self.bezier(
-                edges[edge.uid]['p1'],
-                edges[edge.uid]['p2']
-            )
+        for edge in self.edges:
+            bezier = self.bezier(edge.p1, edge.p2)
             self.axes.plot(
                 bezier['x'],
                 bezier['y'],
@@ -125,12 +129,12 @@ class Circle(Plot):
                 color='lightgrey',
                 zorder=0
             )
-            if edge.directed:
+            if edge.edge.directed:
                 self.axes.plot(
                     bezier['x'][6],
                     bezier['y'][6],
                     'o',
-                    color=self.get_node(edge.node1.label).color,
+                    color=self.get_node(edge.edge.node1.label).color,
                     zorder=1
                 )
 

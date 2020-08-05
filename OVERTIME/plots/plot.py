@@ -11,7 +11,7 @@ class Plot:
         self.title = title
         self.time = time
         self.nodes = []
-        self.edges = {}
+        self.edges = []
         self.axes = axes
         self.create()
         self.draw()
