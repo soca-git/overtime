@@ -1,5 +1,8 @@
 
+from random import shuffle
 import matplotlib.pyplot as plt
+
+
 
 class Plot:
     """
@@ -12,6 +15,7 @@ class Plot:
         self.time = time
         self.nodes = []
         self.edges = []
+        self.labels = []
         self.axes = axes
         self.create()
         self.draw()
@@ -20,6 +24,12 @@ class Plot:
     def create(self):
         self.create_nodes()
         self.create_edges()
+
+    
+    def colors(self, n):
+        c = [(1/n * x) for x in range(0, n)]
+        shuffle(c)
+        return c
 
 
     def draw(self):

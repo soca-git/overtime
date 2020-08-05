@@ -9,7 +9,7 @@ class Edge:
     """
 
     def __init__(self, node1, node2, nodes, graph):
-        self.label = str(node1) + str(node2)
+        self.label = str(node1) + '-' + str(node2)
         self.uid = self.label
         self.directed = False
         self.node1 = nodes.add(node1, graph)
@@ -35,7 +35,7 @@ class TemporalEdge(Edge):
         self.duration = self.end - self.start + 1
 
     
-    def is_active(self, time):
+    def isactive(self, time):
         return True if time >= self.start and time <= self.end else False
 
 
@@ -162,7 +162,7 @@ class TemporalEdges(Edges):
 
 
     def get_active_edges(self, time):
-        return self.subset(edge for edge in self.set if edge.is_active(time))
+        return self.subset(edge for edge in self.set if edge.isactive(time))
 
 
     def setsort(self, key='start'):
