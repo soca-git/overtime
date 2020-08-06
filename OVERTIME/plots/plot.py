@@ -1,6 +1,7 @@
 
-from random import shuffle
 import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import ListedColormap
 
 
 
@@ -24,12 +25,6 @@ class Plot:
     def create(self):
         self.create_nodes()
         self.create_edges()
-
-    
-    def colors(self, n):
-        c = [(1/n * x) for x in range(0, n)]
-        shuffle(c)
-        return c
 
 
     def draw(self):
@@ -69,3 +64,8 @@ class Plot:
 
     def cleanup(self):
         pass
+
+
+    def colormap(self, name, n):
+        cmap = cm.get_cmap(name)
+        return ListedColormap(cmap.colors*n)

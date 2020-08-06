@@ -32,3 +32,13 @@ class TemporalDiGraph(TemporalGraph):
 
         if data is not None:
             self.build(data)
+
+
+    def get_snapshot(self, time):
+        label = self.label + ' [time: ' + str(time) + ']'
+        graph = DiGraph(label)
+        for edge in self.edges.get_active_edges(time).set:
+            graph.add_edge(edge.node1.label, edge.node2.label)
+        for node in self.nodes.set:
+            graph.add_node(node.label)
+        return graph

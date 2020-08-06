@@ -1,10 +1,11 @@
 
 import math
+from random import shuffle
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
 from plots.plot import Plot
-from plots.utils import vector_angle
+from plots.utils import vector_angle, bezier
 
 
 
@@ -20,7 +21,7 @@ class CircleNode():
         self.x = x
         self.y = y
         self.avg = 0
-        self.color = None
+        self.color = index
 
 
 
@@ -41,6 +42,7 @@ class Circle(Plot):
     """
         A class which represents a circle plot of a graph.
     """
+    name = 'circle'
 
     def __init__(self, graph, axes, title=None, time=None):
         super().__init__(graph, axes, title, time)
@@ -92,10 +94,10 @@ class Circle(Plot):
         pos = {}
         pos['x'] = [node.x for node in self.nodes]
         pos['y'] = [node.y for node in self.nodes]
-
-        colors = self.colors(n)
+        colors = [x for x in range(0, n)]
+        cmap = self.colormap('Set3', 1)
         ax_node = self.axes.scatter(
-            pos['x'], pos['y'], s=500, c=colors, cmap='Set2', zorder=1
+            pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
 
@@ -114,46 +116,31 @@ class Circle(Plot):
             if edge.edge.directed:
                 color=self.get_node(edge.edge.node1.label).color
             else:
-                color='black'
-            bezier = self.bezier(edge.p1, edge.p2)
+                color='lightgrey'
+            bezier_edge = bezier(edge.p1, edge.p2)
             self.axes.plot(
-                bezier['x'],
-                bezier['y'],
+                bezier_edge['x'],
+                bezier_edge['y'],
                 linestyle='-',
                 color=color,
                 zorder=0
             )
             if edge.edge.directed:
                 self.axes.plot(
-                    bezier['x'][6],
-                    bezier['y'][6],
+                    bezier_edge['x'][6],
+                    bezier_edge['y'][6],
                     'o',
                     color=self.get_node(edge.edge.node1.label).color,
                     zorder=1
                 )
             if self.time is None and not self.graph.static:
                 self.axes.text(
-                    bezier['x'][8], bezier['y'][8],
+                    bezier_edge['x'][8], bezier_edge['y'][8],
                     edge.edge.start, 
                     color='black', backgroundcolor='white',
                     fontsize='x-small',
                     zorder=1
                 )
-
-
-    def bezier(self, p1, p2, p0=(0,0), nt=20):
-        bezier = {}
-        bezier['x'] = []
-        bezier['y'] = []
-        for i in range(0, nt+1):
-            t = (1/nt) * i
-            bezier['x'].append(
-                (p1['x']-2*p0[0]+p2['x'])*math.pow(t,2) + 2*t*(p0[0]-p1['x']) + p1['x']
-            )
-            bezier['y'].append(
-                (p1['y']-2*p0[0]+p2['y'])*math.pow(t,2) + 2*t*(p0[0]-p1['y']) + p1['y']
-            )
-        return bezier
 
 
     def cleanup(self):
@@ -166,5 +153,6 @@ class Circle(Plot):
         y0, y1 = ax.get_ylim()
         ax.set_aspect((x1 - x0) / (y1 - y0))
         ax.margins(0.1, 0.1)
+        ax.set_facecolor('slategrey')
         for spine in ['top', 'bottom', 'right', 'left']:
             ax.spines[spine].set_color('lightgrey')

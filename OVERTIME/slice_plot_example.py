@@ -11,8 +11,6 @@ graph1.details()
 myplotter = Plotter()
 myplotter.single(Slice, graph1)
 
-
-
 graph = TemporalGraph('TestNetwork', data=CSVInput('./network.csv'))
 graph.add_node('x')
 graph.add_edge('f', 'a', 3, 7)

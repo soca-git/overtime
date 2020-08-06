@@ -6,6 +6,7 @@ from plots.plotter import Plotter
 from plots.circle import Circle
 
 
+
 graph = TemporalGraph('TestNetwork1', data=CSVInput('./network.csv'))
 
 # digraph = TemporalDiGraph('TestNetwork2', data=CSVInput('./network.csv'))

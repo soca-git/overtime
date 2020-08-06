@@ -1,8 +1,5 @@
 
 import matplotlib.pyplot as plt
-from matplotlib import cm
-from matplotlib.colors import ListedColormap
-
 from plots.plot import Plot
 
 
@@ -26,6 +23,7 @@ class Slice(Plot):
     """
         A class which represents a slice plot of a graph.
     """
+    name = 'slice'
 
     def __init__(self, graph, axes, title=None):
         super().__init__(graph, axes, title)
@@ -53,11 +51,6 @@ class Slice(Plot):
             pos['x'], pos['y'], s=50, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
-
-
-    def colormap(self, name, n):
-        cmap = cm.get_cmap(name)
-        return ListedColormap(cmap.colors*n)
 
 
     def cleanup(self):
