@@ -44,8 +44,8 @@ class Circle(Plot):
     """
     name = 'circle'
 
-    def __init__(self, graph, axes, title=None, time=None):
-        super().__init__(graph, axes, title, time)
+    def __init__(self, graph, axes, title=None, time=None, ordered=True):
+        super().__init__(graph, axes, title, time, ordered)
 
 
     def create_nodes(self):
@@ -56,7 +56,8 @@ class Circle(Plot):
             y = math.sin(2 * math.pi * i / n) 
             self.nodes.append(CircleNode(node, i, x, y))
             i += 1
-        self.order_nodes(100)
+        if self.ordered:
+            self.order_nodes(self.graph.edges.count())
 
 
     def get_node(self, label):
@@ -95,7 +96,7 @@ class Circle(Plot):
         pos['x'] = [node.x for node in self.nodes]
         pos['y'] = [node.y for node in self.nodes]
         colors = [x for x in range(0, n)]
-        cmap = self.colormap('Set3', 1)
+        cmap = self.colormap('Set3', math.ceil(n/10))
         ax_node = self.axes.scatter(
             pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )

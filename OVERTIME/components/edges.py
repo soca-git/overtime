@@ -137,7 +137,7 @@ class TemporalEdges(Edges):
         if not self.exists(uid):
             edge = TemporalEdge(node_labels[0], node_labels[1], nodes, graph, tstart, tend)
             self.set.append(edge)
-            self.set = self.setsort()
+            self.set = self.setsort(self.set)
         return self.get_edge_by_uid(uid)
 
 
@@ -145,7 +145,7 @@ class TemporalEdges(Edges):
         subset = TemporalEdges()
         for edge in alist:
             subset.set.append(edge)
-        subset.set = subset.setsort()
+        subset.set = subset.setsort(subset.set)
         return subset
 
 
@@ -165,12 +165,16 @@ class TemporalEdges(Edges):
         return self.subset(edge for edge in self.set if edge.isactive(time))
 
 
-    def setsort(self, key='start'):
+    def setsort(self, aset, key='start'):
         if key is 'end':
-            return sorted(self.set, key=lambda x:x.end, reverse=False)
+            return sorted(aset, key=lambda x:x.end, reverse=False)
         elif key is 'start':
             # look at operator.attrgetter for getting start time from edge (optimized)
-            return sorted(self.set, key=lambda x:x.start, reverse=False)
+            return sorted(aset, key=lambda x:x.start, reverse=False)
+
+
+    def ulabels(self):
+        return sorted(set([label for label in self.labels()]), key=lambda x:self.labels().index(x))
         
 
     def start_times(self):
@@ -186,7 +190,7 @@ class TemporalEdges(Edges):
     
 
     def end(self):
-        return self.setsort()[-1].end + 1
+        return self.set[-1].end + 1
 
 
     def timespan(self):

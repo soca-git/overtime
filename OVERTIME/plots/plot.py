@@ -10,7 +10,7 @@ class Plot:
         Base Plot class.
     """
 
-    def __init__(self, graph, axes, title=None, time=None):
+    def __init__(self, graph, axes, title=None, time=None, ordered=True):
         self.graph = graph
         self.title = title
         self.time = time
@@ -18,6 +18,7 @@ class Plot:
         self.edges = []
         self.labels = []
         self.axes = axes
+        self.ordered = ordered
         self.create()
         self.draw()
 

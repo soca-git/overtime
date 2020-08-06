@@ -25,17 +25,18 @@ class Slice(Plot):
     """
     name = 'slice'
 
-    def __init__(self, graph, axes, title=None):
-        super().__init__(graph, axes, title)
+    def __init__(self, graph, axes, title=None, time=None, ordered=False):
+        super().__init__(graph, axes, title, time, False)
 
 
     def create_edges(self):
         step = 1
         for label in self.graph.edges.ulabels():
             self.labels.append(label)
+        
 
-        for edge in self.graph.edges.set:
-            for t in self.graph.edges.timespan():
+        for t in self.graph.edges.timespan():
+            for edge in self.graph.edges.set:
                 if edge.isactive(t):
                     i = self.labels.index(edge.label)
                     self.edges.append(SliceEdge(edge, i, x=(t*step), y=(i*step)))

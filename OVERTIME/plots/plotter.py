@@ -14,10 +14,10 @@ class Plotter:
         self.plot = None
 
 
-    def single(self, plot, graph, save=False):
+    def single(self, plot, graph, save=False, ordered=True):
         self.plot = plot
         figure, axes = plt.subplots(1)
-        self.plot(graph, axes, graph.label)
+        self.plot(graph, axes, graph.label, ordered=ordered)
         figure.set_size_inches(7, 5)
         figure.show()
         if save:
@@ -29,15 +29,15 @@ class Plotter:
             self.single(plot, graph, save)
 
 
-    def gif(self, plot, graphs, save=False, file_name='graph'):
+    def gif(self, plot, graphs, save=False, ordered=True, file_name='graph'):
         for graph in graphs:
-            self.single(plot, graph, True)
+            self.single(plot, graph, save=True, ordered=ordered)
         labels = [file_name + '/' + graph.label + '.png' for graph in graphs]
         images = [imageio.imread(f) for f in labels]
         imageio.mimsave(file_name + '/' + file_name + '.gif', images, duration=2)
 
 
-    def multi(self, plot, graphs, save=False, file_name='multi'):
+    def multi(self, plot, graphs, save=False, ordered=True, file_name='multi'):
         self.plot = plot
         ncols = math.ceil(math.sqrt(len(graphs)))
         nrows = math.ceil(len(graphs)/ncols)
@@ -46,14 +46,14 @@ class Plotter:
         flag = False
         for row in axes:
             if nrows == 1:
-                self.plot(graphs[i], row, graphs[i].label)
+                self.plot(graphs[i], row, graphs[i].label, ordered=ordered)
                 i += 1
                 if i == len(graphs):
                     flag = True
                     break
             else:
                 for col in row:
-                    self.plot(graphs[i], col, graphs[i].label)
+                    self.plot(graphs[i], col, graphs[i].label, ordered=ordered)
                     i += 1
                     if i == len(graphs):
                         flag = True
