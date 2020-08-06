@@ -1,4 +1,5 @@
 
+#from random import shuffle
 import matplotlib.pyplot as plt
 from plots.plot import Plot
 
@@ -34,7 +35,6 @@ class Slice(Plot):
         for label in self.graph.edges.ulabels():
             self.labels.append(label)
         
-
         for t in self.graph.edges.timespan():
             for edge in self.graph.edges.set:
                 if edge.isactive(t):
@@ -47,7 +47,7 @@ class Slice(Plot):
         pos['x'] = [edge.x for edge in self.edges]
         pos['y'] = [edge.y for edge in self.edges]
         colors = pos['y']
-        cmap = self.colormap('Set3', 1000)
+        cmap = self.set3colormap(self.graph.edges.count())
         ax_node = self.axes.scatter(
             pos['x'], pos['y'], s=50, c=colors, cmap=cmap, zorder=1
         )

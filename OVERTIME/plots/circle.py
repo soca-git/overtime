@@ -96,7 +96,7 @@ class Circle(Plot):
         pos['x'] = [node.x for node in self.nodes]
         pos['y'] = [node.y for node in self.nodes]
         colors = [x for x in range(0, n)]
-        cmap = self.colormap('Set3', math.ceil(n/10))
+        cmap = self.set3colormap(n)
         ax_node = self.axes.scatter(
             pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )

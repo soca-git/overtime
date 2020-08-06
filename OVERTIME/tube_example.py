@@ -4,18 +4,18 @@ from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
 from plots.slice import Slice
+from algorithms.foremost import CalculateForemostTree
 
 
-tube = TemporalDiGraph('Tube Network', data=CSVInput('./tube.csv'))
+tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./tube.csv'))
 tube.details()
 
 plotter = Plotter()
 plotter.single(Circle, tube, ordered=True)
 plotter.single(Slice, tube, save=True)
 
-snapshots = []
-for t in tube.edges.timespan():
-    snapshots.append(tube.get_snapshot(t))
-plotter.multi(Circle, snapshots, save=True, ordered=True)
+plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
+plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
+
 
 input("Press enter key to exit...")

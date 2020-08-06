@@ -32,12 +32,13 @@ class CSVInput(Input):
             data = self.data
             ne = 0
             for row in reader:
-                data['edges'][ne] = {}
-                data['edges'][ne]['node1'] = row['node1']
-                data['edges'][ne]['node2'] = row['node2']
-                data['edges'][ne]['tstart'] = row['tstart']
-                if 'end' in row:
-                    data['edges'][ne]['tend'] = row['tend']
-                else:
-                    data['edges'][ne]['tend'] = None
-                ne += 1
+                if any(x.strip() for x in row):
+                    data['edges'][ne] = {}
+                    data['edges'][ne]['node1'] = row['node1']
+                    data['edges'][ne]['node2'] = row['node2']
+                    data['edges'][ne]['tstart'] = row['tstart']
+                    if 'end' in row:
+                        data['edges'][ne]['tend'] = row['tend']
+                    else:
+                        data['edges'][ne]['tend'] = None
+                    ne += 1

@@ -1,4 +1,5 @@
 
+import math
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.colors import ListedColormap
@@ -67,6 +68,7 @@ class Plot:
         pass
 
 
-    def colormap(self, name, n):
-        cmap = cm.get_cmap(name)
+    def set3colormap(self, n):
+        n = math.ceil(n/12)
+        cmap = cm.get_cmap('Set3')
         return ListedColormap(cmap.colors*n)
