@@ -14,12 +14,12 @@ class Plotter:
         self.plot = None
 
 
-    def single(self, plot, graph, save=False, ordered=True):
+    def single(self, plot, graph, save=False, ordered=True, slider=False):
         self.plot = plot
         figure, axes = plt.subplots(1)
-        self.plot(graph, axes, graph.label, ordered=ordered)
-        figure.set_size_inches(7, 5)
-        figure.show()
+        plt.subplots_adjust(left=0.18, bottom=0.1, right=0.95, top=0.95, wspace=0, hspace=0)
+        self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)
+        figure.show()        
         if save:
             self.save(figure, plot.name, graph.label)
 
@@ -46,14 +46,14 @@ class Plotter:
         flag = False
         for row in axes:
             if nrows == 1:
-                self.plot(graphs[i], row, graphs[i].label, ordered=ordered)
+                self.plot(graphs[i], figure, row, graphs[i].label, ordered=ordered)
                 i += 1
                 if i == len(graphs):
                     flag = True
                     break
             else:
                 for col in row:
-                    self.plot(graphs[i], col, graphs[i].label, ordered=ordered)
+                    self.plot(graphs[i], figure, col, graphs[i].label, ordered=ordered)
                     i += 1
                     if i == len(graphs):
                         flag = True

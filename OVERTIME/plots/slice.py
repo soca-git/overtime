@@ -1,6 +1,8 @@
 
 #from random import shuffle
 import matplotlib.pyplot as plt
+import matplotlib.ticker as plticker
+from matplotlib.widgets import Slider
 from plots.plot import Plot
 
 
@@ -26,8 +28,8 @@ class Slice(Plot):
     """
     name = 'slice'
 
-    def __init__(self, graph, axes, title=None, time=None, ordered=False):
-        super().__init__(graph, axes, title, time, False)
+    def __init__(self, graph, figure, axes, title=None, time=None, ordered=False, slider=False):
+        super().__init__(graph, figure, axes, title, time, False, slider)
 
 
     def create_edges(self):
@@ -48,7 +50,7 @@ class Slice(Plot):
         pos['y'] = [edge.y for edge in self.edges]
         colors = pos['y']
         cmap = self.set3colormap(self.graph.edges.count())
-        ax_node = self.axes.scatter(
+        self.axes.scatter(
             pos['x'], pos['y'], s=50, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
@@ -57,13 +59,31 @@ class Slice(Plot):
     def cleanup(self):
         ax = self.axes
         times = list(set([edge.x for edge in self.edges]))
+        loc = plticker.MultipleLocator(base=1)
+        ax.xaxis.set_major_locator(loc)
         ax.set_xticks(times)
         label_ticks = [y for y in range(0, len(self.labels))]
         ax.set_yticks(label_ticks)
         ax.set_yticklabels(self.labels)
-        ax.set_xlabel('Time')
+        #ax.set_xlabel('Time')
         ax.set_ylabel('Edge')
         ax.grid(color='lightgrey', linestyle='-', linewidth=0.1)
         ax.set_facecolor('slategrey')
+        plt.setp(ax.get_xticklabels(), rotation=90)
+        self.figure.set_size_inches(32, 16)
         for spine in ['top', 'bottom', 'right', 'left']:
             ax.spines[spine].set_color('lightgrey')
+        if self.has_slider:
+            self.slider(times[0]-1, times[-1]+1, 100)
+
+
+    def slider(self, min, max, step):
+        self.axes.set(xlim=(min-1, step))
+        axpos = plt.axes([0.2, 0.025, 0.65, 0.03])
+        tpos = Slider(axpos, 'Time', min, max)
+        def update(val):
+            pos = tpos.val
+            self.axes.set(xlim=(pos, pos+step))
+            self.figure.canvas.draw_idle()
+        tpos.on_changed(update)
+        plt.show()

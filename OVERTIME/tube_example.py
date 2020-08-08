@@ -11,11 +11,11 @@ tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./tube.csv'))
 tube.details()
 
 plotter = Plotter()
-plotter.single(Circle, tube, ordered=True)
-plotter.single(Slice, tube, save=True)
+# plotter.single(Circle, tube, ordered=True)
+plotter.single(Slice, tube, save=True, slider=True)
 
-plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
-plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
+# plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
+# plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
 
 
 input("Press enter key to exit...")

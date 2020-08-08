@@ -1,5 +1,5 @@
 node1,node2,tstart,tend
-NorthActon,WhiteCity,0,5
+NorthActon,WhiteCity,0,15
 WhiteCity,NottingHillGate,5,10
 NottingHillGate,BondStreet,10,15
 BondStreet,OxfordCircus,15,20
@@ -17,39 +17,39 @@ Holborn,TottenhamCourtRoad,135,140
 Bank,Holborn,130,135
 LiverpoolStreet,Bank,125,130
 MileEnd,LiverpoolStreet,120,125
-Acton Town,Hammersmith,60,65
-Hammersmith,Earl's Court,65,70
-Earl's Court,South Kensington,70,75
-South Kensington,Hyde Park Corner,75,80
-Hyde Park Corner,Piccadilly Circus,80,85
-Piccadilly Circus,Leicester Square,85,90
-Leicester Square,Holborn Square,90,95
-Holborn Square,King's Cross,95,100
-King's Cross,Caledonian Road,100,105
-Hammersmith,Acton Town,280,285
-Earl's Court,Hammersmith,275,280
-South Kensington,Earl's Court,270,275
-Hyde Park Corner,South Kensington,265,270
-Piccadilly Circus,Hyde Park Corner,260,265
-Leicester Square,Piccadilly Circus,255,260
-Holborn Square,Leicester Square,250,255
-King's Cross,Holborn Square,245,250
-Caledonian Road,King's Cross,240,245
-Hammersmith,Acton Town,180,185
-Earl's Court,Hammersmith,175,180
-South Kensington,Earl's Court,170,175
-Hyde Park Corner,South Kensington,165,170
-Piccadilly Circus,Hyde Park Corner,160,165
-Leicester Square,Piccadilly Circus,155,160
-Holborn Square,Leicester Square,150,155
-King's Cross,Holborn Square,145,150
-Caledonian Road,King's Cross,140,145
-Hammersmith,Acton Town,80,85
-Earl's Court,Hammersmith,75,80
-South Kensington,Earl's Court,70,75
-Hyde Park Corner,South Kensington,65,70
-Piccadilly Circus,Hyde Park Corner,60,65
-Leicester Square,Piccadilly Circus,55,60
-Holborn Square,Leicester Square,50,55
-King's Cross,Holborn Square,45,50
-Caledonian Road,King's Cross,40,45
+ActonTown,Hammersmith,60,65
+Hammersmith,Earl'sCourt,65,70
+Earl'sCourt,SouthKensington,70,75
+SouthKensington,HydeParkCorner,75,80
+HydeParkCorner,PiccadillyCircus,80,85
+PiccadillyCircus,LeicesterSquare,85,90
+LeicesterSquare,HolbornSquare,90,95
+HolbornSquare,King'sCross,95,100
+King'sCross,CaledonianRoad,100,105
+Hammersmith,ActonTown,280,285
+Earl'sCourt,Hammersmith,275,280
+SouthKensington,Earl'sCourt,270,275
+HydeParkCorner,SouthKensington,265,270
+PiccadillyCircus,HydeParkCorner,260,265
+LeicesterSquare,PiccadillyCircus,255,260
+HolbornSquare,LeicesterSquare,250,255
+King'sCross,HolbornSquare,245,250
+CaledonianRoad,King'sCross,240,245
+Hammersmith,ActonTown,180,185
+Earl'sCourt,Hammersmith,175,180
+SouthKensington,Earl'sCourt,170,175
+HydeParkCorner,SouthKensington,165,170
+PiccadillyCircus,HydeParkCorner,160,165
+LeicesterSquare,PiccadillyCircus,155,160
+HolbornSquare,LeicesterSquare,150,155
+King'sCross,HolbornSquare,145,150
+CaledonianRoad,King'sCross,140,145
+Hammersmith,ActonTown,80,85
+Earl'sCourt,Hammersmith,75,80
+SouthKensington,Earl'sCourt,70,75
+HydeParkCorner,SouthKensington,65,70
+PiccadillyCircus,HydeParkCorner,60,65
+LeicesterSquare,PiccadillyCircus,55,60
+HolbornSquare,LeicesterSquare,50,55
+King'sCross,HolbornSquare,45,50
+CaledonianRoad,King'sCross,40,45

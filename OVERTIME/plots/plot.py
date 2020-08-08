@@ -11,15 +11,17 @@ class Plot:
         Base Plot class.
     """
 
-    def __init__(self, graph, axes, title=None, time=None, ordered=True):
+    def __init__(self, graph, figure, axes, title=None, time=None, ordered=True, slider=False):
         self.graph = graph
         self.title = title
         self.time = time
         self.nodes = []
         self.edges = []
         self.labels = []
+        self.figure = figure
         self.axes = axes
-        self.ordered = ordered
+        self.is_ordered = ordered
+        self.has_slider = slider
         self.create()
         self.draw()
 
