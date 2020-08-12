@@ -37,6 +37,8 @@ class Plot:
         self.draw_nodes()
         self.draw_edges()
         self.cleanup()
+        if not self.has_slider:
+            self.figure.show()
 
 
     def create_nodes(self):

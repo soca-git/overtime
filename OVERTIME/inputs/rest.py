@@ -1,5 +1,6 @@
 
 import requests as reqs
+from time import sleep
 
 
 
@@ -43,6 +44,7 @@ class TflRest(Rest):
 
 
     def get_journey(self, from_id, to_id, time, timel='departing'):
+        sleep(1)
         return reqs.get(
             self.base + '/Journey/JourneyResults/' + from_id + '/to/' + to_id
             + '?mode=tube'

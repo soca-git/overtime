@@ -18,8 +18,7 @@ class Plotter:
         self.plot = plot
         figure, axes = plt.subplots(1)
         plt.subplots_adjust(left=0.18, bottom=0.1, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)
-        figure.show()        
+        self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)    
         if save:
             self.save(figure, plot.name, graph.label)
 

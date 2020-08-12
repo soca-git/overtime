@@ -1,6 +1,7 @@
 
 import csv
-from time import sleep
+import datetime
+import re
 from inputs.rest import TflRest
 
 
@@ -52,15 +53,39 @@ class TubeInput(Input):
         A class used to create input data from the tube network.
     """
 
-    def __init__(self, lines, times):
+    def __init__(self, lines, times, path='tube.csv'):
         super().__init__()
         self.api = TflRest()
         self.lines = lines
         self.times = times
+        self.path = path
         for line in lines:
             for time in times:
                 self.generate_journeys(line, time)
             
+
+    def generate_journeys(self, line_name, time):
+        endpoints = self.get_endpoints(line_name)
+        for direction, stations in endpoints.items():
+            line = self.get_journey(stations['origin'], stations['destination'], time)
+            print(line)
+            print('{} ---> {}, {} ({} mins)'.format(stations['origin'], stations['destination'], direction, line['duration']))
+            current_time = time
+            for n in range(0, len(line['stops'])):
+                try:
+                    journey = self.get_journey(line['stops'][n], line['stops'][n+1], current_time)
+                    current_time = self.update_time(journey['arrivalDateTime'])
+                    self.data['edges']["-".join([line_name, direction, str(current_time)])] = {
+                        'node1': journey['stations'][0],
+                        'node2': journey['stations'][-1],
+                        'tstart': self.convert_time(journey['startDateTime']),
+                        'tend': self.convert_time(journey['arrivalDateTime']),
+                        'line': journey['name']
+                    }
+                    self.write_csv()
+                except IndexError:
+                    break
+
 
     def get_endpoints(self, line):
         endpoints = {}
@@ -73,31 +98,38 @@ class TubeInput(Input):
         return endpoints
 
 
-    def generate_journeys(self, line_name, time):
-        endpoints = self.get_endpoints(line_name)
-        for direction, stations in endpoints.items():
-            line = self.get_journey(stations['origin'], stations['destination'], time)
-            for x, line_journey in line.items():
-                print(line_journey)
-                print('{} ---> {}, {} ({} mins)'.format(stations['origin'], stations['destination'], direction, line_journey['duration']))
-                current_time = time
-                for n in range(0, len(line_journey['stops'])):
-                    try:
-                        for i, journey in self.get_journey(line_journey['stops'][n], line_journey['stops'][n+1], current_time).items():
-                            sleep(1)
-                            current_time = self.get_time(journey['startDateTime'])
-                            self.data['edges']["-".join([line_name, direction, str(current_time)])] = {
-                                'node1': journey['stations'][0],
-                                'node2': journey['stations'][-1],
-                                'tstart': self.convert_time(journey['startDateTime']),
-                                'tend': self.convert_time(journey['arrivalDateTime'])
-                            }
-                    except IndexError:
-                        break
+    def get_journey(self, origin, destination, time):
+        response = self.api.get_journey(origin, destination, time)
+        jdata = {}
+        for journey in response['journeys']:
+            jdata = {
+                'startDateTime': journey['startDateTime'],
+                'arrivalDateTime': journey['arrivalDateTime']
+            }
+            for leg in journey['legs']:
+                if 'Walk' in leg['instruction']['summary']:
+                    continue
+                try:
+                    jdata['name'] = leg['instruction']['summary']
+                    jdata['departurePoint'] = leg['departurePoint']['naptanId']
+                    jdata['arrivalPoint'] = leg['arrivalPoint']['naptanId']
+                    jdata['duration'] = leg['duration']
+                    jdata['stops'] = [origin]
+                    jdata['stations'] = [leg['departurePoint']['commonName'].replace(' Underground Station', '')]
+                    for station in leg['path']['stopPoints']:
+                        jdata['stops'].append(station['id'])
+                        jdata['stations'].append(station['name'].replace(' Underground Station', ''))
+                except KeyError:
+                    continue
+        return jdata
 
 
-    def get_time(self, time):
-        return "".join(time.split('T')[-1].split(':')[0:2])
+    def update_time(self, time):
+        time = [int(i) for i in re.split('T|-|:', time)]
+        time = datetime.datetime(time[0], time[1], time[2], time[3], time[4])
+        delta = datetime.timedelta(minutes=1)
+        time = time - delta
+        return "".join(str(time).split(' ')[-1].split(':')[0:2])
 
 
     def convert_time(self, time):
@@ -107,28 +139,17 @@ class TubeInput(Input):
         return minutes + hours * 60
 
 
-    def get_journey(self, origin, destination, time):
-        journey_data = {}
-        response = self.api.get_journey(origin, destination, time)
-        n = 0
-        for journey in response['journeys']:
-            journey_data[n] = {
-                'startDateTime': journey['startDateTime'],
-                'arrivalDateTime': journey['arrivalDateTime']
-            }
-            for leg in journey['legs']:
-                #print(leg)
-                journey_data[n]['name'] = leg['instruction']['summary']
-                journey_data[n]['departurePoint'] = leg['departurePoint']['naptanId']
-                journey_data[n]['arrivalPoint'] = leg['arrivalPoint']['naptanId']
-                journey_data[n]['duration'] = leg['duration']
-                journey_data[n]['stops'] = [origin]
-                journey_data[n]['stations'] = [leg['departurePoint']['commonName'].replace(' Underground Station', '')]
-                for station in leg['path']['stopPoints']:
-                    journey_data[n]['stops'].append(station['id'])
-                    journey_data[n]['stations'].append(station['name'].replace(' Underground Station', ''))
-                #n += 1
-        return journey_data
+    def write_csv(self):
+        cols = ['node1', 'node2', 'tstart', 'tend', 'line']
+        try:
+            with open(self.path, 'w') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=cols)
+                writer.writeheader()
+                for key, data in self.data['edges'].items():
+                    writer.writerow(data)
+
+        except IOError:
+            print("I/O Error; error writing to csv.")
 
 
     def print(self):

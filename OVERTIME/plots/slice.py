@@ -74,13 +74,13 @@ class Slice(Plot):
         for spine in ['top', 'bottom', 'right', 'left']:
             ax.spines[spine].set_color('lightgrey')
         if self.has_slider:
-            self.slider(times[0]-1, times[-1]+1, 100)
+            self.slider(times[0], times[-1], 30)
 
 
     def slider(self, min, max, step):
         self.axes.set(xlim=(min-1, step))
         axpos = plt.axes([0.2, 0.025, 0.65, 0.03])
-        tpos = Slider(axpos, 'Time', min, max)
+        tpos = Slider(axpos, 'Time', min-1, max+1-step)
         def update(val):
             pos = tpos.val
             self.axes.set(xlim=(pos, pos+step))
