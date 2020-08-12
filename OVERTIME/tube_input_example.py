@@ -17,5 +17,6 @@ tube = TemporalDiGraph('TubeNetwork', data=tube_input)
 plotter = Plotter()
 plotter.single(Slice, tube, slider=False)
 plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
+plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
 
 input("Press enter key to exit...")

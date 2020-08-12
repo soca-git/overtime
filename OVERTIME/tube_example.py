@@ -12,10 +12,10 @@ tube.details()
 
 plotter = Plotter()
 # plotter.single(Circle, tube, ordered=True)
-plotter.single(Slice, tube, save=True, slider=True)
+# plotter.single(Slice, tube)
 
-# plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
-# plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
-
+plotter.single(Circle, tube.get_graph_by_interval((840, 860)), ordered=True, save=True)
+# plotter.single(Circle, CalculateForemostTree(tube.get_graph_by_interval((840, 860)), 'Blackhorse Road'), ordered=True)
+# plotter.single(Slice, CalculateForemostTree(tube.get_graph_by_interval((840, 860)), 'Blackhorse Road'))
 
 input("Press enter key to exit...")

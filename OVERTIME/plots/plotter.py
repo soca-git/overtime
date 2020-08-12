@@ -71,4 +71,9 @@ class Plotter:
 
 
     def save(self, figure, plot_name, label):
-        figure.savefig(label + '_' + plot_name + '.png', format='png')
+        def update_label(label):
+            return label.replace(' ', '_').replace(':','').replace(',','')
+
+        label = update_label(label)
+        plot_name = update_label(plot_name)
+        figure.savefig(label + '-' + plot_name + '.png', format='png')

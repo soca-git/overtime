@@ -83,9 +83,9 @@ Mile End,Stratford,949,952,Central line to Stratford
 Stratford,Leyton,955,957,Central line to Leyton
 Leyton,Leytonstone,960,963,Central line to Leytonstone
 Leytonstone,Wanstead,969,970,Central line to Wanstead
-Wanstead,Gants Hill,976,1004,Central line to Gants Hill
-Redbridge,Gants Hill,1011,1012,Central line to Gants Hill
-Gants Hill,Newbury Park,1017,1020,Central line to Newbury Park
-Newbury Park,Barkingside,1026,1027,Central line to Barkingside
-Barkingside,Fairlop,1036,1037,Central line to Fairlop
-Fairlop,Hainault,1041,1043,Central line to Hainault
+Wanstead,Redbridge,976,977,Central line to Redbridge
+Redbridge,Gants Hill,983,985,Central line to Gants Hill
+Gants Hill,Newbury Park,990,993,Central line to Newbury Park
+Newbury Park,Barkingside,1002,1003,Central line to Barkingside
+Barkingside,Fairlop,1013,1014,Central line to Fairlop
+Fairlop,Hainault,1019,1021,Central line to Hainault

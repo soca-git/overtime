@@ -13,6 +13,14 @@ def vector_angle(x, y):
     return theta
 
 
+def circle_label_angle(x, y):
+    angle = math.degrees(vector_angle(x, y))
+    if angle > 90 and angle < 270:
+        return angle - 180
+    else:
+        return angle
+
+
 def bezier(p1, p2, p0=(0,0), nt=20):
     bezier = {}
     bezier['x'] = []

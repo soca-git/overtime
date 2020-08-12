@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
 from plots.plot import Plot
-from plots.utils import vector_angle, bezier
+from plots.utils import vector_angle, bezier, circle_label_angle
 
 
 
@@ -53,7 +53,7 @@ class Circle(Plot):
         i = 0
         for node in self.graph.nodes.set:
             x = math.cos(2 * math.pi * i / n)
-            y = math.sin(2 * math.pi * i / n) 
+            y = math.sin(2 * math.pi * i / n)
             self.nodes.append(CircleNode(node, i, x, y))
             i += 1
         if self.is_ordered:
@@ -73,7 +73,7 @@ class Circle(Plot):
                 if not node.index == i:
                     node.index = i
                     node.x = math.cos(2 * math.pi * i / n)
-                    node.y = math.sin(2 * math.pi * i / n) 
+                    node.y = math.sin(2 * math.pi * i / n)
                 sum_x = node.x
                 sum_y = node.y
                 for neighbour in node.node.neighbours().set:
@@ -88,7 +88,7 @@ class Circle(Plot):
             p1 = {'x': self.get_node(edge.node1.label).x, 'y': self.get_node(edge.node1.label).y}
             p2 = {'x': self.get_node(edge.node2.label).x, 'y': self.get_node(edge.node2.label).y}
             self.edges.append(CircleEdge(edge, p1, p2))
-
+            
 
     def draw_nodes(self):
         n = self.graph.nodes.count()
@@ -107,8 +107,8 @@ class Circle(Plot):
             node.color = ax_node.to_rgba(colors[i])
             self.axes.text(
                 node.x, node.y,
-                node.label, color='white',
-                rotation=5,
+                node.label, color='midnightblue',
+                rotation=circle_label_angle(node.x, node.y),
                 ha='center', va='center',
             )
             i += 1
@@ -138,7 +138,7 @@ class Circle(Plot):
                 )
             if self.time is None and not self.graph.static:
                 self.axes.text(
-                    bezier_edge['x'][8], bezier_edge['y'][8],
+                    bezier_edge['x'][11], bezier_edge['y'][11],
                     edge.edge.start, 
                     color='black', backgroundcolor='white',
                     fontsize='x-small',

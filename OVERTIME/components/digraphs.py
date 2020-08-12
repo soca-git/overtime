@@ -42,3 +42,12 @@ class TemporalDiGraph(TemporalGraph):
         for node in self.nodes.set:
             graph.add_node(node.label)
         return graph
+
+
+    def get_graph_by_interval(self, interval):
+        label = self.label + ' [time: ' + str(interval) + ']'
+        graph = TemporalDiGraph(label)
+        graph.edges = self.edges.get_edge_by_interval(interval)
+        for node in self.nodes.set:
+            graph.add_node(node.label)
+        return graph
