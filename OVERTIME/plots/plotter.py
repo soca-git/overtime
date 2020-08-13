@@ -14,13 +14,15 @@ class Plotter:
         self.plot = None
 
 
-    def single(self, plot, graph, save=False, ordered=True, slider=False):
+    def single(self, plot, graph, save=False, ordered=True, slider=True):
         self.plot = plot
         figure, axes = plt.subplots(1)
-        plt.subplots_adjust(left=0.18, bottom=0.1, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)    
+        figure.set_size_inches(14, 10)
+        plot_object = self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)    
         if save:
             self.save(figure, plot.name, graph.label)
+        elif not plot_object.shown:
+            figure.show()
 
 
     def singles(self, plot, graphs, save=False):
@@ -41,6 +43,7 @@ class Plotter:
         ncols = math.ceil(math.sqrt(len(graphs)))
         nrows = math.ceil(len(graphs)/ncols)
         figure, axes = plt.subplots(nrows, ncols)
+        figure.set_size_inches(14, 10)
         i = 0
         flag = False
         for row in axes:
@@ -63,11 +66,11 @@ class Plotter:
         extra_axes = nrows * ncols - len(graphs)
         for x in range(ncols-extra_axes, ncols):
             figure.delaxes(axes[nrows-1][x])
-        figure.set_size_inches(14, 10)
         plt.tight_layout(pad=0.1)
-        figure.show()
         if save:
             self.save(figure, plot.name, file_name)
+        else:
+            figure.show()
 
 
     def save(self, figure, plot_name, label):

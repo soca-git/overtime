@@ -22,6 +22,7 @@ class Plot:
         self.axes = axes
         self.is_ordered = ordered
         self.has_slider = slider
+        self.shown = False
         self.create()
         self.draw()
 
@@ -37,8 +38,6 @@ class Plot:
         self.draw_nodes()
         self.draw_edges()
         self.cleanup()
-        if not self.has_slider:
-            self.figure.show()
 
 
     def create_nodes(self):

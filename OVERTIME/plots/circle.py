@@ -101,7 +101,6 @@ class Circle(Plot):
             pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
-
         i = 0
         for node in self.nodes:
             node.color = ax_node.to_rgba(colors[i])
@@ -147,6 +146,7 @@ class Circle(Plot):
 
 
     def cleanup(self):
+        plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0, hspace=0)
         ax = self.axes
         ax.set_yticklabels([])
         ax.set_xticklabels([])
