@@ -83,7 +83,7 @@ class Slice(Plot):
 
     def draw_yticks(self, ax, yticks):
         ax.set_yticks(yticks)
-        ax.set_yticklabels(self.labels, fontsize=9)            
+        ax.set_yticklabels(self.labels, fontsize=9)
 
 
     def draw_grid(self, ax):
