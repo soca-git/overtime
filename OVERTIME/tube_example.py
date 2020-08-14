@@ -16,6 +16,6 @@ plotter = Plotter()
 # plotter.single(Slice, CalculateForemostTree(tube.get_graph_by_interval((840, 860)), 'Blackhorse Road'), slider=True, save=True)
 plotter.single(Circle, CalculateForemostTree(tube.get_graph_by_interval((850, 920)), 'Warren Street'), ordered=True, save=True)
 # plotter.single(Circle, tube, save=True)
-plotter.single(Slice, tube, save=False)
+# plotter.single(Slice, tube, save=False)
 
 input("Press enter key to exit...")

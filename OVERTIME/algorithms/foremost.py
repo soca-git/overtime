@@ -8,7 +8,7 @@ def CalculateForemostTree(graph, root):
         A method which returns the foremost tree for a specified root.
     """
     if not graph.nodes.exists(root):
-        print('Error: ' + root + ' does not exist in this graph.')
+        print('Error: ' + str(root) + ' does not exist in this graph.')
         return None
 
     timespan = graph.edges.timespan()

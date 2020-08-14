@@ -109,14 +109,16 @@ class Circle(Plot):
                 node.label, color='midnightblue',
                 rotation=circle_label_angle(node.x, node.y),
                 ha='center', va='center',
+                fontsize='small'
             )
             i += 1
 
 
     def draw_edges(self):
         for edge in self.edges:
+            edge_color = self.get_node(edge.edge.node1.label).color
             if edge.edge.directed:
-                color=self.get_node(edge.edge.node1.label).color
+                color=edge_color
             else:
                 color='lightgrey'
             bezier_edge = bezier(edge.p1, edge.p2)
@@ -132,16 +134,18 @@ class Circle(Plot):
                     bezier_edge['x'][6],
                     bezier_edge['y'][6],
                     'o',
-                    color=self.get_node(edge.edge.node1.label).color,
+                    color=edge_color,
                     zorder=1
                 )
             if self.time is None and not self.graph.static:
                 self.axes.text(
-                    bezier_edge['x'][11], bezier_edge['y'][11],
+                    bezier_edge['x'][10], bezier_edge['y'][10],
                     edge.edge.start, 
-                    color='black', backgroundcolor='white',
-                    fontsize='x-small',
-                    zorder=1
+                    color='midnightblue', backgroundcolor=edge_color,
+                    fontsize='xx-small',
+                    horizontalalignment='center',
+                    rotation=circle_label_angle(bezier_edge['x'][11], bezier_edge['y'][11]),
+                    zorder=1,
                 )
 
 

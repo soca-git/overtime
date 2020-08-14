@@ -127,6 +127,6 @@ class Slice(Plot):
             flag = True
 
         if flag:
-            print('plt.show() activated. Please close the figure in order to continue.')
+            print('plt.show() activated. Please close the figure(s) in order to continue.')
             self.shown = True
             plt.show()
