@@ -1,4 +1,8 @@
 
+import math
+
+
+
 class Node:
     """
         A class which represents a node on a graph.
@@ -147,3 +151,11 @@ class ForemostNodes(Nodes):
         for node in alist:
             subset.set.add(node)
         return subset
+
+
+    def times(self):
+        return [node.time for node in self.set]
+
+
+    def get_reachable(self):
+        return self.subset([node for node in self.set if not math.isinf(node.time)])

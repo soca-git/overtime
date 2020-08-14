@@ -59,15 +59,14 @@ class Slice(Plot):
 
     def cleanup(self):
         plt.subplots_adjust(left=0.25, bottom=0.15, right=0.95, top=0.95, wspace=0, hspace=0)
-        ax = self.axes
-        times = list(set([edge.x for edge in self.edges]))
-        self.draw_xticks(ax, times)
-        edge_ticks = [y for y in range(0, len(self.labels))]
-        self.draw_yticks(ax, edge_ticks)
-        self.draw_grid(ax)
         self.figure.set_size_inches(32, 16)
-        for spine in ['top', 'bottom', 'right', 'left']:
-            ax.spines[spine].set_color('lightgrey')
+        times = list(set([edge.x for edge in self.edges]))
+        self.draw_xticks(self.axes, times)
+        edge_ticks = [y for y in range(0, len(self.labels))]
+        self.draw_yticks(self.axes, edge_ticks)
+        self.draw_grid(self.axes)
+        self.style_axis(self.axes)
+
         if self.has_slider:
             self.draw_sliders(times, edge_ticks, 79, 39)
         if not self.shown:
@@ -89,8 +88,13 @@ class Slice(Plot):
 
     def draw_grid(self, ax):
         ax.grid(color='lightgrey', linestyle='-', linewidth=0.1)
-        ax.set_facecolor('slategrey')
 
+
+    def style_axis(self, ax):
+        ax.set_facecolor('slategrey')
+        for spine in ['top', 'bottom', 'right', 'left']:
+            ax.spines[spine].set_color('lightgrey')
+    
 
     def draw_sliders(self, xticks, yticks, xstep, ystep):
         flag = False
@@ -118,7 +122,7 @@ class Slice(Plot):
                 self.axes.set(ylim=(pos, ytick_max))
                 self.figure.canvas.draw_idle()
             ypos.on_changed(updatey)
-            updatex((yticks[0]-1, ystep))
+            updatey((yticks[0]-1, ystep))
             self.figure.canvas.mpl_connect('resize_event', updatey)
             flag = True
 

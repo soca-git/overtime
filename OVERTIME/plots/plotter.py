@@ -21,7 +21,7 @@ class Plotter:
         plot_object = self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider)    
         if save:
             self.save(figure, plot.name, graph.label)
-        elif not plot_object.shown:
+        if not plot_object.shown:
             figure.show()
 
 

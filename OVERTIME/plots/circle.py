@@ -147,15 +147,30 @@ class Circle(Plot):
 
     def cleanup(self):
         plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0, hspace=0)
-        ax = self.axes
-        ax.set_yticklabels([])
+        self.remove_xticks(self.axes)
+        self.remove_yticks(self.axes)
+        self.set_aspect(self.axes)
+        self.style_axis(self.axes)
+
+
+    def remove_xticks(self, ax):
         ax.set_xticklabels([])
-        ax.set_yticks([])
         ax.set_xticks([])
+
+
+    def remove_yticks(self, ax):
+        ax.set_yticklabels([])
+        ax.set_yticks([])
+
+
+    def set_aspect(self, ax):
         x0, x1 = ax.get_xlim()
         y0, y1 = ax.get_ylim()
         ax.set_aspect((x1 - x0) / (y1 - y0))
         ax.margins(0.1, 0.1)
+
+
+    def style_axis(self, ax):
         ax.set_facecolor('slategrey')
         for spine in ['top', 'bottom', 'right', 'left']:
             ax.spines[spine].set_color('lightgrey')
