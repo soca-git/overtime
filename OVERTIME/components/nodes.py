@@ -131,6 +131,14 @@ class Nodes:
             node.print()
 
 
+    def add_data(self, data_frame):
+        for index, row in data_frame.iterrows():
+            if self.exists(row['label']):
+                node = self.get(row['label'])
+                for col in data_frame.columns:
+                    node.data[col] = row[col]
+
+
 class ForemostNodes(Nodes):
     """
         A class which represents a collection of foremost nodes.

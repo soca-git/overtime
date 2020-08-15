@@ -20,7 +20,7 @@ api.get_line_sequence('victoria', 'inbound')
 # for station in timetable['stations']:
 #     print(station['name'])
 
-response = api.get_journey('1000248', '1000173')
+response = api.get_journey('1000248', '1000173', '1400')
 print(response)
 
 for items in response:
@@ -39,7 +39,7 @@ station1 = api.get_station_by_name('TottenhamHale')
 station2 = api.get_station_by_name('Brixton')
 
 
-response = api.get_journey(station1['icsId'], station2['icsId'])
+response = api.get_journey(station1['icsId'], station2['icsId'], '1400')
 for journey in response['journeys']:
     print('NEW JOURNEY!!!')
     for leg in journey['legs']:

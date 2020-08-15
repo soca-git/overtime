@@ -50,7 +50,7 @@ class TflRest(Rest):
             + '?mode=tube'
             + '&useMultiModalCall=false'
             + '&routeBetweenEntrances=false'
-            + '&journeypreference=leastwalking'
+            + '&journeypreference=leasttime'
             + '&time=' + time
             + '&timel=' + timel
         ).json()

@@ -1,0 +1,73 @@
+node1,node2,tstart,tend,line
+Walthamstow Central,Blackhorse Road,959,961,Victoria line to Blackhorse Road
+Blackhorse Road,Tottenham Hale,959,960,Victoria line to Tottenham Hale
+Tottenham Hale,Seven Sisters,957,958,Victoria line to Seven Sisters
+Seven Sisters,Finsbury Park,955,958,Victoria line to Finsbury Park
+Finsbury Park,Highbury & Islington,956,958,Victoria line to Highbury & Islington
+Highbury & Islington,King's Cross St. Pancras,956,959,Victoria line to King's Cross St.Pancras
+King's Cross St. Pancras,Euston,957,958,Victoria line or Northern line to Euston
+Euston,Warren Street,955,956,Northern line or Victoria line to Warren Street
+Warren Street,Oxford Circus,954,955,Victoria line to Oxford Circus
+Oxford Circus,Green Park,952,953,Victoria line to Green Park
+Green Park,Victoria,950,951,Victoria line to Victoria
+Victoria,Pimlico,948,949,Victoria line to Pimlico
+Pimlico,Vauxhall,946,947,Victoria line to Vauxhall
+Vauxhall,Stockwell,945,947,Victoria line to Stockwell
+Stockwell,Brixton,945,947,Victoria line to Brixton
+Brixton,Stockwell,958,959,Victoria line to Stockwell
+Stockwell,Vauxhall,956,957,Victoria line to Vauxhall
+Vauxhall,Pimlico,954,955,Victoria line to Pimlico
+Pimlico,Victoria,953,955,Victoria line to Victoria
+Victoria,Green Park,953,955,Victoria line to Green Park
+Green Park,Oxford Circus,953,955,Victoria line to Oxford Circus
+Oxford Circus,Warren Street,953,954,Victoria line to Warren Street
+Warren Street,Euston,952,953,Northern line or Victoria line to Euston
+Euston,King's Cross St. Pancras,950,951,Victoria line or Northern line to King's Cross St.Pancras
+King's Cross St. Pancras,Highbury & Islington,948,950,Victoria line to Highbury & Islington
+Highbury & Islington,Finsbury Park,947,949,Victoria line to Finsbury Park
+Finsbury Park,Seven Sisters,947,950,Victoria line to Seven Sisters
+Seven Sisters,Tottenham Hale,947,948,Victoria line to Tottenham Hale
+Tottenham Hale,Blackhorse Road,945,946,Victoria line to Blackhorse Road
+Blackhorse Road,Walthamstow Central,943,944,Victoria line to Walthamstow Central
+Harrow & Wealdstone,Kenton,959,961,Bakerloo line to Kenton
+Kenton,South Kenton,955,957,Bakerloo line to South Kenton
+South Kenton,North Wembley,946,948,Bakerloo line to North Wembley
+North Wembley,Wembley Central,935,937,Bakerloo line to Wembley Central
+Wembley Central,Stonebridge Park,931,933,Bakerloo line to Stonebridge Park
+Stonebridge Park,Harlesden,926,928,Bakerloo line to Harlesden
+Harlesden,Willesden Junction,925,927,Bakerloo line to Willesden Junction
+Willesden Junction,Kensal Green,914,916,Bakerloo line to Kensal Green
+Kensal Green,Queen's Park,911,915,Bakerloo line to Queen's Park
+Maida Vale,Warwick Avenue,912,913,Bakerloo line to Warwick Avenue
+Warwick Avenue,Paddington,910,912,Bakerloo line to Paddington
+Paddington,Edgware Road (Bakerloo),909,910,Bakerloo line to Edgware Road (Bakerloo Line)
+Edgware Road (Bakerloo),Marylebone,908,909,Bakerloo line to Marylebone
+Marylebone,Baker Street,906,907,Bakerloo line to Baker Street
+Baker Street,Oxford Circus,914,929,Bakerloo line to Oxford Circus
+Oxford Circus,Piccadilly Circus,927,928,Bakerloo line to Piccadilly Circus
+Piccadilly Circus,Charing Cross,926,927,Bakerloo line to Charing Cross
+Charing Cross,Embankment,924,925,Bakerloo line or Northern line to Embankment
+Embankment,Waterloo,922,924,Bakerloo line or Northern line to Waterloo
+Waterloo,Lambeth North,921,922,Bakerloo line to Lambeth North
+Lambeth North,Elephant & Castle,920,923,Bakerloo line to Elephant & Castle
+Elephant & Castle,Lambeth North,957,958,Bakerloo line to Lambeth North
+Lambeth North,Waterloo,956,957,Bakerloo line to Waterloo
+Waterloo,Embankment,955,956,Bakerloo line or Northern line to Embankment
+Embankment,Charing Cross,954,955,Northern line or Bakerloo line to Charing Cross
+Charing Cross,Piccadilly Circus,951,953,Bakerloo line to Piccadilly Circus
+Piccadilly Circus,Oxford Circus,950,952,Bakerloo line to Oxford Circus
+Great Portland Street,Baker Street,949,957,Metropolitan line or Circle line to Baker Street
+Baker Street,Marylebone,953,954,Bakerloo line to Marylebone
+Marylebone,Edgware Road (Bakerloo),951,952,Bakerloo line to Edgware Road (Bakerloo Line)
+Edgware Road (Bakerloo),Paddington,949,951,Bakerloo line to Paddington
+Paddington,Warwick Avenue,948,950,Bakerloo line to Warwick Avenue
+Warwick Avenue,Maida Vale,947,948,Bakerloo line to Maida Vale
+Queen's Park,Kensal Green,943,945,Bakerloo line to Kensal Green
+Kensal Green,Willesden Junction,943,945,Bakerloo line to Willesden Junction
+Willesden Junction,Harlesden,936,938,Bakerloo line to Harlesden
+Harlesden,Stonebridge Park,935,937,Bakerloo line to Stonebridge Park
+Stonebridge Park,Wembley Central,928,930,Bakerloo line to Wembley Central
+Wembley Central,North Wembley,924,925,Bakerloo line to North Wembley
+North Wembley,South Kenton,913,914,Bakerloo line to South Kenton
+South Kenton,Kenton,905,907,Bakerloo line to Kenton
+Kenton,Harrow & Wealdstone,900,902,Bakerloo line to Harrow & Wealdstone

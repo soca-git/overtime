@@ -7,16 +7,15 @@ from plots.slice import Slice
 from algorithms.foremost import CalculateForemostTree
 
 
-tube_input = TubeInput(['victoria', 'central'], ['1400'])
-tube_input.print()
-
+tube_input = TubeInput(['victoria', 'bakerloo'], ['1600'])
 
 tube = TemporalDiGraph('TubeNetwork', data=tube_input)
+tube.details()
 
 
-plotter = Plotter()
-plotter.single(Slice, tube, slider=False)
-plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
-plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
+# plotter = Plotter()
+# plotter.single(Slice, tube, slider=False)
+# plotter.single(Circle, CalculateForemostTree(tube, 'Holborn'))
+# plotter.single(Slice, CalculateForemostTree(tube, 'Holborn'))
 
 input("Press enter key to exit...")
