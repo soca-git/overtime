@@ -6,10 +6,10 @@ Overtime is a Python package for the creation and analysis of temporal networks.
 
 """
 
-# check install python version
+# check installed python version
 import sys
 if sys.version_info[:2] < (3, 7):
-    m = "Python 3.6 or later is required for NetworkX ({}.{} detected)."
+    m = "Python 3.7 or later is required for Overtime ({}.{} detected)."
     raise ImportError(m.format(sys.version_info[:2]))
 del sys
 
