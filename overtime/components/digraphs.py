@@ -1,7 +1,7 @@
 
-from components.graphs import Graph, TemporalGraph
-from components.nodes import Nodes
-from components.arcs import Arcs, TemporalArcs
+from overtime.components.graphs import Graph, TemporalGraph
+from overtime.components.nodes import Nodes
+from overtime.components.arcs import Arcs, TemporalArcs
 
 
 

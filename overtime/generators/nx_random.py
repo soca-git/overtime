@@ -1,6 +1,6 @@
 
 import networkx as nx
-from generators.classes import Generator
+from overtime.generators.classes import Generator
 
 
 

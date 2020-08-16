@@ -1,6 +1,6 @@
 
-from components.nodes import Node
-from components.edges import Edge, TemporalEdge, Edges, TemporalEdges
+from overtime.components.nodes import Node
+from overtime.components.edges import Edge, TemporalEdge, Edges, TemporalEdges
 
 
 

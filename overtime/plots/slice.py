@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
 from matplotlib.widgets import Slider
-from plots.plot import Plot
+from overtime.plots.plot import Plot
 
 
 
