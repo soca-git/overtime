@@ -6,7 +6,7 @@ from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
 from plots.slice import Slice
-from algorithms.foremost import CalculateForemostTree
+from algorithms.foremost import calculate_foremost_tree
 
 
 tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./victoria.csv'))

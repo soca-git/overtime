@@ -1,7 +1,7 @@
 
 from inputs.classes import CSVInput
 from components.digraphs import TemporalDiGraph
-from algorithms.foremost import CalculateForemostTree
+from algorithms.foremost import calculate_foremost_tree
 
 from plots.plotter import Plotter
 from plots.circle import Circle
@@ -25,14 +25,14 @@ myplotter.multi(Circle,
 myplotter.multi(
     Circle,
     [
-        CalculateForemostTree(graph, 'a'),
-        CalculateForemostTree(graph, 'b'),
-        CalculateForemostTree(graph, 'c'),
-        CalculateForemostTree(graph, 'd'),
-        CalculateForemostTree(graph, 'e')
+        calculate_foremost_tree(graph, 'a'),
+        calculate_foremost_tree(graph, 'b'),
+        calculate_foremost_tree(graph, 'c'),
+        calculate_foremost_tree(graph, 'd'),
+        calculate_foremost_tree(graph, 'e')
     ]
 )
 
-myplotter.single(Circle, CalculateForemostTree(graph.get_graph_by_interval((0,7)), 'a'))
+myplotter.single(Circle, calculate_foremost_tree(graph.get_graph_by_interval((0,7)), 'a'))
 
 input("Press enter key to exit...")

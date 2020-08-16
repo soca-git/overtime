@@ -1,9 +1,9 @@
 
-from algorithms.foremost import CalculateForemostTree
+from algorithms.foremost import calculate_foremost_tree
 
 
 
-def CalculateNodeReachability(graph, root):
+def calculate_reachability(graph, root):
     """
         A method which returns the reachability (number) of a root in the graph.
     """
@@ -11,5 +11,5 @@ def CalculateNodeReachability(graph, root):
         print('Error: ' + str(root) + ' does not exist in this graph.')
         return None
 
-    tree = CalculateForemostTree(graph, root)
+    tree = calculate_foremost_tree(graph, root)
     return tree.nodes.get_reachable().count()

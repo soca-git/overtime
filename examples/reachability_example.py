@@ -6,7 +6,7 @@ import pandas as pd
 
 from inputs.classes import CSVInput
 from components.digraphs import TemporalDiGraph
-from algorithms.reachability import CalculateNodeReachability
+from algorithms.reachability import calculate_reachability
 
 
 tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./victoria_bakerloo.csv'))
@@ -18,7 +18,7 @@ tube.nodes.add_data(station_df)
 
 R = []
 for node in tube.nodes.set:
-    R.append(CalculateNodeReachability(tube, node.label))
+    R.append(calculate_reachability(tube, node.label))
 
 
 X = [node.data['lon'] for node in tube.nodes.set]

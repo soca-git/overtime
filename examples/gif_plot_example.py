@@ -4,7 +4,7 @@ import imageio
 
 from inputs.classes import CSVInput
 from components.graphs import TemporalGraph
-from algorithms.foremost import CalculateForemostTree
+from algorithms.foremost import calculate_foremost_tree
 from plots.circle import Circle
 
 
