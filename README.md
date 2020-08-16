@@ -2,18 +2,18 @@
 > A temporal networks library written in [Python](https://www.python.org/).
 
 
-#### Simple Example
----
+## Simple Example
 
 
-#### Extended Example
----
+
+## Extended Example
 
 
-#### Install
----
+
+## Install
 
 
-#### License
----
+
+## License
+
 
