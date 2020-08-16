@@ -8,16 +8,16 @@ def calculate_foremost_tree(graph, root):
         A method which returns the foremost tree for a specified root.
 
         Parameter(s):
-        -----------
+        -------------
         graph (TemporalDiGraph): A directed, temporal graph.
-        root (String): The label of the root node.
+        root (String): The label of a node.
 
         Returns:
         --------
         tree (ForemostTree): A directed, temporal tree with root 'root'.
 
         Example(s):
-        ---------
+        -----------
         >>> graph = TemporalDiGraph('test_network', data=CSVInput('./network.csv'))
         >>> foremost_a = calculate_foremost_tree(graph, 'a')
 
