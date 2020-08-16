@@ -1,1 +1,1 @@
-# COMP702 | Temporal Networks Library
+# Overtime | A temporal networks library written in Python.
