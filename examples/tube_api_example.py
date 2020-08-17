@@ -1,7 +1,7 @@
 
-from inputs.rest import TflRest
+from inputs.rest import TflClient
 
-api = TflRest()
+api = TflClient()
 
 station = api.get_station_by_name('victoria')
 print(station)

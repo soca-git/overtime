@@ -34,7 +34,7 @@ class RandomGNP(Generator):
 
         See also:
         ---------
-        Generator
+            Generator
     """
 
     def __init__(self, n=10, p=0.5, directed=False, start=0, end=10):

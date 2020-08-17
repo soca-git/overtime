@@ -26,7 +26,7 @@ def calculate_reachability(graph, root):
 
         See also:
         ---------
-        calculate_foremost_tree
+            calculate_foremost_tree
     """
 
     # check if the specified root actually exists in the graph.

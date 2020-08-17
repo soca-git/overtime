@@ -3,7 +3,7 @@
 
 class Generator:
     """
-        Base class for generators.
+        Base generator class. Analogous to Input class.
 
         Object Propertie(s):
         ------------------
@@ -12,7 +12,7 @@ class Generator:
 
         See also:
         ---------
-        RandomGNP
+            RandomGNP
     """
 
     def __init__(self):

@@ -1,5 +1,5 @@
 
-from inputs.classes import TubeInput
+from inputs.classes import TflInput
 from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
@@ -7,7 +7,7 @@ from plots.slice import Slice
 from algorithms.foremost import calculate_foremost_tree
 
 
-tube_input = TubeInput(['victoria', 'bakerloo'], ['1600'])
+tube_input = TflInput(['victoria', 'bakerloo'], ['1600'])
 
 tube = TemporalDiGraph('TubeNetwork', data=tube_input)
 tube.details()
