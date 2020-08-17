@@ -6,14 +6,14 @@ from overtime.generators.classes import Generator
 
 class RandomGNP(Generator):
     """
-        A GNP random graph with n edges where each edge is created with a possibility p.
-        Created using the networkx gnp_random_graph static generator at each timestep.
+        A random GNP graph with n nodes where each edge is created with a possibility p.
+        Generated using the networkx gnp_random_graph static generator at each timestep.
 
         Parameter(s):
         -------------
         n (Integer): Number of nodes.
         p (Float): Probability of edge creation.
-        directed (Boolean): Switch to control whether or not the created graph is directed.
+        directed (Boolean): Switch to control whether the created graph is directed.
         start (Integer): Start time of temporal timespan.
         end (Integer): End time of temporal timespan.
 
