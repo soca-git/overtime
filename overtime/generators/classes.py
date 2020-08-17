@@ -3,7 +3,15 @@
 
 class Generator:
     """
-        A class representing a generatated set of data for graph creation.
+        Base class for generators.
+
+        Object Propertie(s):
+        ------------------
+        data (Dict): A dictionary to hold all the node & edge information.
+
+        See also:
+        ---------
+        RandomGNP
     """
 
     def __init__(self):
