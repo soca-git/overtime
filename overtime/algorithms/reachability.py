@@ -9,17 +9,20 @@ def calculate_reachability(graph, root):
 
         Parameter(s):
         -------------
-        graph (TemporalDiGraph): A directed, temporal graph.
-        root (String): The label of a node.
+        graph : TemporalDiGraph
+            A directed, temporal graph.
+        root : String
+            The label of a node.
 
         Returns:
         --------
-        reachability (Integer): The number of reachable nodes from the root node.
+        reachability : Integer
+            The number of reachable nodes from the root node.
 
         Example(s):
         -----------
-        >>> graph = TemporalDiGraph('test_network', data=CSVInput('./network.csv'))
-        >>> reachability_a = calculate_reachability(graph, 'a')
+            graph = TemporalDiGraph('test_network', data=CSVInput('./network.csv'))
+            reachability_a = calculate_reachability(graph, 'a')
 
         See also:
         ---------
