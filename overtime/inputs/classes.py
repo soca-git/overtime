@@ -18,7 +18,7 @@ class Input:
 
         See also:
         ---------
-            CSVInput
+            CsvInput
             TflInput
     """
 
@@ -29,7 +29,7 @@ class Input:
 
 
 
-class CSVInput(Input):
+class CsvInput(Input):
     """
         A csv input handler for converting csv data into the standard data structure for graph creation.
 
@@ -47,7 +47,7 @@ class CSVInput(Input):
 
         Example(s):
         -----------
-            data = CSVInput('./network.csv')
+            data = CsvInput('./network.csv')
 
         See also:
         ---------
@@ -113,12 +113,12 @@ class TflInput(Input):
 
         Example(s):
         -----------
-            data = CSVInput('./network.csv')
+            data = CsvInput('./network.csv')
 
         See also:
         ---------
             Input
-            TflInput
+            CsvInput
     """
 
     def __init__(self, lines, times):

@@ -1,7 +1,7 @@
 
 import pandas as pd
 
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
@@ -9,7 +9,7 @@ from plots.slice import Slice
 from algorithms.foremost import calculate_foremost_tree
 
 
-tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./victoria.csv'))
+tube = TemporalDiGraph('TubeNetwork', data=CsvInput('./victoria.csv'))
 tube.details()
 
 

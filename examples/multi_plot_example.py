@@ -1,11 +1,11 @@
 
 import matplotlib.pyplot as plt
 
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.graphs import TemporalGraph
 from plots.circle import Circle
 
-graph = TemporalGraph('TestNetwork', data=CSVInput('./network.csv'))
+graph = TemporalGraph('TestNetwork', data=CsvInput('./network.csv'))
 graph.print()
 
 graph.edges.add('b', 'e', graph.nodes, graph, 4)

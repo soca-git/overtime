@@ -21,7 +21,7 @@ def calculate_foremost_tree(graph, root):
 
         Example(s):
         -----------
-            graph = TemporalDiGraph('test_network', data=CSVInput('./network.csv'))
+            graph = TemporalDiGraph('test_network', data=CsvInput('./network.csv'))
             foremost_a = calculate_foremost_tree(graph, 'a')
 
         See also:

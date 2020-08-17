@@ -1,12 +1,12 @@
 
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
 from plots.circle import Circle
 from plots.slice import Slice
 
 
-graph = TemporalDiGraph('TestNetwork1', data=CSVInput('./network.csv'))
+graph = TemporalDiGraph('TestNetwork1', data=CsvInput('./network.csv'))
 graph.details()
 
 graph.add_node('x')

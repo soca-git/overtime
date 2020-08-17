@@ -9,7 +9,7 @@ Based on the project specification, there are a number of important functions th
 \subsection{Input}
 The flowchart input can be of multiple types; raw temporal data that has been collected from a system, a previously created graph that was stored in a file, or a set of parameters for a graph generator. Given that there are expected to be many types of input formats, a modular approach to input handling is required. Each type of input should handled with a new subclass and produce the same set of outputs for graph creation. The parent input class should hold any properties and methods that are common across all inputs.
 \subsection{File Handler}
-Each file format will be handled by creating an input handler subclass from the input class. For example, if the input is a .csv file with a list of time-edges (figure 5), then this should be handled using the CSVInput class (figure 4).
+Each file format will be handled by creating an input handler subclass from the input class. For example, if the input is a .csv file with a list of time-edges (figure 5), then this should be handled using the CsvInput class (figure 4).
 \begin{figure}[h]
   \centering
   \begin{minipage}[b]{0.4\textwidth}

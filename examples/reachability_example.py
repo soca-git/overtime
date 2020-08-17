@@ -4,12 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.digraphs import TemporalDiGraph
 from algorithms.reachability import calculate_reachability
 
 
-tube = TemporalDiGraph('TubeNetwork', data=CSVInput('./victoria_bakerloo.csv'))
+tube = TemporalDiGraph('TubeNetwork', data=CsvInput('./victoria_bakerloo.csv'))
 tube.details()
 
 station_df = pd.read_csv("stations_victoria_bakerloo.csv")

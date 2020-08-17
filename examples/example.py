@@ -1,5 +1,5 @@
 
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.graphs import TemporalGraph
 from components.digraphs import TemporalDiGraph
 from plots.plotter import Plotter
@@ -7,9 +7,9 @@ from plots.circle import Circle
 
 
 
-graph = TemporalGraph('TestNetwork1', data=CSVInput('./network.csv'))
+graph = TemporalGraph('TestNetwork1', data=CsvInput('./network.csv'))
 
-# digraph = TemporalDiGraph('TestNetwork2', data=CSVInput('./network.csv'))
+# digraph = TemporalDiGraph('TestNetwork2', data=CsvInput('./network.csv'))
 
 graph.details()
 graph.print()

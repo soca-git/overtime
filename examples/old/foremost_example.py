@@ -1,7 +1,7 @@
-from inputs.classes import CSVInput
+from inputs.classes import CsvInput
 from components.graphs import TemporalGraph
 
-input_data = CSVInput('./network.csv')
+input_data = CsvInput('./network.csv')
 
 graph = TemporalGraph('TestNetwork')
 graph.build(input_data)

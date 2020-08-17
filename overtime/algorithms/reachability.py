@@ -21,7 +21,7 @@ def calculate_reachability(graph, root):
 
         Example(s):
         -----------
-            graph = TemporalDiGraph('test_network', data=CSVInput('./network.csv'))
+            graph = TemporalDiGraph('test_network', data=CsvInput('./network.csv'))
             reachability_a = calculate_reachability(graph, 'a')
 
         See also:
