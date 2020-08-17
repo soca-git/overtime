@@ -7,7 +7,8 @@ class Generator:
 
         Object Propertie(s):
         ------------------
-        data (Dict): A dictionary to hold all the node & edge information.
+        data : Dict
+            A dictionary to hold all the node & edge information.
 
         See also:
         ---------

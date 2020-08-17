@@ -11,20 +11,26 @@ class RandomGNP(Generator):
 
         Parameter(s):
         -------------
-        n (Integer): Number of nodes.
-        p (Float): Probability of edge creation.
-        directed (Boolean): Switch to control whether the created graph is directed.
-        start (Integer): Start time of temporal timespan.
-        end (Integer): End time of temporal timespan.
+        n : Integer
+            Number of nodes.
+        p : Float
+            Probability of edge creation.
+        directed : Boolean
+            Switch to control whether the created graph is directed.
+        start : Integer
+            Start time of temporal timespan.
+        end : Integer
+            End time of temporal timespan.
 
         Object Propertie(s):
         --------------------
-        data (Dict): Inherited from Generator.
+        data : Dict
+            Inherited from Generator.
 
         Example(s):
         -----------
-        >>> gnp_data = RandomGNP(40, 0.2, start=1, end=20)
-        >>> graph = TemporalGraph('random_gnp_network', data=gnp_data)
+            gnp_data = RandomGNP(40, 0.2, start=1, end=20)
+            graph = TemporalGraph('random_gnp_network', data=gnp_data)
 
         See also:
         ---------
