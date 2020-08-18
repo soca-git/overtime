@@ -12,7 +12,7 @@ class Input:
         Base input handler class.
         
         Object Propertie(s):
-        ------------------
+        --------------------
         data : Dict
             A dictionary to hold all the node & edge information.
 

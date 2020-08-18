@@ -11,7 +11,38 @@ from overtime.plots.utils import vector_angle, bezier, circle_label_angle
 
 class CircleNode():
     """
-        A class to represent a node on the circle plot.
+        A class to represent a node on a circle plot.
+
+        Parameter(s):
+        -------------
+        node : Node
+            A valid Node object, such as Node().
+        index : Integer
+            The index of the node on the plot.
+        x : Float
+            The x coordinate of the node.
+        y : Float
+            The y coordinate of the node.
+        
+        Object Propertie(s):
+        --------------------
+        node : Node
+            The corresponding node object in the graph.
+        label : String
+            The label of the node on the plot.
+        index : Integer
+            The index of the node on the plot.
+        x : Float
+            The x coordinate of the node.
+        y : Float
+            The y coordinate of the node.
+        color : String
+            The color of the node on the plot.
+
+        See also:
+        ---------
+            CircleEdge
+            Circle
     """
 
     def __init__(self, node, index, x=0, y=0):
@@ -27,7 +58,34 @@ class CircleNode():
 
 class CircleEdge():
     """
-        A class to represent an edge on the circle plot.
+        A class to represent an edge on a circle plot.
+
+        Parameter(s):
+        -------------
+        edge : Edge
+            A valid Edge object, such as TemporalEdge().
+        label : String
+            The label of the edge on the plot.
+        p1 : Dict
+            The p1 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
+        p2 : Dict
+            The p2 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
+        
+        Object Propertie(s):
+        --------------------
+        edge : Edge
+            The corresponding edge object in the graph.
+        index : Integer
+            The index of the edge on the plot.
+        p1 : Dict
+            The p1 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
+        p2 : Dict
+            The p2 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
+
+        See also:
+        ---------
+            CircleNode
+            Circle
     """
 
     def __init__(self, edge, p1, p2):
@@ -40,12 +98,67 @@ class CircleEdge():
 
 class Circle(Plot):
     """
-        A class which represents a circle plot of a graph.
-    """
-    name = 'circle'
+        A circle plot with the option of barycenter ordering.
 
-    def __init__(self, graph, figure, axes, title=None, time=None, ordered=True, slider=False):
-        super().__init__(graph, figure, axes, title, time, ordered, False)
+        Class Propertie(s):
+        -------------------
+        class_name : String
+            The name of the class, used for labelling.
+
+        Parameter(s):
+        -------------
+        graph : Graph
+            A valid Graph class/subclass.
+        figure : Figure
+            A pyplot figure object.
+        axis : axis
+            A pyplot axis object.
+        title : String
+            A custom title for the plot.
+        ordered : Boolean
+            A switch to enable/disable barycenter ordering of the circle plot nodes.
+        slider : Boolean
+            Disabled.
+        show : Boolean
+            Show the plot (can be overridden).
+
+        Object Propertie(s):
+        --------------------
+        name : String
+            Inherited from Plot.
+        graph : Graph
+            Inherited from Plot.
+        title : String
+            Inherited from Plot.
+        nodes : List
+            Inherited from Plot.
+        edges : List
+            Inherited from Plot.
+        labels : List
+            Inherited from Plot.
+        figure : Figure
+            Inherited from Plot.
+        axis : axis
+            Inherited from Plot.
+        is_ordered : Boolean
+            Inherited from Plot.
+        has_slider : Boolean
+            Inherited from Plot.
+        show : Boolean
+            Inherited from Plot.
+
+
+        See also:
+        ---------
+            CircleNode
+            CircleEdge
+            Plot
+            Slice
+    """
+    class_name = 'circle'
+
+    def __init__(self, graph, figure, axis, title=None, ordered=True, slider=False, show=True):
+        super().__init__(graph, figure, axis, title, ordered, False, show)
 
 
     def create_nodes(self):
@@ -97,14 +210,14 @@ class Circle(Plot):
         pos['y'] = [node.y for node in self.nodes]
         colors = [x for x in range(0, n)]
         cmap = self.set3colormap(n)
-        ax_node = self.axes.scatter(
+        ax_node = self.axis.scatter(
             pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
         i = 0
         for node in self.nodes:
             node.color = ax_node.to_rgba(colors[i])
-            self.axes.text(
+            self.axis.text(
                 node.x, node.y,
                 node.label, color='midnightblue',
                 rotation=circle_label_angle(node.x, node.y),
@@ -122,7 +235,7 @@ class Circle(Plot):
             else:
                 color='lightgrey'
             bezier_edge = bezier(edge.p1, edge.p2)
-            self.axes.plot(
+            self.axis.plot(
                 bezier_edge['x'],
                 bezier_edge['y'],
                 linestyle='-',
@@ -130,15 +243,15 @@ class Circle(Plot):
                 zorder=0
             )
             if edge.edge.directed:
-                self.axes.plot(
+                self.axis.plot(
                     bezier_edge['x'][6],
                     bezier_edge['y'][6],
                     'o',
                     color=edge_color,
                     zorder=1
                 )
-            if self.time is None and not self.graph.static:
-                self.axes.text(
+            if not self.graph.static:
+                self.axis.text(
                     bezier_edge['x'][10], bezier_edge['y'][10],
                     edge.edge.start, 
                     color='midnightblue', backgroundcolor=edge_color,
@@ -151,10 +264,10 @@ class Circle(Plot):
 
     def cleanup(self):
         plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.remove_xticks(self.axes)
-        self.remove_yticks(self.axes)
-        self.set_aspect(self.axes)
-        self.style_axis(self.axes)
+        self.remove_xticks(self.axis)
+        self.remove_yticks(self.axis)
+        self.set_aspect(self.axis)
+        self.style_axis(self.axis)
 
 
     def remove_xticks(self, ax):
