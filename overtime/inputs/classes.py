@@ -365,32 +365,42 @@ class TflInput(Input):
 
 
     def write_journeys_csv(self):
-        cols = ['node1', 'node2', 'tstart', 'tend', 'line']
+        """
+            A method of TflInput.
+            
+            Returns:
+            --------
+                None, writes to journeys csv.
+        """
+        cols = ['node1', 'node2', 'tstart', 'tend', 'line'] # csv header
         try:
             with open(self.path, 'w') as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=cols)
+                writer = csv.DictWriter(csvfile, fieldnames=cols) # initialize csv writer.
                 writer.writeheader()
+                # for each edge (journey) in data.
                 for key, data in self.data['edges'].items():
-                    writer.writerow(data)
+                    writer.writerow(data) # write the edge to the row.
 
         except IOError:
             print("I/O Error; error writing to csv.")
 
 
     def write_stations_csv(self):
-        cols = ['label', 'id', 'lat', 'lon']
+        """
+            A method of TflInput.
+            
+            Returns:
+            --------
+                None, writes to stations csv.
+        """
+        cols = ['label', 'id', 'lat', 'lon'] # csv header
         try:
             with open('stations_' + self.path, 'w') as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=cols)
+                writer = csv.DictWriter(csvfile, fieldnames=cols) # initialize csv writer.
                 writer.writeheader()
+                # for each node (station) in data.
                 for key, data in self.data['nodes'].items():
-                    writer.writerow(data)
+                    writer.writerow(data) # write the node to the row.
 
         except IOError:
             print("I/O Error; error writing to csv.")
-
-
-    def print(self):
-        for id, edge in self.data['edges'].items():
-            print(id)
-            print('{}({}) --> {}({})'.format(edge['node1'], edge['tstart'], edge['node2'], edge['tend']))
