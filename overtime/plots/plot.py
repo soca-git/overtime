@@ -21,7 +21,7 @@ class Plot:
             A valid Graph class/subclass.
         figure : Figure
             A pyplot figure object.
-        axis : axis
+        axis : Axis
             A pyplot axis object.
         title : String
             A custom title for the plot.
@@ -48,7 +48,7 @@ class Plot:
             A list of the plot's labels.
         figure : Figure
             A pyplot figure object.
-        axis : axis
+        axis : Axis
             A pyplot axis object.
         is_ordered : Boolean
             Whether or not the plot was ordered during creation.
@@ -190,6 +190,7 @@ class Plot:
     def set3colormap(self, n):
         """
             A method of Plot.
+            
             Parameter(s):
             -------------
             n : Integer
@@ -206,3 +207,55 @@ class Plot:
         # Return an expanded Set3 cmap with enough repeating colors
         # to cover the number of objects to be drawn
         return ListedColormap(cmap.colors*n)
+
+
+    def remove_xticks(self, ax):
+        """
+            A method of Plot.
+
+            Parameter(s):
+            -------------
+            ax : Axis
+                A pyplot axis object.
+
+            Returns:
+            --------
+                None, removes axis x-ticks.
+        """
+        ax.set_xticklabels([])
+        ax.set_xticks([])
+
+
+    def remove_yticks(self, ax):
+        """
+            A method of Plot.
+
+            Parameter(s):
+            -------------
+            ax : Axis
+                A pyplot axis object.
+
+            Returns:
+            --------
+                None, removes axis y-ticks.
+        """
+        ax.set_yticklabels([])
+        ax.set_yticks([])
+
+
+    def style_axis(self, ax):
+        """
+            A method of Plot.
+
+            Parameter(s):
+            -------------
+            ax : Axis
+                A pyplot axis object.
+
+            Returns:
+            --------
+                None, updates axis styling.
+        """
+        ax.set_facecolor('slategrey')
+        for spine in ['top', 'bottom', 'right', 'left']:
+            ax.spines[spine].set_color('lightgrey')

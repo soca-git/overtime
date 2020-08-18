@@ -66,7 +66,7 @@ class Slice(Plot):
             A valid Graph class/subclass.
         figure : Figure
             A pyplot figure object.
-        axis : axis
+        axis : Axis
             A pyplot axis object.
         title : String
             A custom title for the plot.
@@ -93,7 +93,7 @@ class Slice(Plot):
             Inherited from Plot.
         figure : Figure
             Inherited from Plot.
-        axis : axis
+        axis : Axis
             Inherited from Plot.
         is_ordered : Boolean
             Inherited from Plot.
@@ -116,6 +116,13 @@ class Slice(Plot):
 
 
     def create_edges(self):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, creates the SliceEdge objects.
+        """
         step = 1
         for label in self.graph.edges.ulabels():
             self.labels.append(label)
@@ -128,6 +135,13 @@ class Slice(Plot):
         
 
     def draw_edges(self):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, draws the edges of the plot.
+        """
         pos = {}
         pos['x'] = [edge.x for edge in self.edges]
         pos['y'] = [edge.y for edge in self.edges]
@@ -140,23 +154,38 @@ class Slice(Plot):
 
 
     def cleanup(self):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, updates figure & axis properties & styling.
+        """
+        # adjust whitespace around the plot.
         plt.subplots_adjust(left=0.25, bottom=0.15, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.figure.set_size_inches(32, 16)
-        times = list(set([edge.x for edge in self.edges]))
-        self.draw_xticks(self.axis, times)
-        edge_ticks = [y for y in range(0, len(self.labels))]
-        self.draw_yticks(self.axis, edge_ticks)
-        self.draw_grid(self.axis)
-        self.style_axis(self.axis)
+        self.figure.set_size_inches(32, 16) # set figure size.
+        times = list(set([edge.x for edge in self.edges])) # get x-ticks.
+        self.draw_xticks(self.axis, times) # draw x-ticks
+        edge_ticks = [y for y in range(0, len(self.labels))] # get y-ticks.
+        self.draw_yticks(self.axis, edge_ticks) # draw y-ticks.
+        self.draw_grid(self.axis) # draw grid.
+        self.style_axis(self.axis) # style axis.
 
         if self.has_slider:
-            self.draw_sliders(times, edge_ticks, 79, 39)
+            self.draw_sliders(times, edge_ticks, 79, 39) # draw sliders.
         if self.show:
-            self.axis.set_xlabel('Time')
-            self.axis.set_ylabel('Edge')
+            self.axis.set_xlabel('Time') # set x-axis label.
+            self.axis.set_ylabel('Edge') # set y-axis label.
 
 
     def draw_xticks(self, ax, xticks):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, draws x-ticks and labels.
+        """
         loc = plticker.MultipleLocator(base=1)
         ax.xaxis.set_major_locator(loc)
         ax.set_xticks(xticks)
@@ -164,21 +193,36 @@ class Slice(Plot):
 
 
     def draw_yticks(self, ax, yticks):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, draws y-ticks and labels.
+        """
         ax.set_yticks(yticks)
         ax.set_yticklabels(self.labels, fontsize=9)
 
 
     def draw_grid(self, ax):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, draws a grid.
+        """
         ax.grid(color='lightgrey', linestyle='-', linewidth=0.1)
 
 
-    def style_axis(self, ax):
-        ax.set_facecolor('slategrey')
-        for spine in ['top', 'bottom', 'right', 'left']:
-            ax.spines[spine].set_color('lightgrey')
-    
-
     def draw_sliders(self, xticks, yticks, xstep, ystep):
+        """
+            A method of Plot/Slice.
+
+            Returns:
+            --------
+                None, draws sliders for the x-axis, y-axis, or both.
+        """
         flag = False
         if self.has_slider and len(xticks) > xstep:
             self.axis.set(xlim=(xticks[0]-1, xstep))

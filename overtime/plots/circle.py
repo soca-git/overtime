@@ -36,6 +36,8 @@ class CircleNode():
             The x coordinate of the node.
         y : Float
             The y coordinate of the node.
+        avg : Float
+            The combined average vector angle of the node and it's neighbours.
         color : String
             The color of the node on the plot.
 
@@ -111,7 +113,7 @@ class Circle(Plot):
             A valid Graph class/subclass.
         figure : Figure
             A pyplot figure object.
-        axis : axis
+        axis : Axis
             A pyplot axis object.
         title : String
             A custom title for the plot.
@@ -138,7 +140,7 @@ class Circle(Plot):
             Inherited from Plot.
         figure : Figure
             Inherited from Plot.
-        axis : axis
+        axis : Axis
             Inherited from Plot.
         is_ordered : Boolean
             Inherited from Plot.
@@ -162,61 +164,126 @@ class Circle(Plot):
 
 
     def create_nodes(self):
-        n = self.graph.nodes.count()
+        """
+            A method of Circle.
+            Returns:
+            --------
+                None, creates the CircleNode objects and optionally applies ordering.
+        """
+        n = self.graph.nodes.count() # number of nodes in the graph.
         i = 0
+        # for each node.
         for node in self.graph.nodes.set:
-            x = math.cos(2 * math.pi * i / n)
-            y = math.sin(2 * math.pi * i / n)
+            x = math.cos(2 * math.pi * i / n) # assign x coordinate based on index around the circle.
+            y = math.sin(2 * math.pi * i / n) # assign y coordinate based on index around the circle.
+            # create a CircleNode and add it to the nodes list.
             self.nodes.append(CircleNode(node, i, x, y))
             i += 1
         if self.is_ordered:
+            # apply barycenter ordering.
             self.order_nodes(self.graph.edges.count())
 
 
     def get_node(self, label):
+        """
+            A method of Circle.
+
+            Parameter(s):
+            -------------
+                label : String
+                    The label of a node.
+
+            Returns:
+            --------
+                The Circle node object corresponding to the label specified.
+        """
+        # return (if found) the node in self.nodes whose label equals 'label'.
         return next((node for node in self.nodes if node.label == label), None)
 
 
     def order_nodes(self, iterations):
+        """
+            A method of Circle.
+
+            Parameter(s):
+            -------------
+                interations : Integer
+                    The number of iterations for ordering.
+
+            Returns:
+            --------
+                None, iteratively updates the positions of the plot's nodes.
+        """
         for x in range(iterations):
+            # sort the nodes by the combined average position of the node and it's neighbours.
             self.nodes = sorted(self.nodes, key=lambda x:x.avg, reverse=False)
-            n = self.graph.nodes.count()
+            n = self.graph.nodes.count() # number of nodes in the graph.
             i = 0
+            # for each node.
             for node in self.nodes:
+                # if the node's index position has changed due to sorting.
                 if not node.index == i:
+                    # update the node's index to the new one.
                     node.index = i
+                    # update the node's x & y values.
                     node.x = math.cos(2 * math.pi * i / n)
                     node.y = math.sin(2 * math.pi * i / n)
-                sum_x = node.x
-                sum_y = node.y
+                sum_x = node.x # start the x sum.
+                sum_y = node.y # start the y sum.
+                # for each of the nodes neighbours.
                 for neighbour in node.node.neighbours().set:
+                    # append the x value of the neighbour to the x sum.
                     sum_x = sum_x + self.get_node(neighbour.label).x
+                    # append the y value of the neighbour to the y sum.
                     sum_y = sum_y + self.get_node(neighbour.label).y
+                # calculate the average vector angle of the node and it's neighbours and update.
                 node.avg = vector_angle(sum_x, sum_y)
                 i += 1
 
 
     def create_edges(self):
+        """
+            A method of Plot/Circle.
+
+            Returns:
+            --------
+                None, creates the CircleEdge objects.
+        """
+        # for each edge in the graph.
         for edge in self.graph.edges.set:
+            # get p1 from edge's node's positions.
             p1 = {'x': self.get_node(edge.node1.label).x, 'y': self.get_node(edge.node1.label).y}
+            # get p2 from edge's node's positions.
             p2 = {'x': self.get_node(edge.node2.label).x, 'y': self.get_node(edge.node2.label).y}
+            # create a CircleEdge and add it to the edges list.
             self.edges.append(CircleEdge(edge, p1, p2))
             
 
     def draw_nodes(self):
-        n = self.graph.nodes.count()
+        """
+            A method of Plot/Circle.
+
+            Returns:
+            --------
+                None, draws the nodes of the plot.
+        """
+        n = self.graph.nodes.count() # number of nodes in the graph.
         pos = {}
-        pos['x'] = [node.x for node in self.nodes]
-        pos['y'] = [node.y for node in self.nodes]
-        colors = [x for x in range(0, n)]
-        cmap = self.set3colormap(n)
+        pos['x'] = [node.x for node in self.nodes] # x coordinates of every node.
+        pos['y'] = [node.y for node in self.nodes] # y coordinates of every node.
+        colors = [x for x in range(0, n)] # colors index for every node.
+        cmap = self.set3colormap(n) # color map with enough colors for n nodes.
+        # draw the nodes using pyplot scatter.
         ax_node = self.axis.scatter(
             pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
         i = 0
+        # for every node.
         for node in self.nodes:
+            # check what color the node was assigned and update.
             node.color = ax_node.to_rgba(colors[i])
+            # draw the node's label, with smart rotation.
             self.axis.text(
                 node.x, node.y,
                 node.label, color='midnightblue',
@@ -228,13 +295,24 @@ class Circle(Plot):
 
 
     def draw_edges(self):
+        """
+            A method of Plot/Circle.
+
+            Returns:
+            --------
+                None, draws the edges of the plot.
+        """
+        # for every edge in the graph.
         for edge in self.edges:
+            # assign the same color as node1 of the edge.
             edge_color = self.get_node(edge.edge.node1.label).color
+            # if the edge is directed.
             if edge.edge.directed:
-                color=edge_color
+                color=edge_color # assign it the same color as the source node.
             else:
-                color='lightgrey'
-            bezier_edge = bezier(edge.p1, edge.p2)
+                color='lightgrey' # otherwise, make it light grey.
+            bezier_edge = bezier(edge.p1, edge.p2) # create a Bézier curve for the edge.
+            # draw the edge.
             self.axis.plot(
                 bezier_edge['x'],
                 bezier_edge['y'],
@@ -242,7 +320,9 @@ class Circle(Plot):
                 color=color,
                 zorder=0
             )
+            # if edge is directed.
             if edge.edge.directed:
+                # draw a circle to indicate the source side of the edge.
                 self.axis.plot(
                     bezier_edge['x'][6],
                     bezier_edge['y'][6],
@@ -250,7 +330,9 @@ class Circle(Plot):
                     color=edge_color,
                     zorder=1
                 )
+            # if the graph is temporal.
             if not self.graph.static:
+                # draw the start time of the edge.
                 self.axis.text(
                     bezier_edge['x'][10], bezier_edge['y'][10],
                     edge.edge.start, 
@@ -263,31 +345,35 @@ class Circle(Plot):
 
 
     def cleanup(self):
+        """
+            A method of Plot/Circle.
+
+            Returns:
+            --------
+                None, updates figure & axis properties & styling.
+        """
+        # adjust whitespace around the plot.
         plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.remove_xticks(self.axis)
-        self.remove_yticks(self.axis)
-        self.set_aspect(self.axis)
-        self.style_axis(self.axis)
-
-
-    def remove_xticks(self, ax):
-        ax.set_xticklabels([])
-        ax.set_xticks([])
-
-
-    def remove_yticks(self, ax):
-        ax.set_yticklabels([])
-        ax.set_yticks([])
+        self.remove_xticks(self.axis) # remove x-ticks.
+        self.remove_yticks(self.axis) # remove y-ticks.
+        self.set_aspect(self.axis) # set aspect ratio.
+        self.style_axis(self.axis) # style axis.
 
 
     def set_aspect(self, ax):
-        x0, x1 = ax.get_xlim()
-        y0, y1 = ax.get_ylim()
-        ax.set_aspect((x1 - x0) / (y1 - y0))
-        ax.margins(0.1, 0.1)
+        """
+            A method of Circle.
 
+            Parameter(s):
+            -------------
+            ax : Axis
+                A pyplot axis object.
 
-    def style_axis(self, ax):
-        ax.set_facecolor('slategrey')
-        for spine in ['top', 'bottom', 'right', 'left']:
-            ax.spines[spine].set_color('lightgrey')
+            Returns:
+            --------
+                None, updates axis aspect ratio.
+        """
+        x0, x1 = ax.get_xlim() # get range of x values.
+        y0, y1 = ax.get_ylim() # get range of y values.
+        ax.set_aspect((x1 - x0) / (y1 - y0)) # update aspect ratio to match x & y ranges.
+        ax.margins(0.1, 0.1) # update plot margins.
