@@ -111,8 +111,8 @@ class Slice(Plot):
     """
     class_name = 'slice'
 
-    def __init__(self, graph, figure, axis, title=None, time=None, ordered=False, slider=True, show=True):
-        super().__init__(graph, figure, axis, title, time, False, slider, show)
+    def __init__(self, graph, figure, axis, title=None, ordered=False, slider=True, show=True):
+        super().__init__(graph, figure, axis, title, False, slider, show)
 
 
     def create_edges(self):
@@ -151,7 +151,7 @@ class Slice(Plot):
         pos['x'] = [edge.x for edge in self.edges] # x coordinates of every node.
         pos['y'] = [edge.y for edge in self.edges] # y coordinates of every node.
         colors = pos['y'] # colors index for every edge.
-        cmap = self.set3colormap(self.graph.edges.count()) # color map with enough colors for n edges.
+        cmap = self.set3colormap(len(self.labels)) # color map with enough colors for n edges.
         # draw the edges using pyplot scatter.
         self.axis.scatter(
             pos['x'], pos['y'], s=50, c=colors, cmap=cmap, zorder=1
@@ -179,6 +179,7 @@ class Slice(Plot):
 
         if self.has_slider:
             self.draw_sliders(times, edge_ticks, 79, 39) # draw sliders.
+            pass
         if self.show:
             self.axis.set_xlabel('Time') # set x-axis label.
             self.axis.set_ylabel('Edge') # set y-axis label.
@@ -234,7 +235,7 @@ class Slice(Plot):
         if self.has_slider and len(xticks) > xstep:
             # set x-axis range.
             self.axis.set(xlim=(xticks[0]-1, xstep))
-            axpos = plt.axis([0.325, 0.035, 0.55, 0.025]) # slider bbox position.
+            axpos = plt.axes([0.325, 0.035, 0.55, 0.025]) # slider bbox position.
             # Create x-axis pyplot slider.
             xpos = Slider(axpos, 'Time', xticks[0]-1, xticks[-1]-xstep, color='aquamarine')
             # Update function for changes in x.
@@ -257,7 +258,7 @@ class Slice(Plot):
         if self.has_slider and len(yticks) > ystep:
             # set y-axis range.
             self.axis.set(ylim=(yticks[0]-1, ystep))
-            axpos = plt.axis([0.025, 0.25, 0.0125, 0.6]) # slider bbox position.
+            axpos = plt.axes([0.025, 0.25, 0.0125, 0.6]) # slider bbox position.
             # Create y-axis pyplot slider.
             ypos = Slider(axpos, 'Edge', yticks[0]-1, yticks[-1]-ystep, orientation='vertical', color='mediumspringgreen')
             # Update function for changes in y.

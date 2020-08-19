@@ -376,4 +376,4 @@ class Circle(Plot):
         x0, x1 = ax.get_xlim() # get range of x values.
         y0, y1 = ax.get_ylim() # get range of y values.
         ax.set_aspect((x1 - x0) / (y1 - y0)) # update aspect ratio to match x & y ranges.
-        ax.margins(0.1, 0.1) # update plot margins.
+        ax.margins(0.2, 0.2) # update plot margins.

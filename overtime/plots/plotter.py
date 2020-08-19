@@ -175,7 +175,7 @@ class Plotter:
         # for each unused axis.
         for x in range(ncols-extra_axes, ncols):
             figure.delaxes(axes[nrows-1][x]) # delete it.
-        plt.tight_layout(pad=0.1) # apply a tight layout scheme.
+        plt.tight_layout(pad=4) # apply a tight layout scheme.
         # if save is enabled, save the figure.
         if save:
             self.save(figure, plot.name)
