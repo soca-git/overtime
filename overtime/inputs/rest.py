@@ -134,7 +134,7 @@ class TflClient(Client):
         return reqs.get(self.base + 'Line/' + line + '/Route/Sequence/' + direction).json()
 
 
-    def get_journey(self, from_id, to_id, time, timel='departing'):
+    def get_journey(self, from_id, to_id, time, timel='departing', sleep_time=0.5):
         """
             A method of TflClient.
             Parameter(s):
@@ -153,13 +153,13 @@ class TflClient(Client):
                 A json response with details about the journey found between the specified stations.
                 Note: multiple journeys are returned as options.
         """
-        sleep(1) # limit query speed to reduce chance of api timeout (this function gets called alot).
+        sleep(sleep_time) # limit query speed to reduce chance of api timeout (this function gets called alot).
         return reqs.get(
             self.base + '/Journey/JourneyResults/' + from_id + '/to/' + to_id
             + '?mode=tube' # only use tube (when possible)
             + '&useMultiModalCall=false' # don't return multiple journey options for different modes of transport
             + '&routeBetweenEntrances=false' # only return journeys between stations.
-            + '&journeypreference=leasttime' # prefer journeys that take the least time.
+            + '&journeypreference=leastwalking' # prefer journeys that take the least time.
             + '&time=' + time # search for next available journeys after 'time'.
             + '&timel=' + timel # time is either 'departing' or 'arrival'.
         ).json()

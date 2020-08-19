@@ -2,6 +2,7 @@
 from os import path as ospath
 import csv
 import datetime
+from time import sleep
 import re
 from overtime.inputs.rest import TflClient
 
@@ -94,9 +95,12 @@ class TflInput(Input):
         lines : List
             A list of valid names (String) of lines on the TFL network.
             For example, ['bakerloo', 'central'].
+        directions : List
+            A list of valid directions (String) of routes on the line.
+            For example, ['inbound', 'outbound'].
         times: List
             A list of valid 24hr times (String).
-            For example, ['1500', '1515'].
+            For example, ['15:00', '15:15'].
 
         Object Propertie(s):
         --------------------
@@ -106,10 +110,14 @@ class TflInput(Input):
             An instance of TflClient to be used for api requests.
         lines : List
             A list of valid names (String) of lines on the TFL network.
+        directions : List
+            A list of valid directions (String) of routes on the line.
         times : List
             A list of valid 24hr times (String).
-        path : String
-            The default path of the csv file written once data is generated.
+        jpath : String
+            The default path of the journeys csv file written once data is generated.
+        spath : String
+            The default path of the stations csv file written once data is generated.
 
         Example(s):
         -----------
@@ -121,21 +129,23 @@ class TflInput(Input):
             CsvInput
     """
 
-    def __init__(self, lines, times):
+    def __init__(self, lines=['bakerloo'], directions=['inbound', 'outbound'], times=['1400']):
         super().__init__()
         self.api = TflClient()
         self.lines = lines
+        self.directions = directions
         self.times = times
-        self.path = "_".join(lines) + '.csv'
+        self.jpath = "_".join(lines) + "-" + "_".join(directions) + '.csv'
+        self.spath = "_".join(lines) + '-stations' + '.csv'
 
-        # check if the csv path provided already exists.
-        if not ospath.exists(self.path):
+        # check if the journeys csv path provided already exists.
+        if not ospath.exists(self.jpath):
             for line in lines:
-                for direction in ['inbound', 'outbound']:
+                for direction in directions:
                     for time in times:
                         self.generate(line, direction, time)
         else:
-            print("{} already exists.".format(self.path))
+            print("{} already exists.".format(self.jpath))
 
 
     def generate(self, line_name, direction, time):
@@ -148,7 +158,7 @@ class TflInput(Input):
             direction : String
                 'inbound' or 'outbound'
             time : String
-                Valid 24hr time, such as '1400'.
+                Valid 24hr time, such as '14:00'.
             
             Returns:
             --------
@@ -168,19 +178,26 @@ class TflInput(Input):
                 try:
                     # make the api request.
                     journey = self.get_journey(stations[n], stations[n+1], current_time)
-                    # if the returned journey is 'walking', skip it.
-                    if not journey or 'Walk' in journey['name']:
-                        print('No available line from {} to {}.'.format(journey['departurePoint'], journey['arrivalPoint']))
+                    # if no journey returned, skip it.
+                    if not journey:
+                        print('No available journey.')
                         continue
-                    print('{} ---> {}, {} ({} mins)'.format(journey['departurePoint'], journey['arrivalPoint'], journey['name'], journey['duration']))
+                    # if the returned journey is 'walking', skip it.
+                    if 'Walk' in journey['name']:
+                        print('No available line from {} to {} ({}).'.format(journey['departurePoint'], journey['arrivalPoint'], journey['name']))
+                        continue
+                    print('{} ---> {}, {} ({} mins @ {} >>> {})'.format(
+                        journey['departurePoint'], journey['arrivalPoint'], journey['name'], journey['duration'],
+                        self.update_time(journey['startDateTime']), self.update_time(journey['arrivalDateTime'])
+                    ))
                     # update the current time to be the arrival time of the current journey minus one minute.
                     current_time = self.update_time(journey['arrivalDateTime'])
                     # add the journey to the data.
                     self.add_journey(
                         journey['departurePoint'],
                         journey['arrivalPoint'],
-                        self.convert_time(journey['startDateTime']),
-                        self.convert_time(journey['arrivalDateTime']),
+                        self.convert_time(self.update_time(journey['startDateTime'])),
+                        self.convert_time(self.update_time(journey['arrivalDateTime'])),
                         journey['name'],
                         direction,
                         current_time
@@ -191,7 +208,9 @@ class TflInput(Input):
                 except IndexError:
                     break
             # once an entire route is processed, write the data to the csv files (each route is appended).
-            self.write_stations_csv()
+            # check if the stations csv path provided already exists.
+            if not ospath.exists(self.jpath):
+                self.write_stations_csv()
             self.write_journeys_csv()
 
 
@@ -219,7 +238,7 @@ class TflInput(Input):
         return rdata
 
 
-    def get_journey(self, origin, destination, time):
+    def get_journey(self, origin, destination, time, sleep_time=0):
         """
             A method of TflInput.
             Parameter(s):
@@ -229,7 +248,7 @@ class TflInput(Input):
             destination : String
                 Valid naptanId of a TFL station, such as '940GZZLUPAC'.
             time : String
-                Valid 24hr time, such as '1400'.
+                Valid 24hr time, such as '14:00'.
             
             Returns:
             --------
@@ -237,27 +256,37 @@ class TflInput(Input):
                 A dictionary with information about the journey returned from origin to destination with departing time 'time'.
         """
         # make the api request.
-        response = self.api.get_journey(origin, destination, time)
+        response = self.api.get_journey(origin, destination, time.replace(':', ''), sleep_time=sleep_time)
         jdata = {}
-        n = 0
-        # for each journey option returned.
-        for journey in response['journeys']:
-            # for each leg of the journey (generally only ever one).
-            for leg in journey['legs']:
-                # filter the journey json for any required/useful information.
-                departure_name = leg['departurePoint']['commonName'].replace(' Underground Station', '')
-                arrival_name = leg['arrivalPoint']['commonName'].replace(' Underground Station', '')
-                jdata[n] = {
-                    'startDateTime': journey['startDateTime'], # departure time
-                    'arrivalDateTime': journey['arrivalDateTime'], # arrival time
-                    'name': leg['instruction']['summary'], # journey name
-                    'departurePoint': departure_name, # departure station name
-                    'arrivalPoint': arrival_name, # arrival station name
-                    'duration': leg['duration'], # journey duration
-                    'departurePointLocation': (leg['departurePoint']['lat'], leg['departurePoint']['lon']), # departure geolocation
-                    'arrivalPointLocation': (leg['arrivalPoint']['lat'], leg['arrivalPoint']['lon']) # arrival geolocation
-                }
-            n += 1
+        flag = False
+        try:
+            n = 0
+            # for each journey option returned.
+            for journey in response['journeys']:
+                # for each leg of the journey (generally only ever one).
+                for leg in journey['legs']:
+                    # if the selected journey is earlier than the time specified, skip it.
+                    if self.convert_time(self.update_time(journey['startDateTime'])) >= self.convert_time(time):
+                        # filter the journey json for any required/useful information.
+                        departure_name = leg['departurePoint']['commonName'].replace(' Underground Station', '')
+                        arrival_name = leg['arrivalPoint']['commonName'].replace(' Underground Station', '')
+                        jdata[n] = {
+                            'startDateTime': journey['startDateTime'], # departure time
+                            'arrivalDateTime': journey['arrivalDateTime'], # arrival time
+                            'name': leg['instruction']['summary'], # journey name
+                            'departurePoint': departure_name, # departure station name
+                            'arrivalPoint': arrival_name, # arrival station name
+                            'duration': leg['duration'], # journey duration
+                            'departurePointLocation': (leg['departurePoint']['lat'], leg['departurePoint']['lon']), # departure geolocation
+                            'arrivalPointLocation': (leg['arrivalPoint']['lat'], leg['arrivalPoint']['lon']) # arrival geolocation
+                        }
+                        n += 1
+        except KeyError:
+            print("Key Error: response returned invalid data, client will request again in 5 seconds.")
+            print(response)
+            flag = True
+        if flag:
+            return self.get_journey(origin, destination, time, sleep_time=5)
         return jdata[0]
 
 
@@ -338,11 +367,11 @@ class TflInput(Input):
         # create corresponding datetime object.
         time = datetime.datetime(time[0], time[1], time[2], time[3], time[4])
         # create datetime delta of one minute.
-        delta = datetime.timedelta(minutes=1)
+        ### delta = datetime.timedelta(minutes=duration)
         # subtract one minute delta from original time.
-        time = time - delta
+        ### time = time + delta
         # return updated time in hours, minutes format.
-        return "".join(str(time).split(' ')[-1].split(':')[0:2])
+        return ":".join(str(time).split(' ')[-1].split(':')[0:2])
 
 
     def convert_time(self, time):
@@ -358,7 +387,7 @@ class TflInput(Input):
             time : Integer
                 A integer representing the number of minutes passed from '0000'.
         """
-        time = time.split('T')[-1].split(':')[0:2]
+        time = time.split(':')[0:2]
         hours = int(time[0])
         minutes = int(time[1])
         return minutes + hours * 60
@@ -374,7 +403,7 @@ class TflInput(Input):
         """
         cols = ['node1', 'node2', 'tstart', 'tend', 'line'] # csv header
         try:
-            with open(self.path, 'w') as csvfile:
+            with open(self.jpath, 'w') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=cols) # initialize csv writer.
                 writer.writeheader()
                 # for each edge (journey) in data.
@@ -395,7 +424,7 @@ class TflInput(Input):
         """
         cols = ['label', 'id', 'lat', 'lon'] # csv header
         try:
-            with open('stations_' + self.path, 'w') as csvfile:
+            with open(self.spath, 'w') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=cols) # initialize csv writer.
                 writer.writeheader()
                 # for each node (station) in data.
