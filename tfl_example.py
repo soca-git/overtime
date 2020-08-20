@@ -2,11 +2,11 @@
 import overtime as ot
 import pandas as pd
 
-network = ot.TemporalDiGraph('TflNetwork', data=ot.CsvInput('./victoria-outbound.csv'))
+network = ot.TemporalDiGraph('TflNetwork', data=ot.CsvInput('./bakerloo-outbound.csv'))
 network.details()
 network.edges.timespan()
 
-stations_df = pd.read_csv('victoria-stations.csv')
+stations_df = pd.read_csv('bakerloo-stations.csv')
 network.nodes.add_data(stations_df)
 
 plotter = ot.Plotter()
