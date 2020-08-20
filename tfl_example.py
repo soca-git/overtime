@@ -1,9 +1,13 @@
 
 import overtime as ot
+import pandas as pd
 
 network = ot.TemporalDiGraph('TflNetwork', data=ot.CsvInput('./victoria-outbound.csv'))
 network.details()
 network.edges.timespan()
+
+stations_df = pd.read_csv('victoria-stations.csv')
+network.nodes.add_data(stations_df)
 
 plotter = ot.Plotter()
 plotter.single(ot.Slice, network)
@@ -21,6 +25,5 @@ plotter.single(ot.Slice, network)
 
 # oxcirc_tree = ot.calculate_foremost_tree(network.get_graph_by_interval((880,910)), 'Oxford Circus')
 # plotter.single(ot.Circle, oxcirc_tree)
-
 
 input("Press enter key to exit...")

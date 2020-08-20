@@ -1,11 +1,11 @@
 
-from overtime.components.graphs import TemporalGraph
+from overtime.components.digraphs import TemporalDiGraph
 from overtime.components.nodes import ForemostNodes
 from overtime.components.arcs import TemporalArcs
 
 
 
-class ForemostTree(TemporalGraph):
+class ForemostTree(TemporalDiGraph):
     """
         A class which represents a temporal graph consisting of nodes & temporal edges.
     """

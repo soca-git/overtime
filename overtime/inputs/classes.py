@@ -142,13 +142,15 @@ class TflInput(Input):
         if not ospath.exists(self.jpath):
             for line in lines:
                 for direction in directions:
+                    # get the route information from the line and direction.
+                    line_stations = self.get_line_routes(line, direction)
                     for time in times:
-                        self.generate(line, direction, time)
+                        self.generate(line, direction, line_stations, time)
         else:
             print("{} already exists.".format(self.jpath))
 
 
-    def generate(self, line_name, direction, time):
+    def generate(self, line_name, direction, line_stations, time):
         """
             A method of TflInput.
             Parameter(s):
@@ -157,6 +159,8 @@ class TflInput(Input):
                 Valid name of a TFL line, such as 'bakerloo'.
             direction : String
                 'inbound' or 'outbound'
+            line_stations : Dict
+                A dictionary of stations on the route of a line.
             time : String
                 Valid 24hr time, such as '14:00'.
             
@@ -166,8 +170,6 @@ class TflInput(Input):
                 - Stations (nodes) csv.
                 - Journeys (edges) csv.
         """
-        # get the route information from the line and direction.
-        line_stations = self.get_line_routes(line_name, direction)
         # for each route on the specified lines.
         for name, stations in line_stations.items():
             print('\n<<< {} ({}), {} @ {} >>>\n'.format(name, line_name, direction, time))
@@ -229,12 +231,20 @@ class TflInput(Input):
             rdata : Dict
                 A dictionary with ordered sequence of stations for each route on the line.    
         """
-        # make the api request.
-        response = self.api.get_line_sequence(line, direction)
-        rdata = {}
-        # for each route in the response, add the list of ordered stations for that route into the dictionary.
-        for route in response['orderedLineRoutes']:
-            rdata[route['name']] = route['naptanIds']
+        flag = False
+        try:
+            # make the api request.
+            response = self.api.get_line_sequence(line, direction)
+            rdata = {}
+            # for each route in the response, add the list of ordered stations for that route into the dictionary.
+            for route in response['orderedLineRoutes']:
+                rdata[route['name']] = route['naptanIds']
+        except KeyError:
+            print("Key Error: response returned invalid data, client will request again in 5 seconds.")
+            print(response)
+            flag = True
+        if flag:
+            return self.get_line_routes(line, direction)
         return rdata
 
 
