@@ -249,8 +249,14 @@ class Circle(Plot):
             --------
                 None, creates the CircleEdge objects.
         """
+        # if graph is temporal, create edges in reverse order of time.
+        # this will put earliest time labels on top when drawing.
+        if not self.graph.static:
+            graph_edges = sorted(self.graph.edges.set, key=lambda x:x.start, reverse=True)
+        else:
+            graph_edges = self.graph.edges.set
         # for each edge in the graph.
-        for edge in self.graph.edges.set:
+        for edge in graph_edges:
             # get p1 from edge's node's positions.
             p1 = {'x': self.get_node(edge.node1.label).x, 'y': self.get_node(edge.node1.label).y}
             # get p2 from edge's node's positions.
@@ -334,12 +340,12 @@ class Circle(Plot):
             if not self.graph.static:
                 # draw the start time of the edge.
                 self.axis.text(
-                    bezier_edge['x'][10], bezier_edge['y'][10],
+                    bezier_edge['x'][9], bezier_edge['y'][9],
                     edge.edge.start, 
                     color='midnightblue', backgroundcolor=edge_color,
                     fontsize='xx-small',
                     horizontalalignment='center',
-                    rotation=circle_label_angle(bezier_edge['x'][11], bezier_edge['y'][11]),
+                    rotation=circle_label_angle(bezier_edge['x'][10], bezier_edge['y'][10]),
                     zorder=1,
                 )
 

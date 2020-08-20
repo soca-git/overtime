@@ -149,10 +149,6 @@ class Plot:
                 None, draws plot title.
         """
         title = '' if self.title is None else self.title
-        # if the graph is temporal.
-        if not self.graph.static:
-            # add the graph timespan to the plot title.
-            title = title + ' [time: ' + str(self.graph.edges.timespan()) + ']'
         # draw the title.
         self.axis.set_title(
             label=title,

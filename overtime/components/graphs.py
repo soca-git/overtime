@@ -35,6 +35,17 @@ class Graph:
         self.edges.add(node1, node2, self.nodes, self)
 
 
+    def get_node_connections(self, label):
+        node = self.nodes.get(label)
+        graph = self.__class__(label + '-Network')
+        graph.edges = node.nodeof() # do this before updating node's graph.
+        graph.nodes = node.neighbours()
+        graph.add_node(label)
+        for node in graph.nodes.set:
+            node.graph = graph
+        return graph
+
+
     def details(self):
         print("\n\tGraph Details: \n\tLabel: %s \n\tDirected: %s \n\tStatic: %s" %(self.label, self.directed, self.static))
         print("\t#Nodes: %s \n\t#Edges: %s \n" % (self.nodes.count(), self.edges.count()))
