@@ -112,6 +112,8 @@ class Slice(Plot):
     class_name = 'slice'
 
     def __init__(self, graph, figure, axis, title=None, ordered=False, slider=True, show=True):
+        self.start_edges = []
+        self.end_edges = []
         super().__init__(graph, figure, axis, title, False, slider, show)
 
 
@@ -136,7 +138,16 @@ class Slice(Plot):
                 if edge.isactive(t):
                     i = self.labels.index(edge.label) # get the index of the edge within self.labels.
                     # create a SliceEdge and add it to the edges list.
-                    self.edges.append(SliceEdge(edge, i, x=(t*step), y=(i*step)))
+                    plot_edge = SliceEdge(edge, i, x=(t*step), y=(i*step))
+                    self.edges.append(plot_edge)
+                    # if t is the edge's start time.
+                    if t == edge.start:
+                        # create a SliceEdge and add it to the start edges list.
+                        self.start_edges.append(plot_edge)
+                    # if t is the edge's end time.
+                    if t == edge.end:
+                        # create a SliceEdge and add it to the end edges list.
+                        self.end_edges.append(plot_edge)
         
 
     def draw_edges(self):
@@ -154,7 +165,21 @@ class Slice(Plot):
         cmap = self.set3colormap(len(self.labels)) # color map with enough colors for n edges.
         # draw the edges using pyplot scatter.
         self.axis.scatter(
-            pos['x'], pos['y'], s=50, c=colors, cmap=cmap, zorder=1
+            pos['x'], pos['y'], marker='_', s=50, c=colors, cmap=cmap, zorder=0
+        )
+        pos = {}
+        pos['x'] = [edge.x for edge in self.start_edges] # x coordinates of every start node.
+        pos['y'] = [edge.y for edge in self.start_edges] # y coordinates of every start node.
+        colors = pos['y'] # colors index for every edge.
+        self.axis.scatter(
+            pos['x'], pos['y'], marker='>', s=50, c=colors, cmap=cmap, zorder=1
+        )
+        pos = {}
+        pos['x'] = [edge.x for edge in self.end_edges] # x coordinates of every end node.
+        pos['y'] = [edge.y for edge in self.end_edges] # y coordinates of every end node.
+        colors = pos['y'] # colors index for every edge.
+        self.axis.scatter(
+            pos['x'], pos['y'], marker='<', s=50, c=colors, cmap=cmap, zorder=1
         )
         plt.draw()
 
