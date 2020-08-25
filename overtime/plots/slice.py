@@ -74,10 +74,16 @@ class Slice(Plot):
         slider : Boolean
             Automatically enabled if number of ticks is deemed to be too many and will overlap otherwise.
         show : Boolean
-            Show the plot (can be overridden).
+            Show the plot.
+        save : Boolean
+            Save the plot.
 
         Object Propertie(s):
         --------------------
+        start_edges : List
+            A list of SliceEdge objects that are at the start of a temporal edge.
+        end_edges : List
+            A list of SliceEdge objects that are at the end of a temporal edge.
         name : String
             Inherited from Plot.
         graph : Graph
@@ -100,10 +106,8 @@ class Slice(Plot):
             Inherited from Plot.
         show : Boolean
             Inherited from Plot.
-        start_edges : List
-            A list of SliceEdge objects that are at the start of a temporal edge.
-        end_edges : List
-            A list of SliceEdge objects that are at the start of a temporal edge.
+        save : Boolean
+            Inherited from Plot.
 
         See also:
         ---------

@@ -66,8 +66,6 @@ class CircleEdge():
         -------------
         edge : Edge
             A valid Edge object, such as TemporalEdge().
-        label : String
-            The label of the edge on the plot.
         p1 : Dict
             The p1 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
         p2 : Dict
@@ -77,8 +75,8 @@ class CircleEdge():
         --------------------
         edge : Edge
             The corresponding edge object in the graph.
-        index : Integer
-            The index of the edge on the plot.
+        label : String
+            The label of the edge on the plot.
         p1 : Dict
             The p1 coordinate of the edge, as a dictionary with keys 'x' and 'y'.
         p2 : Dict
@@ -122,7 +120,9 @@ class Circle(Plot):
         slider : Boolean
             Disabled.
         show : Boolean
-            Show the plot (can be overridden).
+            Show the plot.
+        save : Boolean
+            Save the plot.
 
         Object Propertie(s):
         --------------------
@@ -148,7 +148,8 @@ class Circle(Plot):
             Inherited from Plot.
         show : Boolean
             Inherited from Plot.
-
+        save : Boolean
+            Inherited from Plot.
 
         See also:
         ---------

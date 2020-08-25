@@ -30,7 +30,9 @@ class Plot:
         slider : Boolean
             If the Plot class supports sliders, enable it.
         show : Boolean
-            Show the plot (can be overridden).
+            Show the plot.
+        save : Boolean
+            Save the plot.
 
         Object Propertie(s):
         --------------------
@@ -55,7 +57,15 @@ class Plot:
         has_slider : Boolean
             Whether or not the resulting figure includes sliders for navigation.
         show : Boolean
-            Whether or not the figure is to be shown by the plotter after creation is complete.
+            Whether or not the figure is to be shown once drawn.
+        save : Boolean
+            Whether or not the figure is to be saved once drawn.
+        nodes : List
+            A list of plot nodes (if they exist).
+        edges : List
+            A list of plot edges (if they exist).
+        edges : List
+            A list of plot labels (if they exist).
 
         See also:
         ---------
@@ -83,7 +93,7 @@ class Plot:
         else:
             self.figure = figure
             self.axis = axis
-
+        # build plot.
         self.update_name()
         self.create()
         self.draw()

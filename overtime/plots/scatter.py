@@ -12,36 +12,36 @@ class ScatterPoint():
 
         Parameter(s):
         -------------
-        parent : Node/Edge
-            A valid Node or Edge object.
         index : Integer
             The index of the node on the plot.
         x : Float
             The x coordinate of the node.
         y : Float
             The y coordinate of the node.
+        parent : Node/Edge
+            A valid Node or Edge object.
         
         Object Propertie(s):
         --------------------
-        parent : Node/Edge
-            The corresponding parent object in the graph.
         index : Integer
             The index of the node on the plot.
         x : Float
             The x coordinate of the node.
         y : Float
             The y coordinate of the node.
+        parent : Node/Edge
+            The corresponding Node or Edge object in the graph.
 
         See also:
         ---------
-            Scatter
+            NodeScatter
     """
 
     def __init__(self, index, x=None, y=None, parent=None):
-        self.parent = parent
         self.index = index
         self.x = index if x is None else x
         self.y = random.uniform(0, 1) if y is None else y
+        self.parent = parent
 
 
 
@@ -54,6 +54,41 @@ class NodeScatter(Plot):
         class_name : String
             The name of the class, used for labelling.
 
+        Parameter(s):
+        -------------
+        graph : Graph
+            A valid Graph class/subclass.
+        x : String
+            The x-axis metric to be used when plotting the nodes.
+            Must correspond to a data key of the node objects.
+        y : String
+            The y-axis metric to be used when plotting the nodes.
+            Must correspond to a data key of the node objects.
+        bubble_metric : String
+            The bubble metric to be used when plotting the nodes.
+            Must correspond to a data key of the node objects.
+        title : String
+            A custom title for the plot.
+
+        Object Propertie(s):
+        --------------------
+        graph : Graph
+            The corresponding graph object to be plotted.
+        x : String
+            The x-axis metric to be used to plot nodes.
+        y : String
+            The y-axis metric to be used to plot nodes.
+        bubble_metric : String
+            The bubble metric to be used when plotting the nodes.
+        title : String
+            A custom title for the plot. One is automatically generated otherwise.
+        figure : Figure
+            A pyplot figure object.
+        axis : Axis
+            A pyplot axis object.
+        points : List
+            A list of ScatterPoint objects.
+
         See also:
         ---------
             ScatterPoint
@@ -65,10 +100,11 @@ class NodeScatter(Plot):
         self.graph = graph
         self.x = x
         self.y = y
+        self.bubble_metric = bubble_metric
         self.title = title if title else graph.label
         self.figure, self.axis = plt.subplots(1)
         self.points = []
-        self.bubble_metric = bubble_metric
+        # build plot.
         self.create()
         self.draw()
         self.cleanup()
@@ -76,6 +112,13 @@ class NodeScatter(Plot):
 
 
     def create(self):
+        """
+            A method of NodeScatter.
+
+            Returns:
+            --------
+                None, creates plot objects.
+        """
         self.create_points()
 
 
@@ -103,6 +146,13 @@ class NodeScatter(Plot):
 
 
     def draw(self):
+        """
+            A method of NodeScatter.
+
+            Returns:
+            --------
+                None, draws the plot.
+        """
         self.draw_points()
         self.draw_title()
         self.axis.set_facecolor('slategrey')
@@ -118,7 +168,6 @@ class NodeScatter(Plot):
             --------
                 None, draws the points of the plot.
         """
-        
         n = self.graph.nodes.count() # number of nodes in the graph.
         pos = {}
         pos['x'] = [point.x for point in self.points] # x coordinates of every node.
@@ -142,13 +191,17 @@ class NodeScatter(Plot):
             pos['x'], pos['y'], s=bmet, c=colors, cmap=cmap, alpha=0.5, zorder=1
         )
 
+        # draw the node labels.
         i = 0
+        # for each node in the graph.
         for node in self.graph.nodes.set:
+            # if a bubble metric was provided.
             if self.bubble_metric:
+                # add bubble metric to the label.
                 label = node.label + '\n' + str(node.data[self.bubble_metric])
             else:
-                label = node.label
-
+                label = node.label # default label
+            # add the label text.
             self.axis.text(
                 pos['x'][i], pos['y'][i],
                 label,
@@ -161,13 +214,12 @@ class NodeScatter(Plot):
 
     def cleanup(self):
         """
-            A method of NodeScatter.
+            A method of Plot/NodeScatter.
 
             Returns:
             --------
-                None, cleans up plot axis.
+                None, updates figure & axis properties & styling.
         """
-        self.axis.set_xticks([])
-        self.axis.set_yticks([])
-        self.axis.set_xticklabels([])
-        self.axis.set_yticklabels([])
+        self.remove_xticks(self.axis)
+        self.remove_yticks(self.axis)
+        self.style_axis(self.axis)
