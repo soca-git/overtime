@@ -16,6 +16,7 @@ class Plotter:
 
         See also:
         ---------
+            Plot
             Circle
             Slice
     """
@@ -51,7 +52,7 @@ class Plotter:
         figure, axes = plt.subplots(1) # initialize the figure & axes.
         figure.set_size_inches(14, 10) # set the size of the figure window.
         # plot the graph.
-        plot_object = self.plot(graph, figure, axes, graph.label, ordered=ordered, slider=slider, show=show)
+        plot_object = self.plot(graph, figure, axes, ordered=ordered, slider=slider, show=show)
         # if save is enabled, save the figure.
         if save:
             self.save(figure, plot_object.name)
@@ -152,7 +153,7 @@ class Plotter:
         for row in axes:
             # if there is only one row in the figure, plot along it.
             if nrows == 1:
-                self.plot(graphs[i], figure, row, graphs[i].label, ordered=ordered, show=show)
+                self.plot(graphs[i], figure, row, ordered=ordered, show=show)
                 i += 1
                 # if last graph is processed, break.
                 if i == len(graphs):
@@ -161,7 +162,7 @@ class Plotter:
             else:
                 # for every column in the row.
                 for col in row:
-                    self.plot(graphs[i], figure, col, graphs[i].label, ordered=ordered, show=show)
+                    self.plot(graphs[i], figure, col, ordered=ordered, show=show)
                     i += 1
                     # if last graph is processed, break.
                     if i == len(graphs):

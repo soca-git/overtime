@@ -6,7 +6,10 @@ import pandas as pd
 tube = ot.TemporalDiGraph('TubeNetwork', data=ot.CsvInput('./bakerloo-inbound.csv'))
 tube.details()
 
-ot.NodeScatter(tube)
+ot.Circle(tube)
+plotter = ot.Plotter()
+plotter.single(ot.Circle, tube)
+ot.Slice(tube)
 
 for node in tube.nodes.set:
     node.data['reachability'] = ot.calculate_reachability(tube, node.label)

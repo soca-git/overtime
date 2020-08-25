@@ -159,8 +159,9 @@ class Circle(Plot):
     """
     class_name = 'circle'
 
-    def __init__(self, graph, figure, axis, title=None, ordered=True, slider=False, show=True):
-        super().__init__(graph, figure, axis, title, ordered, False, show)
+    def __init__(self, graph, figure=None, axis=None, title=None,
+                    ordered=True, slider=False, show=True, save=False):
+        super().__init__(graph, figure, axis, title, ordered, False, show, save)
 
 
     def create_nodes(self):

@@ -64,18 +64,26 @@ class Plot:
     """
     class_name = 'plot'
 
-    def __init__(self, graph, figure, axis, title=None, ordered=True, slider=False, show=True):
+    def __init__(self, graph, figure=None, axis=None, title=None,
+                    ordered=True, slider=False, show=True, save=False):
         self.name = ''
         self.graph = graph
-        self.title = title
-        self.nodes = []
-        self.edges = []
-        self.labels = []
-        self.figure = figure
-        self.axis = axis
+        self.title = title if title else graph.label
         self.is_ordered = ordered
         self.has_slider = slider
         self.show = show
+        self.save = save
+        self.nodes = []
+        self.edges = []
+        self.labels = []
+        # if figure or axis is not specified.
+        if not figure or not axis:
+            # create standalone figure & axis.
+            self.figure, self.axis = plt.subplots(1)
+        else:
+            self.figure = figure
+            self.axis = axis
+
         self.update_name()
         self.create()
         self.draw()
@@ -137,7 +145,12 @@ class Plot:
             self.draw_title() # draw title.
         self.draw_nodes() # draw the plot's nodes.
         self.draw_edges() # draw the plot's edges.
+        self.figure.set_size_inches(32, 16) # set figure size.
         self.cleanup() # cleanup the figure & axis.
+        if self.show:
+            self.figure.show()
+        if self.save:
+            self.figure.savefig(self.name + '.png', format='png')
 
 
     def draw_title(self):

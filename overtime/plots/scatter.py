@@ -44,55 +44,8 @@ class ScatterPoint():
         self.y = random.uniform(0, 1) if y is None else y
 
 
-class Scatter():
-    class_name = 'scatter'
-    """
-        A scatter plot.
 
-        Class Propertie(s):
-        -------------------
-        class_name : String
-            The name of the class, used for labelling.
-
-        See also:
-        ---------
-            Plot
-            Circle
-            Slice
-    """
-
-    def __init__(self, graph, x=None, y=None):
-        self.graph = graph
-        self.x = x
-        self.y = y
-        self.figure, self.axis = plt.subplots(1)
-        self.points = []
-
-
-    def set3colormap(self, n):
-        """
-            A method of Plot.
-            
-            Parameter(s):
-            -------------
-            n : Integer
-                Number of objects to be assigned a color.
-            
-            Returns:
-            --------
-            cmap : ListedColorMap
-                A pyplot ListedColorMap object.
-                Map has enough colors to assign to n objects without color adjacency.
-        """
-        n = math.ceil(n/12) # Set3 cmap has 12 colours, divide n and ceil.
-        cmap = cm.get_cmap('Set3')
-        # Return an expanded Set3 cmap with enough repeating colors
-        # to cover the number of objects to be drawn
-        return ListedColormap(cmap.colors*n)
-
-
-
-class NodeScatter(Scatter):
+class NodeScatter(Plot):
     """
         A scatter plot for graph nodes.
 
@@ -103,19 +56,23 @@ class NodeScatter(Scatter):
 
         See also:
         ---------
+            ScatterPoint
             Plot
-            Circle
-            Slice
     """
     class_name = 'node_scatter'
 
-    def __init__(self, graph, x=None, y=None, bubble_metric=None):
-        super().__init__(graph, x, y)
+    def __init__(self, graph, x=None, y=None, bubble_metric=None, title=None):
+        self.graph = graph
+        self.x = x
+        self.y = y
+        self.title = title if title else graph.label
+        self.figure, self.axis = plt.subplots(1)
+        self.points = []
         self.bubble_metric = bubble_metric
         self.create()
         self.draw()
         self.cleanup()
-        self.show()
+        self.figure.show()
 
 
     def create(self):
@@ -147,6 +104,7 @@ class NodeScatter(Scatter):
 
     def draw(self):
         self.draw_points()
+        self.draw_title()
         self.axis.set_facecolor('slategrey')
         self.figure.set_size_inches(28, 20)
         plt.draw()
@@ -213,14 +171,3 @@ class NodeScatter(Scatter):
         self.axis.set_yticks([])
         self.axis.set_xticklabels([])
         self.axis.set_yticklabels([])
-
-
-    def show(self):
-        """
-            A method of NodeScatter.
-
-            Returns:
-            --------
-                None, shows figure.
-        """
-        _ = self.figure.show()

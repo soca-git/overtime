@@ -113,10 +113,11 @@ class Slice(Plot):
     """
     class_name = 'slice'
 
-    def __init__(self, graph, figure, axis, title=None, ordered=False, slider=True, show=True):
+    def __init__(self, graph, figure=None, axis=None, title=None,
+                    ordered=False, slider=True, show=True, save=False):
         self.start_edges = []
         self.end_edges = []
-        super().__init__(graph, figure, axis, title, False, slider, show)
+        super().__init__(graph, figure, axis, title, False, slider, show, save)
 
 
     def create_edges(self):
@@ -196,7 +197,6 @@ class Slice(Plot):
         """
         # adjust whitespace around the plot.
         plt.subplots_adjust(left=0.25, bottom=0.15, right=0.95, top=0.95, wspace=0, hspace=0)
-        self.figure.set_size_inches(32, 16) # set figure size.
         times = list(set([edge.x for edge in self.edges])) # get x-ticks.
         self.draw_xticks(self.axis, times) # draw x-ticks
         edge_ticks = [y for y in range(0, len(self.labels))] # get y-ticks.
