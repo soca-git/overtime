@@ -63,6 +63,8 @@ def calculate_foremost_tree(graph, root):
                 tree.edges.add(edge.source.label, edge.sink.label, tree.nodes, edge.start, edge.end)
                 # update the destination node's foremost time.
                 destination.time = edge.end
+                # update the destination node's data.
+                destination.data['foremost_time'] = edge.end
         elif edge.start >= end:
             # stop the algorithm.
             break

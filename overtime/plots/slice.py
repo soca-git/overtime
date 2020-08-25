@@ -1,5 +1,4 @@
 
-#from random import shuffle
 import math
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
@@ -101,7 +100,10 @@ class Slice(Plot):
             Inherited from Plot.
         show : Boolean
             Inherited from Plot.
-
+        start_edges : List
+            A list of SliceEdge objects that are at the start of a temporal edge.
+        end_edges : List
+            A list of SliceEdge objects that are at the start of a temporal edge.
 
         See also:
         ---------

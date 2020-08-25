@@ -36,5 +36,9 @@ def calculate_reachability(graph, root):
 
     # calculate the foremost tree of the root node.
     tree = calculate_foremost_tree(graph, root)
+    # get the root node object in the graph.
+    root_node = graph.nodes.get(root)
+    # update the root node's data.
+    root_node.data['reachability'] = tree.nodes.get_reachable().count()
     # return the reachable node count.
-    return tree.nodes.get_reachable().count()
+    return root_node.data['reachability']

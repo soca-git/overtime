@@ -76,6 +76,7 @@ class ForemostNode(Node):
     def __init__(self, label, graph, time=float('inf')):
         super().__init__(label, graph)
         self.time = time
+        self.data['foremost_time'] = time
 
 
     def print(self):
