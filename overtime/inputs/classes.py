@@ -210,9 +210,7 @@ class TflInput(Input):
                 except IndexError:
                     break
             # once an entire route is processed, write the data to the csv files (each route is appended).
-            # check if the stations csv path provided already exists.
-            if not ospath.exists(self.jpath):
-                self.write_stations_csv()
+            self.write_stations_csv()
             self.write_journeys_csv()
 
 
@@ -297,6 +295,9 @@ class TflInput(Input):
             flag = True
         if flag:
             return self.get_journey(origin, destination, time, sleep_time=5)
+        if not jdata:
+            print(jdata)
+            print(response)
         return jdata[0]
 
 

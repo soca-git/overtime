@@ -223,3 +223,4 @@ class NodeScatter(Plot):
         self.remove_xticks(self.axis)
         self.remove_yticks(self.axis)
         self.style_axis(self.axis)
+        self.axis.margins(0.1, 0.1) # update plot margins.
