@@ -96,12 +96,13 @@ class NodeScatter(Plot):
     """
     class_name = 'node_scatter'
 
-    def __init__(self, graph, x=None, y=None, bubble_metric=None, title=None):
+    def __init__(self, graph, x=None, y=None, bubble_metric=None, title=None, colors='Default'):
         self.graph = graph
         self.x = x
         self.y = y
         self.bubble_metric = bubble_metric
         self.title = title if title else graph.label
+        self.colors = colors
         self.figure, self.axis = plt.subplots(1)
         self.points = []
         # build plot.
@@ -174,17 +175,24 @@ class NodeScatter(Plot):
         pos['y'] = [point.y for point in self.points] # y coordinates of every node.
         
         cmap = self.set3colormap(n) # color map with enough colors for n nodes.
+        # if there is a bubble_metric specified, size the nodes using it.
         if self.bubble_metric:
             # consolidate specified metric node data into a list (absolute values).
             node_metrics = [abs(node.data[self.bubble_metric]) for node in self.graph.nodes.set]
+            # change infinity values to 0.
+            ###node_metrics_noinf = [0 if x == float('inf') else x for x in node_metrics]
             max_m = max([0 if x == float('inf') else x for x in node_metrics]) # get the metrics list maximum.
             # create a normalized list of metrics.
             normalized_metrics = [m/max_m for m in node_metrics]
-            bmet = [m*1000 for m in normalized_metrics] # size scatter points based on normalized bubble metric.
+            bmet = [(m*1000) for m in normalized_metrics] # size scatter points based on normalized bubble metric.
+        else:
+            bmet = 250 # default node size.
+
+        # decide whether to color nodes based on bubble metric.
+        if not self.colors is 'Default':
             colors = bmet # color nodes based on bubble metric.
         else:
             colors = [x for x in range(0, n)] # colors index for every node.
-            bmet = 1000 # default node size.
 
         # draw the nodes using pyplot scatter ().
         self.axis.scatter(
@@ -207,7 +215,7 @@ class NodeScatter(Plot):
                 label,
                 color='white',
                 ha='center', va='center',
-                fontsize='small'
+                fontsize='xx-small'
             )
             i += 1
 

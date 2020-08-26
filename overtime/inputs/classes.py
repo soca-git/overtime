@@ -135,8 +135,8 @@ class TflInput(Input):
         self.lines = lines
         self.directions = directions
         self.times = times
-        self.jpath = "_".join(lines) + "-" + "_".join(directions) + '.csv'
-        self.spath = "_".join(lines) + '-stations' + '.csv'
+        self.jpath = 'data/' + "_".join(lines) + "-" + "_".join(directions) + '.csv'
+        self.spath = 'data/' + "_".join(lines) + '-stations' + '.csv'
 
         # check if the journeys csv path provided already exists.
         if not ospath.exists(self.jpath):

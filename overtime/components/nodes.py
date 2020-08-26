@@ -1,5 +1,6 @@
 
 import math
+import pandas as pd
 
 
 
@@ -402,20 +403,21 @@ class Nodes:
             node.print()
 
 
-    def add_data(self, data_frame):
+    def add_data(self, csv_path):
         """
             A method of Nodes.
 
             Parameter(s):
             -------------
-            data_frame : DataFrame
-                A pandas data frame object.
+            csv_path : String
+                The path of the csv file.
 
             Returns:
             --------
-                None, adds the data in the data frame to each node.
-                The data frame must correspond to the nodes in the node collection.
+                None, adds the data in the csv data frame to each node.
+                The csv data must correspond to the nodes in the node collection.
         """
+        data_frame = pd.read_csv(csv_path)
         for index, row in data_frame.iterrows():
             if self.exists(row['label']):
                 node = self.get(row['label'])

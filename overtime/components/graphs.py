@@ -94,7 +94,7 @@ class TemporalGraph(Graph):
         return graph
 
 
-    def get_graph_by_interval(self, interval):
+    def get_temporal_subgraph(self, interval):
         label = self.label + ' [time: ' + str(interval) + ']'
         graph = TemporalGraph(label)
         graph.edges = self.edges.get_edge_by_interval(interval)

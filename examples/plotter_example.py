@@ -17,8 +17,8 @@ myplotter.multi(Circle, [graph.get_snapshot(4), graph.get_snapshot(7)])
 
 myplotter.multi(Circle,
     [
-        graph.get_graph_by_interval((0, 7)),
-        graph.get_graph_by_interval((7, 14))
+        graph.get_temporal_subgraph((0, 7)),
+        graph.get_temporal_subgraph((7, 14))
     ]
 )
 
@@ -33,6 +33,6 @@ myplotter.multi(
     ]
 )
 
-myplotter.single(Circle, calculate_foremost_tree(graph.get_graph_by_interval((0,7)), 'a'))
+myplotter.single(Circle, calculate_foremost_tree(graph.get_temporal_subgraph((0,7)), 'a'))
 
 input("Press enter key to exit...")

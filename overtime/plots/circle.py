@@ -283,7 +283,7 @@ class Circle(Plot):
         cmap = self.set3colormap(n) # color map with enough colors for n nodes.
         # draw the nodes using pyplot scatter.
         ax_node = self.axis.scatter(
-            pos['x'], pos['y'], s=500, c=colors, cmap=cmap, zorder=1
+            pos['x'], pos['y'], s=500, c=colors, cmap=cmap, alpha=0.5, zorder=1
         )
         plt.draw()
         i = 0
@@ -297,7 +297,7 @@ class Circle(Plot):
                 node.label, color='midnightblue',
                 rotation=circle_label_angle(node.x, node.y),
                 ha='center', va='center',
-                fontsize='small'
+                fontsize='x-small',
             )
             i += 1
 
@@ -326,6 +326,7 @@ class Circle(Plot):
                 bezier_edge['y'],
                 linestyle='-',
                 color=color,
+                alpha=0.5,
                 zorder=0
             )
             # if edge is directed.
@@ -336,6 +337,7 @@ class Circle(Plot):
                     bezier_edge['y'][6],
                     'o',
                     color=edge_color,
+                    alpha = 0.5,
                     zorder=1
                 )
             # if the graph is temporal.
