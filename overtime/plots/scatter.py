@@ -108,6 +108,7 @@ class NodeScatter(Plot):
         # build plot.
         self.create()
         self.draw()
+        self.figure.set_size_inches(32, 16) # set figure size.
         self.cleanup()
         self.figure.show()
 
@@ -157,7 +158,6 @@ class NodeScatter(Plot):
         self.draw_points()
         self.draw_title()
         self.axis.set_facecolor('slategrey')
-        self.figure.set_size_inches(28, 20)
         plt.draw()
 
 

@@ -11,7 +11,7 @@ central.nodes # nodes object
 central.edges # edges object
 
 # nodes
-central.nodes.aslist()
+central.nodes.aslist()[0:4]
 central.nodes.count()
 central.nodes.labels()
 
@@ -72,32 +72,11 @@ ot.NodeScatter(network)
 ot.NodeScatter(network, x='lon', y='lat')
 ot.Slice(network)
 
-################
-### Foremost ###
-################
-
-# plotter = ot.Plotter()
-# plotter.single(ot.Slice, network)
-
-# pcircus = network.get_node_connections('Piccadilly Circus')
-# plotter.single(ot.Circle, pcircus)
-# plotter.single(ot.Slice, pcircus)
-# gpark = network.get_node_connections('Green Park')
-# ot.Circle(gpark)
-# ot.Slice(gpark)
-
-# pcircus_tree = ot.calculate_foremost_tree(network, 'Piccadilly Circus')
-# ot.Circle(pcircus_tree)
-# ot.Slice(pcircus_tree)
-
-# gpark_tree = ot.calculate_foremost_tree(network, 'Green Park')
-# ot.Circle(gpark_tree)
-# ot.Slice(gpark_tree)
-
 
 
 ####################
 ### Reachability ###
+###  & Foremost  ###
 ####################
 
 # first 10mins of sampled data.
