@@ -95,7 +95,7 @@ ot.NodeScatter(sub_network1, x='lon', y='lat', bubble_metric='reachability', col
 brixton_tree = ot.calculate_foremost_tree(sub_network1, 'Brixton')
 brixton_tree.nodes.add_data('./data/victoria_central_bakerloo_piccadilly-stations.csv')
 ot.Circle(brixton_tree)
-ot.NodeScatter(brixton_tree, x='lon', y='lat', bubble_metric='foremost_time')
+ot.NodeLink(brixton_tree, x='lon', y='lat', bubble_metric='foremost_time')
 
 
 # further into sampled data timespan.
@@ -107,13 +107,13 @@ for node in sub_network2.nodes.set:
 # show the sub network.
 ot.Circle(sub_network2)
 ot.Slice(sub_network2)
-ot.NodeScatter(sub_network2, x='lon', y='lat', bubble_metric='reachability', colors='bmet')
+ot.NodeLink(sub_network2, x='lon', y='lat', bubble_metric='reachability', colors='bmet')
 
 # show Oxford Circus' foremost tree.
 oxcircus_tree = ot.calculate_foremost_tree(sub_network2, 'Oxford Circus')
 oxcircus_tree.nodes.add_data('./data/victoria_central_bakerloo_piccadilly-stations.csv')
 ot.Circle(oxcircus_tree)
 ot.Slice(oxcircus_tree)
-ot.NodeScatter(oxcircus_tree, x='lon', y='lat', bubble_metric='foremost_time')
+ot.NodeLink(oxcircus_tree, x='lon', y='lat', bubble_metric='foremost_time')
 
 input("Press enter key to exit...")

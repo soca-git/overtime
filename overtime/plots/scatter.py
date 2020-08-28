@@ -3,6 +3,7 @@ import math, random
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.colors import ListedColormap
+from matplotlib.lines import Line2D
 from overtime.plots.plot import Plot
 
 
@@ -42,6 +43,7 @@ class ScatterPoint():
         self.x = index if x is None else x
         self.y = random.uniform(0, 1) if y is None else y
         self.parent = parent
+        self.label = parent.label
 
 
 
@@ -196,7 +198,7 @@ class NodeScatter(Plot):
 
         # draw the nodes using pyplot scatter ().
         self.axis.scatter(
-            pos['x'], pos['y'], s=bmet, c=colors, cmap=cmap, alpha=0.5, zorder=1
+            pos['x'], pos['y'], s=bmet, c=colors, cmap=cmap, alpha=0.5, zorder=0
         )
 
         # draw the node labels.
@@ -215,7 +217,8 @@ class NodeScatter(Plot):
                 label,
                 color='white',
                 ha='center', va='center',
-                fontsize='xx-small'
+                fontsize='xx-small',
+                zorder=1
             )
             i += 1
 
@@ -232,3 +235,102 @@ class NodeScatter(Plot):
         self.remove_yticks(self.axis)
         self.style_axis(self.axis)
         self.axis.margins(0.1, 0.1) # update plot margins.
+
+
+
+class Link():
+    """
+
+    """
+
+    def __init__(self, index, point1, point2, parent):
+        self.index = index
+        self.point1 = point1
+        self.point2 = point2
+        self.parent = parent
+
+
+
+
+class NodeLink(NodeScatter):
+    """
+
+    """
+
+    def __init__(self, graph, x=None, y=None, bubble_metric=None, title=None, colors='Default'):
+        self.graph = graph
+        self.x = x
+        self.y = y
+        self.bubble_metric = bubble_metric
+        self.title = title if title else graph.label
+        self.colors = colors
+        self.figure, self.axis = plt.subplots(1)
+        self.points = []
+        self.links = []
+        # build plot.
+        self.create()
+        self.draw()
+        self.figure.set_size_inches(32, 16) # set figure size.
+        self.cleanup()
+        self.figure.show()
+
+
+    def create(self):
+        """
+            A method of NodeLink.
+
+            Returns:
+            --------
+                None, creates plot objects.
+        """
+        self.create_points()
+        self.create_links()
+
+
+    def create_links(self):
+        i = 0
+        for edge in self.graph.edges.set:
+            point1 = self.get_point_by_label(edge.node1.label)
+            point2 = self.get_point_by_label(edge.node2.label)
+            self.links.append(Link(i, point1, point2, edge))
+            i += 1
+
+
+    def get_point_by_label(self, label):
+        return next((point for point in self.points if point.label == label), None)
+
+
+    def draw(self):
+        """
+            A method of NodeLink.
+
+            Returns:
+            --------
+                None, draws the plot.
+        """
+        self.draw_points()
+        self.draw_links()
+        self.draw_title()
+        self.axis.set_facecolor('slategrey')
+        plt.draw()
+
+
+    def draw_links(self):
+        """
+            A method of NodeLink.
+
+            Returns:
+            --------
+                None, draws the links of the plot.
+        """
+        for link in self.links:
+            self.axis.add_line(
+                Line2D(
+                    [link.point1.x, link.point2.x], [link.point1.y, link.point2.y],
+                    linestyle=':',
+                    color='whitesmoke',
+                    marker='.',
+                    alpha=0.25,
+                    zorder=0
+                )
+            )

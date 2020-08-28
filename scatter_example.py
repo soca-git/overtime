@@ -14,6 +14,6 @@ for node in sub_network2.nodes.set:
 oxcircus_tree = ot.calculate_foremost_tree(sub_network2, 'Oxford Circus')
 oxcircus_tree.nodes.add_data('./data/victoria_central_bakerloo_piccadilly-stations.csv')
 
-ot.NodeScatter(oxcircus_tree, x='lon', y='lat', bubble_metric='foremost_time')
+ot.NodeLink(oxcircus_tree, x='lon', y='lat', bubble_metric='foremost_time')
 
 input("Press enter key to exit...")
