@@ -45,7 +45,7 @@ def calculate_foremost_tree(graph, root):
     # nodes in the foremost tree are of type ForemostNode and include a time property,
     # which initializes at inf.
     for node in graph.nodes.set:
-        tree.nodes.add(node.label, tree)
+        tree.nodes.add(node.label)
 
     # foremost path algorithm:
     # for every edge in the graph edges set (ordered by edge duration start times).

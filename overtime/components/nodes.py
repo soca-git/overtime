@@ -188,13 +188,13 @@ class Node:
             # if the node has not already been added.
             if not neighbours.exists(edge.node2.label):
                 # add the node as a neighbour.
-                neighbours.add(edge.node2.label, self)
+                neighbours.add(edge.node2.label)
         # for each edge in the node2 edges.
         for edge in node2_edges.set:
             # if the node has not already been added.
             if not neighbours.exists(edge.node1.label):
                 # add the node as a neighbour.
-                neighbours.add(edge.node1.label, self)
+                neighbours.add(edge.node1.label)
         return neighbours
 
 
@@ -252,10 +252,19 @@ class Nodes:
     """
         A class to represent a collection of nodes on a graph.
 
+        Parameter(s):
+        -------------
+        graph : Graph
+            A valid Graph class/subclass.
+
+
         Object Propertie(s):
         --------------------
         set : Set
             The set of nodes.
+        graph : Graph
+            The graph of which the nodes collection belongs to.
+
 
         See also:
         ---------
@@ -263,8 +272,9 @@ class Nodes:
             ForemostNode
             ForemostNodes
     """
-    def __init__(self):
+    def __init__(self, graph):
         self.set = set() # unorderd, unindexed, unique collection of node objects
+        self.graph = graph
 
 
     def aslist(self):
@@ -279,7 +289,7 @@ class Nodes:
         return list(self.set)
 
 
-    def add(self, label, graph):
+    def add(self, label):
         """
             A method of Nodes.
 
@@ -287,8 +297,6 @@ class Nodes:
             -------------
             label : String
                 The label of the node to be added.
-            graph : Graph
-                A valid Graph class/subclass.
 
             Returns:
             --------
@@ -298,9 +306,33 @@ class Nodes:
         # check if a node with this label already exists in the graph.
         if not self.exists(str(label)):
             # if it does not, add it (create a new node object).
-            self.set.add(Node(label, graph))
+            self.set.add(Node(label, self.graph))
         # return the node object (get or create).
         return self.get(label)
+
+
+    def remove(self, label):
+        """
+            A method of Nodes.
+
+            Parameter(s):
+            -------------
+            label : String
+                The label of the node to be removed.
+
+            Returns:
+            --------
+            Result : Boolean
+                Removes the node if it exists in the graph.
+        """
+        # check if a node with this label already exists in the graph.
+        if not self.exists(str(label)):
+            print('Error: Node {} not found in graph {}.'.format(label, self.graph.label))
+            return False
+        else:
+            self.set.remove(self.get(label))
+            print('Node {} removed from graph {}.'.format(label, self.graph.label))
+            return True
 
 
     def subset(self, alist):
@@ -319,7 +351,7 @@ class Nodes:
             
         """
         # create a new nodes collection subset.
-        subset = self.__class__()
+        subset = self.__class__(self.graph)
         # for each node in the specified list.
         for node in alist:
             # add the node to the subset.
@@ -442,11 +474,11 @@ class ForemostNodes(Nodes):
             ForemostNodes
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, graph):
+        super().__init__(graph)
 
 
-    def add(self, label, graph, time=float('inf')):
+    def add(self, label, time=float('inf')):
         """
             A method of ForemostNodes.
 
@@ -454,8 +486,6 @@ class ForemostNodes(Nodes):
             -------------
             label : String
                 The label of the node to be added.
-            graph : Graph
-                A valid Graph class/subclass.
             time : Integer
                 A foremost time. Defaults to infinity (unreachable).
 
@@ -467,7 +497,7 @@ class ForemostNodes(Nodes):
         # check if a node with this label already exists in the graph.
         if not self.exists(str(label)):
             # if it does not, add it (create a new node object).
-            self.set.add(ForemostNode(label, graph, time))
+            self.set.add(ForemostNode(label, self.graph, time))
         # return the node object (get or create).
         return self.get(label)
 

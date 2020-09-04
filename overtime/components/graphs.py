@@ -13,8 +13,8 @@ class Graph:
         self.label = label
         self.directed = False
         self.static = True
-        self.nodes = Nodes()
-        self.edges = Edges()
+        self.nodes = Nodes(self)
+        self.edges = Edges(self)
 
         if data is not None:
             self.build(data)
@@ -28,11 +28,22 @@ class Graph:
 
 
     def add_node(self, label):
-        self.nodes.add(label, self)
+        self.nodes.add(label)
 
 
     def add_edge(self, node1, node2):
-        self.edges.add(node1, node2, self.nodes, self)
+        self.edges.add(node1, node2, self.nodes)
+
+
+    def remove_node(self, label):
+        flag = self.nodes.remove(label)
+        if flag:
+            for edge in self.edges.get_edge_by_node(label).set:
+                self.edges.remove(edge.uid)
+
+
+    def remove_edge(self, uid):
+        self.edges.remove(uid)
 
 
     def get_node_connections(self, label):
@@ -67,7 +78,7 @@ class TemporalGraph(Graph):
     def __init__(self, label, data=None):
         super().__init__(label)
         self.static = False
-        self.edges = TemporalEdges()
+        self.edges = TemporalEdges(self)
 
         if data is not None:
             self.build(data)
@@ -81,7 +92,7 @@ class TemporalGraph(Graph):
 
 
     def add_edge(self, node1, node2, tstart, tend=None):
-        self.edges.add(node1, node2, self.nodes, self, tstart, tend)
+        self.edges.add(node1, node2, self.nodes, tstart, tend)
 
 
     def get_snapshot(self, time):

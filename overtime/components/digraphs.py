@@ -13,7 +13,7 @@ class DiGraph(Graph):
     def __init__(self, label, data=None):
         super().__init__(label)
         self.directed = True
-        self.edges = Arcs()
+        self.edges = Arcs(self)
 
         if data is not None:
             self.build(data)
@@ -28,7 +28,7 @@ class TemporalDiGraph(TemporalGraph):
     def __init__(self, label, data=None):
         super().__init__(label)
         self.directed = True
-        self.edges = TemporalArcs()
+        self.edges = TemporalArcs(self)
 
         if data is not None:
             self.build(data)

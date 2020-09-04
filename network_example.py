@@ -1,7 +1,7 @@
 
 import overtime as ot
 
-network = ot.TemporalDiGraph('SampleNetwork', data=ot.CsvInput('./network.csv'))
+network = ot.TemporalDiGraph('SampleNetwork', data=ot.CsvInput('./data/network.csv'))
 plotter = ot.Plotter()
 
 plotter.single(ot.Circle, network.get_snapshot(7))

@@ -8,7 +8,7 @@ from plots.circle import Circle
 graph = TemporalGraph('TestNetwork', data=CsvInput('./network.csv'))
 graph.print()
 
-graph.edges.add('b', 'e', graph.nodes, graph, 4)
+graph.edges.add('b', 'e', graph.nodes, 4)
 
 
 figure, axes = plt.subplots(nrows=3, ncols=3)
