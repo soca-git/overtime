@@ -15,4 +15,4 @@ class ForemostTree(TemporalDiGraph):
         super().__init__(label)
         self.nodes = ForemostNodes(self)
         self.edges = TemporalArcs(self)
-        self.root = self.nodes.add(root, self, start)
+        self.root = self.nodes.add(root, start)
