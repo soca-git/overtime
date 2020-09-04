@@ -3,6 +3,25 @@
 
 
 ## Simple Example
+```python
+import overtime as ot
+
+network = ot.TemporalDiGraph('Sample Network', data=ot.CsvInput('./data/network.csv'))
+network.add_node('g')
+network.add_edge('f', 'h', 3)
+network.details()
+
+>>>	Graph Details: 
+	Label: SampleNetwork 
+	Directed: True 
+	Static: False
+	#Nodes: 7 
+	#Edges: 15
+
+ot.Circle(network)
+ot.calculate_reachability(network, 'b')
+>>> 5
+```
 
 
 
@@ -12,8 +31,13 @@
 
 ## Install
 
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install overtime.
+
+```bash
+pip install overtime
+```
 
 
 ## License
 
-
+[MIT](https://choosealicense.com/licenses/mit/)
