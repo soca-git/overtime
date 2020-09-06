@@ -449,12 +449,18 @@ class Nodes:
                 None, adds the data in the csv data frame to each node.
                 The csv data must correspond to the nodes in the node collection.
         """
+        # create a data frame from the csv file.
         data_frame = pd.read_csv(csv_path)
+        # for each row in the data frame.
         for index, row in data_frame.iterrows():
+            # if a 'label' column exists.
             if self.exists(row['label']):
+                # get the node corresponding to that 'label'.
                 node = self.get(row['label'])
+                # for each column, add the data to this node.
                 for col in data_frame.columns:
                     node.data[col] = row[col]
+
 
 
 class ForemostNodes(Nodes):
@@ -462,9 +468,16 @@ class ForemostNodes(Nodes):
         A class to represent a collection of foremost nodes on a tree.
         Inherits properties & methods from Nodes.
 
+        Parameter(s):
+        -------------
+        graph : Graph
+            A valid Graph class/subclass.
+
         Object Propertie(s):
         --------------------
         set : Set
+            Inherited from Nodes.
+        graph : Graph
             Inherited from Nodes.
 
         See also:
