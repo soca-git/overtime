@@ -282,7 +282,7 @@ class TemporalGraph(Graph):
             Returns:
             --------
             graph : Graph
-                A static graph snapshot at time 'time'.
+                A static undirected graph snapshot at time 'time'.
         """
         # update graph label.
         label = self.label + ' [time: ' + str(time) + ']'
@@ -317,7 +317,7 @@ class TemporalGraph(Graph):
         # update graph label.
         label = self.label + ' [time: ' + str(interval) + ']'
         # create subgraph.
-        graph = TemporalGraph(label)
+        graph = self.__class__(label)
         # add the edges collection whose duration is within 'interval'.
         graph.edges = self.edges.get_edge_by_interval(interval)
         # for each node in the graph.
