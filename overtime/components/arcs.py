@@ -78,7 +78,7 @@ class TemporalArcs(TemporalEdges):
         if not self.exists(uid):
             edge = TemporalArc(source, sink, nodes, tstart, tend)
             self.set.append(edge)
-            self.set = self.setsort(self.set)
+            self.set = self.sort(self.set)
         return self.get_edge_by_uid(uid)
 
 
@@ -86,7 +86,7 @@ class TemporalArcs(TemporalEdges):
         subset = TemporalArcs(self.graph)
         for edge in alist:
             subset.set.append(edge)
-        subset.set = subset.setsort(subset.set)
+        subset.set = subset.sort(subset.set)
         return subset
 
 
