@@ -647,7 +647,7 @@ class TemporalEdges(Edges):
             end : Integer
                 The largest end time of the collection.
         """
-        ends = self.sort(self.set)
+        ends = self.sort(self.set, 'end')
         return ends[-1].end + 1
 
 
