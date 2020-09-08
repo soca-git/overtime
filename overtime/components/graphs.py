@@ -20,7 +20,7 @@ class Graph:
         label : String
             The label of the graph.
         directed : Boolean
-            Indicates whether the graph directed, or undirected.
+            Indicates whether the is graph directed, or undirected.
         static : Boolean
             Indicates whether the graph is static, or not (temporal).
         nodes : Nodes
