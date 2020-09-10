@@ -473,7 +473,7 @@ class TemporalEdges(Edges):
             # add the new edge to the collection.
             self.set.append(edge)
             # sort the collection.
-            self.set = self.setsort(self.set)
+            self.set = self.sort(self.set)
         return self.get_edge_by_uid(uid)
 
 

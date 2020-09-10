@@ -300,29 +300,72 @@ class TemporalGraph(Graph):
         return graph
 
 
-    def get_temporal_subgraph(self, interval):
+    def get_temporal_subgraph(self, intervals=None, nodes=None):
         """
             A method of TemporalGraph.
 
             Parameter(s):
             -------------
-            time : Tuple/List
-                The interval (start & end time pair).
+            intervals : Tuple/List
+                A list of intervals (start & end time pairs).
+                For example, ((0,3), (5,7))
+            nodes : Tuple/List
+                A list of node labels within the graph.
+                For example, ('a', 'c', 'd').
 
             Returns:
             --------
             graph : TemporalGraph
-                A temporal graph with timespan 'interval'.
+                A temporal graph with updated timespan and/or nodes 'nodes'.
         """
-        # update graph label.
-        label = self.label + ' [time: ' + str(interval) + ']'
         # create subgraph.
-        graph = self.__class__(label)
-        # add the edges collection whose duration is within 'interval'.
-        graph.edges = self.edges.get_edge_by_interval(interval)
-        # for each node in the graph.
-        for node in self.nodes.set:
-            # add the node to the subgraph.
-            graph.add_node(node.label)
-        # return the subgraph.
+        graph = self.__class__(self.label)
+
+        # nodes
+        if nodes:
+            for node in nodes:
+                if self.nodes.exists(node):
+                    # add the node to the subgraph.
+                    graph.add_node(node)
+                    # get the corresponding node object from the graph.
+                    nodeobj = self.nodes.get(node)
+                    # get all the edges of which this node is a 'node1of'.
+                    node1_edges = nodeobj.node1of()
+                    # for each edge, check if the 'node2' connection label is in 'nodes'.
+                    for edge in node1_edges.set:
+                        if edge.node2.label in nodes:
+                            # if it is, add the edge to the subgraph.
+                            graph.add_edge(node, edge.node2.label, edge.start, edge.end)
+                else:
+                    # node label doesn't exist in the graph, remove it.
+                    nodes.remove(node)
+            
+            # update graph label.
+            graph.label = graph.label + ' [nodes; ' + ":".join(nodes) + ']'
+        else:
+            for node in self.nodes.set:
+                # add the node to the subgraph.
+                graph.add_node(node.label)
+
+        # intervals
+        if intervals:
+            if isinstance(intervals[0], int):
+                intervals = (intervals,)
+            # update graph label.
+            graph.label = graph.label + ' [interval(s); ' + str(intervals) + ']'
+            if nodes:
+                # save the graph edges to a variable.
+                graph_edges = graph.edges
+                # reset the graph's edges.
+                graph.edges.set = []
+            else:
+                graph_edges = self.edges
+            
+            for interval in intervals:
+                # get the edges collection whose duration is within 'interval'.
+                edges = graph_edges.get_edge_by_interval(interval)
+                for edge in edges.set:
+                    graph.add_edge(edge.node1.label, edge.node2.label, edge.start, edge.end)
+
+        # return the created subgraph.
         return graph
