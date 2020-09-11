@@ -39,7 +39,7 @@ class Arcs(Edges):
         super().__init__(graph)
 
 
-    def add(self, source, sink, nodes, graph):
+    def add(self, source, sink, nodes):
         label = str(source) + str(sink) # directed label
         if not self.exists(label):
             self.set.add(Arc(source, sink, nodes))

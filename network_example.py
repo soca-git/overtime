@@ -2,8 +2,15 @@
 import overtime as ot
 
 network = ot.TemporalDiGraph('SampleNetwork', data=ot.CsvInput('./data/network.csv'))
-plotter = ot.Plotter()
 
+subgraph = network.get_temporal_subgraph(intervals=((0,3),(8,10)), nodes=('a', 'c', 'd'))
+subgraph.details()
+subgraph.print()
+print(subgraph.edges.timespan())
+
+
+
+plotter = ot.Plotter()
 plotter.single(ot.Circle, network.get_snapshot(7))
 plotter.single(ot.Slice, network)
 

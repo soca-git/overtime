@@ -1,4 +1,6 @@
 
+import copy 
+
 from overtime.components.nodes import Nodes
 from overtime.components.edges import Edges, TemporalEdges
 
@@ -354,8 +356,8 @@ class TemporalGraph(Graph):
             # update graph label.
             graph.label = graph.label + ' [interval(s); ' + str(intervals) + ']'
             if nodes:
-                # save the graph edges to a variable.
-                graph_edges = graph.edges
+                # deep copy the graph edges to a variable.
+                graph_edges = copy.deepcopy(graph.edges)
                 # reset the graph's edges.
                 graph.edges.set = []
             else:
