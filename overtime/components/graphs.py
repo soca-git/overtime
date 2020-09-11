@@ -369,6 +369,10 @@ class TemporalGraph(Graph):
                 edges = graph_edges.get_edge_by_interval(interval)
                 for edge in edges.set:
                     graph.add_edge(edge.node1.label, edge.node2.label, edge.start, edge.end)
+        else:
+            for edge in self.edges.set:
+                # add the edge to the subgraph.
+                graph.add_edge(edge.node1.label, edge.node2.label, edge.start, edge.end)
 
         # return the created subgraph.
         return graph
