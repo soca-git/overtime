@@ -351,16 +351,17 @@ class TemporalGraph(Graph):
 
         # intervals
         if intervals:
-            if isinstance(intervals[0], int):
+            if not isinstance(intervals[0], list) and not isinstance(intervals[0], tuple):
                 intervals = (intervals,)
             # update graph label.
             graph.label = graph.label + ' [interval(s); ' + str(intervals) + ']'
             if nodes:
-                # deep copy the graph edges to a variable.
+                # deep copy the current subgraph edges to a variable.
                 graph_edges = copy.deepcopy(graph.edges)
-                # reset the graph's edges.
+                # reset the subgraph's edges.
                 graph.edges.set = []
             else:
+                # nodes was not specified, use the original graph's edges.
                 graph_edges = self.edges
             
             for interval in intervals:
