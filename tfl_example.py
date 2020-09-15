@@ -83,7 +83,7 @@ ot.Slice(network)
 sub_network1 = network.get_temporal_subgraph((840, 850))
 sub_network1.nodes.add_data('./data/victoria_central_bakerloo_piccadilly-stations.csv')
 for node in sub_network1.nodes.set:
-    node.data['reachability'] = ot.calculate_reachability(sub_network1, node.label)
+    ot.calculate_reachability(sub_network1, node.label)
 
 # show the sub network.
 ot.Circle(sub_network1)
@@ -102,7 +102,7 @@ ot.NodeLink(brixton_tree, x='lon', y='lat', bubble_metric='foremost_time')
 sub_network2 = network.get_temporal_subgraph((900, 910))
 sub_network2.nodes.add_data('./data/victoria_central_bakerloo_piccadilly-stations.csv')
 for node in sub_network2.nodes.set:
-    node.data['reachability'] = ot.calculate_reachability(sub_network2, node.label)
+    ot.calculate_reachability(sub_network2, node.label)
 
 # show the sub network.
 ot.Circle(sub_network2)

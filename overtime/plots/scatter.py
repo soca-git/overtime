@@ -215,7 +215,7 @@ class NodeScatter(Plot):
             self.axis.text(
                 pos['x'][i], pos['y'][i],
                 label,
-                color='white',
+                color='midnightblue',
                 ha='center', va='center',
                 fontsize='xx-small',
                 zorder=1

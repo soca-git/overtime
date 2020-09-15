@@ -165,7 +165,7 @@ class Graph:
             --------
             None, prints details about the graph's properties.
         """
-        print("\n\tGraph Details: \n\tLabel: %s \n\tDirected: %s \n\tStatic: %s" %(self.label, self.directed, self.static))
+        print("\n\tGraph Details: \n\tLabel: %s \n\tDirected: %s \n\tStatic: %s" % (self.label, self.directed, self.static))
         print("\t#Nodes: %s \n\t#Edges: %s \n" % (self.nodes.count(), self.edges.count()))
 
 

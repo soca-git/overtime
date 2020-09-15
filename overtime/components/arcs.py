@@ -40,7 +40,7 @@ class Arcs(Edges):
 
 
     def add(self, source, sink, nodes):
-        label = str(source) + str(sink) # directed label
+        label = str(source) + '-' + str(sink) # directed label
         if not self.exists(label):
             self.set.add(Arc(source, sink, nodes))
         return self.get_edge_by_uid(label)
@@ -74,7 +74,7 @@ class TemporalArcs(TemporalEdges):
     def add(self, source, sink, nodes, tstart, tend=None):
         if tend is None:
             tend = int(tstart) + 0 # default duration of 1
-        uid = str(source) + str(sink) + str(tstart) + str(tend) # directed uid
+        uid = str(source) + '-' + str(sink) + '|' + str(tstart) + '-' + str(tend) # directed uid
         if not self.exists(uid):
             edge = TemporalArc(source, sink, nodes, tstart, tend)
             self.set.append(edge)
