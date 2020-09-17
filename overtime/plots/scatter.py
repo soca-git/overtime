@@ -181,8 +181,6 @@ class NodeScatter(Plot):
         if self.bubble_metric:
             # consolidate specified metric node data into a list (absolute values).
             node_metrics = [abs(node.data[self.bubble_metric]) for node in self.graph.nodes.set]
-            # change infinity values to 0.
-            ###node_metrics_noinf = [0 if x == float('inf') else x for x in node_metrics]
             max_m = max([0 if x == float('inf') else x for x in node_metrics]) # get the metrics list maximum.
             # create a normalized list of metrics.
             normalized_metrics = [m/max_m for m in node_metrics]

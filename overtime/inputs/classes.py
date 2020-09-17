@@ -192,7 +192,7 @@ class TflInput(Input):
                         journey['departurePoint'], journey['arrivalPoint'], journey['name'], journey['duration'],
                         self.update_time(journey['startDateTime']), self.update_time(journey['arrivalDateTime'])
                     ))
-                    # update the current time to be the arrival time of the current journey minus one minute.
+                    # update the current time to be the arrival time of the current journey.
                     current_time = self.update_time(journey['arrivalDateTime'])
                     # add the journey to the data.
                     self.add_journey(

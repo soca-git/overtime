@@ -129,7 +129,7 @@ class TflClient(Client):
             Returns:
             --------
                 A json response with details about the specified line's stations, along a particular set of route(s).
-                Note: one line can have a number of routes assiociated with it.
+                Note: one line can have a number of routes associated with it.
         """
         return reqs.get(self.base + 'Line/' + line + '/Route/Sequence/' + direction).json()
 

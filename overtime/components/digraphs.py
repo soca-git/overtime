@@ -7,7 +7,7 @@ from overtime.components.arcs import Arcs, TemporalArcs
 
 class DiGraph(Graph):
     """
-        A class which represents a static, undirected graph consisting of nodes and edges.
+        A class which represents a static, directed graph consisting of nodes and arcs.
 
         Parameter(s):
         -------------
@@ -50,7 +50,7 @@ class DiGraph(Graph):
 
 class TemporalDiGraph(TemporalGraph):
     """
-        A class which represents a static, undirected graph consisting of nodes and edges.
+        A class which represents a temporal, directed graph consisting of nodes and temporal arcs.
 
         Parameter(s):
         -------------

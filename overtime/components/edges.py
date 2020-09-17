@@ -22,8 +22,6 @@ class Edge:
             The node-based label of the edge.
         uid : String
             The unique label of the edge.
-        graph : Graph
-            The graph of which the node belongs to.
         directed : Boolean
             Indicates whether the edge is directed, or undirected.
         node1 : Node
@@ -112,7 +110,7 @@ class TemporalEdge(Edge):
         self.uid = str(node1) + '-' + str(node2) + '|' + str(tstart)  + '-' + str(tend)
         self.start = int(tstart)
         self.end = int(tend)
-        self.duration = self.end - self.start + 1
+        self.duration = self.end - self.start
 
     
     def isactive(self, time):
