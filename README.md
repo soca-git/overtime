@@ -26,7 +26,7 @@ ot.calculate_reachability(network, 'b')
 
 
 ## Extended Example
-
+> See [tfl_example.py](https://github.com/soca-git/COMP702-Temporal-Networks-Library/blob/master/tfl_example.py).
 
 
 ## Install
