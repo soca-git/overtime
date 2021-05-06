@@ -1,0 +1,84 @@
+
+---------------------------
+COMP702
+Msc Project
+---------------------------
+
+
+
+Aims:
+---------------------------
+To give students the opportunity to work in a guided but independent fashion to explore a substantial problem in depth, making practical use of principles, techniques and methodologies acquired elsewhere in the programme.
+​To give experience of carrying out a large piece of individual work and in producing a dissertation. 
+
+​To enhance communication skills, both oral and written. 
+
+
+
+Syllabus:
+---------------------------
+The main aim of an MSc dissertation project is for a student to develop and demonstrate autonomy in the management and development of realistic projects in computer science, either research or application oriented. Although new technical skills may be acquired, this is not the main aim. At the end of the project a student should have demonstrated the ability to initiate, plan, manage and deliver a complete IT project for a customer or research supervisor. The delivery of the project will include giving interim presentations describing important stages of the project, and a final dissertation describing the project as a whole.Level M Projects are not necessarily expected to involve original research in the sense of making new scientific discoveries. However, at level M there should be some degree of scholarly added value attached to the project (not in the sense of "what new subject a student may have learned from undertaking the project", but "what contribution the project makes to the knowledge of others") regardless of whether the project is a practical one or a research oriented one.
+
+MSc projects are not required to be fully-fledged research projects in their own right; but should add some seed of original thinking, innovative approach, interesting or beneficial contribution to the existing body of knowledge. The aim is not necessarily "to do something that has never been done before", but to present a new "angle" or "view point" on something that has been done before. For example:
+The critical comparison of some complimentary recent innovations.
+The extension or adaptation of some recent innovation so that it becomes in some sense better, e.g. faster, more accurate, requires less storage etc.
+The application of some recent innovation to a generic application area where it has not yet been applied.
+The combination/concatenation of some recent innovations in a novel manner not previously recorded in the literature.
+Whatever the case, the key characteristics of the work carried out should be:
+
+Originality: Originality in the application of knowledge, together with a practical application of techniques of research and enquiry.
+Generalization: Even when the project has a very specific target, students should address it in a way, which will make the results potentially applicable in a broader context.
+Critical evaluation: Design decisions made by students in the course of the project should be made in the context of a critical examination of alternatives, and the students should subject their results and conclusions to the same rigorous analysis.
+All projects should contain the following elements: research, design, realisation and evaluation. Particular projects are allocated on an individual basis.
+
+
+
+Recommended Texts:
+---------------------------
+To be advised.
+
+
+
+Learning Outcomes:
+---------------------------
+After completing the module students should be able to:
+
+Investigate and specify a substantial problem in the domain of Computer Science, to place it in the context of related work including, as appropriate, Computer Science reserach, and to produce a plan to address this problem
+​Make use of the qualities and transferable skills necessary for the conduct of a Computer Science project: (i) the exercise of initiative and personal responsibility, (ii) decision making in complex situations, (iii) risk identification (including, as appropriate, commercial and scientific risk), assessment and control, and (iv) the independent learning ability required for continuing professional development 
+
+Demonstrate effective time management, self-direction and originality in carrying out a project in the domain of Computer Science
+​Locate and make use of information relevant to a given IT project 
+
+​Design a solution to a substantial IT problem
+
+​Implement and test potential solutions to IT problems
+
+​Evaluate critically, as relevant to the project, current research and advanced scholarship in Computer Science, evaluate their own work, and participate effectively in the process of peer review of other projects
+
+​Conduct and evaulate critically the project within the professional, legal, social and ethical framework in Computer Science and Sortware Engineering
+
+​Prepare and deliver formal presentations
+
+​Prepare and deliver a demonstration of software
+
+Structure and write a dissertation describing their project
+
+
+
+Learning Strategy:
+---------------------------
+Lecture
+
+Seminar
+
+Independent Study
+
+In the project we wish to foster independent learning, within a framework provided by a series of reviews. We have four reviews:
+
+Specification (documentation, week 3)
+Design (documentation, week 6)
+Final presentation including, where appropriate, software demonstration (week 13)
+Dissertation (written, week 15).
+
+These reviews are each carried out by two members of staff, and give opportunity for monitoring progress and giving formative feedback. A nominated member of staff is available to students for every week of the project to provide direction and advice as needed.
+
