@@ -1,11 +1,12 @@
 # Overtime
-> A temporal networks library written in [Python](https://www.python.org/).  
-> This project was completed as part of my MSCS Degree at the [University of Liverpool](https://www.liverpool.ac.uk/).  
+> A temporal networks library written in Python.  
+> This project was completed as part of my MSCS Degree at the University of Liverpool.  
+> The accompanying dissertation can be found [here](documents/dissertation/COMP702___Dissertation___Open_Source_Temporal_Networks_Library.pdf).
+> 
 > Development of the library is ongoing through further projects at the University.  
 > https://github.com/overtime3/overtime
 
-
-## Simple Example
+## Basic Example
 ```python
 import overtime as ot
 
@@ -26,21 +27,21 @@ ot.calculate_reachability(network, 'b')
 >>> 5
 ```
 
-
-
-## Extended Example
+## Extended Example (Transport For London)
+> Functionality of the library is presented using data gathered from TFL's open-source API.  
 > See [tfl_example.py](https://github.com/soca-git/COMP702-Temporal-Networks-Library/blob/master/tfl_example.py).
 
-
 ## Install
-
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install overtime.
 
 ```bash
 pip install overtime
 ```
 
+Or clone this repository and install using [requirements.txt](./requirements.txt).
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+---
