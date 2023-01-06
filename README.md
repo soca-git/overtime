@@ -31,14 +31,22 @@ ot.calculate_reachability(network, 'b')
 > Functionality of the library is presented using data gathered from TFL's open-source API.  
 > See [tfl_example.py](https://github.com/soca-git/COMP702-Temporal-Networks-Library/blob/master/tfl_example.py).
 
+## Features
+> A walkthrough of the library's features can be found in [features.md](./features.md). 
+
 ## Install
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install overtime.
 
 ```bash
+# Using python 3.7.x
 pip install overtime
 ```
 
 Or clone this repository and install using [requirements.txt](./requirements.txt).
+```bash
+# Using python 3.7.x
+pip install -r requirements.txt
+```
 
 ## License
 
